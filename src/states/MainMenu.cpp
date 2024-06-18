@@ -17,11 +17,11 @@ void MainMenu::processInput() {
     if (event.type == sf::Event::Closed) {
       context->window->close();
     } else if (event.type == sf::Event::KeyPressed) {
-      switch (event.key.code) { // captures user keyboard input, may be useful
-                                // in the future
-      default: {
-        break;
-      }
+      switch (event.key.code) {  // captures user keyboard input, may be useful
+                                 // in the future
+        default: {
+          break;
+        }
       }
     }
   }
@@ -31,18 +31,16 @@ void MainMenu::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
   bool *open;
   ImGuiIO &io = ImGui::GetIO();
-  ImGui::SetNextWindowSize(
-      ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
-  ImGui::SetNextWindowPos(
-      ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f),
-      ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+  ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
+  ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always,
+                          ImVec2(0.5f, 0.5f));
   ImGui::Begin("Hello, world!", open,
-               ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove |
-                   ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground);
+               ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
+                   ImGuiWindowFlags_NoBackground);
   ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(100, 100, 100, 255));
   ImGui::SetWindowFontScale(6);
 
-  std::string t = "ComponentCombat";
+  std::string t = "Component Combat";
   auto windowWidth = ImGui::GetWindowSize().x;
   auto textWidth = ImGui::CalcTextSize(t.c_str()).x;
   ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
@@ -50,17 +48,12 @@ void MainMenu::update() {
   ImGui::SetWindowFontScale(2.3);
   ImGui::PopStyleColor();
   ImGui::Dummy(ImVec2(0.0f, 10.0f));
-  bool continueGame = ImGui::Button(
-      "Continue", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
-  bool newGame = ImGui::Button(
-      "New Game", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
-  bool exit = ImGui::Button(
-      "Exit", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
+  bool continueGame = ImGui::Button("Continue", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
+  bool newGame = ImGui::Button("New Game", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
+  bool exit = ImGui::Button("Exit", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
   ImGui::End();
-  if (continueGame)
-    _states->addState(std::make_unique<Simulation>(context));
-  if (exit)
-    _states->popCurrent();
+  if (continueGame) _states->addState(std::make_unique<Simulation>(context));
+  if (exit) _states->popCurrent();
 }
 
 void MainMenu::draw() {

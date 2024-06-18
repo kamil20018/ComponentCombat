@@ -27,17 +27,15 @@ void Simulation::processInput() {
       _window->close();
     } else if (event.type == sf::Event::KeyPressed) {
       switch (event.key.code) {
-      case sf::Keyboard::Escape:
-        _window->close();
-        break;
+        case sf::Keyboard::Escape:
+          _window->close();
+          break;
       }
     }
   }
 }
 
-void Simulation::update() {
-  ImGui::SFML::Update(*_window, deltaClock.restart());
-}
+void Simulation::update() { ImGui::SFML::Update(*_window, deltaClock.restart()); }
 
 void Simulation::draw() {
   _window->clear();

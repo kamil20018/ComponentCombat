@@ -7,11 +7,11 @@
 #include "Simulation.h"
 #include "State.h"
 class MainMenu : public State {
-private:
+ private:
   std::shared_ptr<Context> context;
   sf::Clock deltaClock;
 
-public:
+ public:
   MainMenu(std::shared_ptr<Context> &context);
   ~MainMenu();
 

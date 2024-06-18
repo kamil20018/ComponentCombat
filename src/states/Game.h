@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <filesystem>
 #include <memory>
 
 #include "StateManager.h"
@@ -8,11 +9,15 @@
 #define _window this->context->window
 #define _states this->context->states
 
+namespace fs = std::filesystem;
+
 class StateManager;
 
 struct Context {
   std::unique_ptr<StateManager> states;
   std::shared_ptr<sf::RenderWindow> window;
+
+  fs::path savePath;
 
   Context() {
     states = std::make_unique<StateManager>();
@@ -21,11 +26,11 @@ struct Context {
 };
 
 class Game {
-public:
+ public:
   Game();
   ~Game();
   void run();
 
-private:
+ private:
   std::shared_ptr<Context> context;
 };

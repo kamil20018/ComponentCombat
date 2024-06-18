@@ -42,7 +42,7 @@ while getopts 'brashcfl' OPTION; do
             cloc --exclude-dir=imgui src
             ;;
         f)
-            clang-format -i src/*/*h* src/*/*cpp
+            clang-format -i src/*/*h* src/*/*cpp src/*cpp
             ;;
     esac
 done

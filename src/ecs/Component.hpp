@@ -62,4 +62,4 @@ struct BodyColor : public Component {
   sf::Color color;
   void debugPrint();
 };
-} // namespace component
+}  // namespace component
