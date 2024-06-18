@@ -3,6 +3,8 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 
+#include "LoadGame.h"
+
 MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {}
 
 MainMenu::~MainMenu() {}
@@ -48,11 +50,10 @@ void MainMenu::update() {
   ImGui::SetWindowFontScale(2.3);
   ImGui::PopStyleColor();
   ImGui::Dummy(ImVec2(0.0f, 10.0f));
-  bool continueGame = ImGui::Button("Continue", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
-  bool newGame = ImGui::Button("New Game", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
+  bool startGame = ImGui::Button("Start", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
   bool exit = ImGui::Button("Exit", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
   ImGui::End();
-  if (continueGame) _states->addState(std::make_unique<Simulation>(context));
+  if (startGame) _states->addState(std::make_unique<LoadGame>(context));
   if (exit) _states->popCurrent();
 }
 

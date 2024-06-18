@@ -11,10 +11,12 @@ target_link_libraries(states
 target_sources(states
   PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/Game.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/LoadGame.cpp
     ${CMAKE_CURRENT_LIST_DIR}/MainMenu.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Simulation.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Game.h
+    ${CMAKE_CURRENT_LIST_DIR}/LoadGame.h
     ${CMAKE_CURRENT_LIST_DIR}/MainMenu.h
     ${CMAKE_CURRENT_LIST_DIR}/Simulation.h
   )
