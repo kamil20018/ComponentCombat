@@ -9,3 +9,4 @@ FetchContent_MakeAvailable(imgui)
 
 add_subdirectory(sfml)
 add_subdirectory(imgui-sfml)
+add_subdirectory(nlohmann-json)

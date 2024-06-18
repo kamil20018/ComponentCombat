@@ -2,6 +2,7 @@ add_library(states "")
 
 target_link_libraries(states
   PUBLIC
+    nlohmann_json::nlohmann_json
     ImGui-SFML::ImGui-SFML
     stateManager
     ecs
@@ -12,7 +13,6 @@ target_sources(states
     ${CMAKE_CURRENT_LIST_DIR}/Game.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Simulation.cpp
   PUBLIC
-  
     ${CMAKE_CURRENT_LIST_DIR}/Game.h
     ${CMAKE_CURRENT_LIST_DIR}/Simulation.h
   )

@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 class State {
- public:
+public:
   State(){};
   virtual ~State(){};
 

@@ -44,4 +44,4 @@ void StateManager::processStateChange() {
   }
 }
 
-std::shared_ptr<State>& StateManager::getCurrent() { return stateStack.back(); }
+std::shared_ptr<State> &StateManager::getCurrent() { return stateStack.back(); }

@@ -1,0 +1,13 @@
+  fs::path path = fs::current_path().parent_path() / "data" / "saves" / "0.json";
+  std::cout << path << std::endl;
+  std::ifstream reader(path);
+    json j;
+    reader >> j;
+    reader.close();
+
+#include <filesystem>
+#include <fstream>
+#include <nlohmann/json.hpp>
+
+namespace fs = std::filesystem;
+using json = nlohmann::json;

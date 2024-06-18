@@ -12,14 +12,14 @@
 #include "System.hpp"
 
 class Simulation : public State {
- public:
+public:
   Simulation(std::shared_ptr<Context> context);
   void init() override;
   void processInput() override;
   void update() override;
   void draw() override;
 
- private:
+private:
   std::shared_ptr<Context> context;
   std::shared_ptr<Scene> scene;
   System system;

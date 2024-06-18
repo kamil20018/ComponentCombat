@@ -5,7 +5,7 @@
 #include "State.h"
 
 class StateManager {
- public:
+public:
   StateManager();
   ~StateManager();
 
@@ -14,8 +14,8 @@ class StateManager {
   void processStateChange();
   std::shared_ptr<State> &getCurrent();
 
- private:
-  std::vector<std::shared_ptr<State> > stateStack;
+private:
+  std::vector<std::shared_ptr<State>> stateStack;
   std::shared_ptr<State> newState;
 
   bool add;

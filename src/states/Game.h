@@ -21,11 +21,11 @@ struct Context {
 };
 
 class Game {
- public:
+public:
   Game();
   ~Game();
   void run();
 
- private:
+private:
   std::shared_ptr<Context> context;
 };

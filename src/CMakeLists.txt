@@ -6,6 +6,7 @@ add_subdirectory(states)
 
 target_link_libraries(game
   PRIVATE
+    nlohmann_json::nlohmann_json
     ImGui-SFML::ImGui-SFML
     stateManager
     ecs
