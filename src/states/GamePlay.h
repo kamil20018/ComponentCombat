@@ -11,9 +11,9 @@
 #include "State.h"
 #include "System.hpp"
 
-class Simulation : public State {
+class GamePlay : public State {
  public:
-  Simulation(std::shared_ptr<Context> context);
+  GamePlay(std::shared_ptr<Context> context);
   void init() override;
   void processInput() override;
   void update() override;

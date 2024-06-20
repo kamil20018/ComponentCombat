@@ -1,6 +1,6 @@
-#include "Simulation.h"
+#include "GamePlay.h"
 
-Simulation::Simulation(std::shared_ptr<Context> context)
+GamePlay::GamePlay(std::shared_ptr<Context> context)
     : context(context), scene(std::make_shared<Scene>()), system(scene) {
   ImGui::SFML::Init(*_window);
 
@@ -17,9 +17,9 @@ Simulation::Simulation(std::shared_ptr<Context> context)
   // }
 }
 
-void Simulation::init() {}
+void GamePlay::init() {}
 
-void Simulation::processInput() {
+void GamePlay::processInput() {
   sf::Event event;
   while (_window->pollEvent(event)) {
     ImGui::SFML::ProcessEvent(event);
@@ -35,9 +35,9 @@ void Simulation::processInput() {
   }
 }
 
-void Simulation::update() { ImGui::SFML::Update(*_window, deltaClock.restart()); }
+void GamePlay::update() { ImGui::SFML::Update(*_window, deltaClock.restart()); }
 
-void Simulation::draw() {
+void GamePlay::draw() {
   _window->clear();
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));

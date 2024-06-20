@@ -2,7 +2,6 @@
 
 #include "LoadGame.h"
 #include "MainMenu.h"
-#include "Simulation.h"
 
 Game::Game() : context(std::make_shared<Context>()) {
   _window->create(sf::VideoMode(1200, 800), "Simulation", sf::Style::Close);

@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "Game.h"
-#include "Simulation.h"
 #include "State.h"
 class MainMenu : public State {
  private:

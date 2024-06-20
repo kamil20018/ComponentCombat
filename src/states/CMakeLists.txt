@@ -13,12 +13,12 @@ target_sources(states
     ${CMAKE_CURRENT_LIST_DIR}/Game.cpp
     ${CMAKE_CURRENT_LIST_DIR}/LoadGame.cpp
     ${CMAKE_CURRENT_LIST_DIR}/MainMenu.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Simulation.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/GamePlay.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Game.h
     ${CMAKE_CURRENT_LIST_DIR}/LoadGame.h
     ${CMAKE_CURRENT_LIST_DIR}/MainMenu.h
-    ${CMAKE_CURRENT_LIST_DIR}/Simulation.h
+    ${CMAKE_CURRENT_LIST_DIR}/GamePlay.h
   )
 
 target_include_directories(states

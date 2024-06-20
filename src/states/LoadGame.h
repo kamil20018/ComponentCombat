@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Game.h"
-#include "Simulation.h"
+#include "GamePlay.h"
 #include "State.h"
 class LoadGame : public State {
  private:

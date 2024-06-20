@@ -58,7 +58,7 @@ void LoadGame::update() {
   }
 
   ImGui::End();
-  if (load) _states->addState(std::make_unique<Simulation>(context));
+  if (load) _states->addState(std::make_unique<GamePlay>(context));
 }
 
 void LoadGame::draw() {
