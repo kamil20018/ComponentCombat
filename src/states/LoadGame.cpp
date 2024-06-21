@@ -82,6 +82,7 @@ fs::path LoadGame::createSaveFile() {
   fs::path path =
       fs::current_path().parent_path() / "data" / "saves" / ("new " + std::to_string(saveFiles.size() + 2) + ".json");
   std::ofstream ofs(path);
+  //ofs << generateNewSave();  //TODO transfer base.json here
   ofs.close();
   return path;
 }

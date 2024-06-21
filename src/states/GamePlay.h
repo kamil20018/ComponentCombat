@@ -19,6 +19,8 @@ class GamePlay : public State {
   void update() override;
   void draw() override;
 
+  void componentSelection();
+
  private:
   std::shared_ptr<Context> context;
   std::shared_ptr<Scene> scene;

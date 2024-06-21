@@ -1,0 +1,10 @@
+{
+  "components": {
+    "Hp": {
+      "unlocked": true
+    },
+    "Poisoned": {
+      "unlocked": false
+    }
+  }
+}

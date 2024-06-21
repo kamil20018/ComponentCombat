@@ -44,3 +44,7 @@ void GamePlay::draw() {
   ImGui::SFML::Render(*_window);
   _window->display();
 }
+
+void GamePlay::componentSelection(){
+  
+}

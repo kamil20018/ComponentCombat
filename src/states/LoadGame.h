@@ -7,6 +7,11 @@
 #include "Game.h"
 #include "GamePlay.h"
 #include "State.h"
+#include <nlohmann/json.hpp>
+
+namespace fs = std::filesystem;
+using json = nlohmann::json;
+
 class LoadGame : public State {
  private:
   std::shared_ptr<Context> context;
