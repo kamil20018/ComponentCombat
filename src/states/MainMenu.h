@@ -9,6 +9,10 @@ class MainMenu : public State {
  private:
   std::shared_ptr<Context> context;
   sf::Clock deltaClock;
+  sf::Clock shaderClock;
+  sf::Shader shader;
+  sf::RectangleShape shape;
+  sf::Vector2f mousePosition;
 
  public:
   MainMenu(std::shared_ptr<Context> &context);

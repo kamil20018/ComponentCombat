@@ -5,7 +5,11 @@
 
 #include "LoadGame.h"
 
-MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {}
+MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {
+  shape = sf::RectangleShape{sf::Vector2f{_window->getSize()}};
+  shader.loadFromFile(fs::current_path().parent_path() / "shaders" / "backgrounds" / "stars.frag",
+                      sf::Shader::Fragment);
+}
 
 MainMenu::~MainMenu() {}
 
@@ -25,6 +29,8 @@ void MainMenu::processInput() {
           break;
         }
       }
+    } else if (event.type == sf::Event::MouseMoved) {
+      mousePosition = _window->mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
     }
   }
 }
@@ -55,11 +61,14 @@ void MainMenu::update() {
   ImGui::End();
   if (startGame) _states->addState(std::make_unique<LoadGame>(context));
   if (exit) _states->popCurrent();
+
+  shader.setUniform("u_resolution", sf::Glsl::Vec2{_window->getSize()});
+  shader.setUniform("u_time", shaderClock.getElapsedTime().asSeconds());
 }
 
 void MainMenu::draw() {
-  _window->clear(sf::Color::Black);
-
+  _window->clear();
+  _window->draw(shape, &shader);
   ImGui::SFML::Render(*_window);
   _window->display();
 }

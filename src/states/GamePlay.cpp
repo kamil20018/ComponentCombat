@@ -45,6 +45,4 @@ void GamePlay::draw() {
   _window->display();
 }
 
-void GamePlay::componentSelection(){
-  
-}
+void GamePlay::componentSelection() {}

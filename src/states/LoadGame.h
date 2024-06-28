@@ -2,12 +2,12 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <vector>
 
 #include "Game.h"
 #include "GamePlay.h"
 #include "State.h"
-#include <nlohmann/json.hpp>
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
