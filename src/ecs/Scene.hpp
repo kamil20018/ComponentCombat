@@ -33,6 +33,17 @@ class Scene {
     }
   }
 
+  template <class ... Types>
+  Scene &addComponents(EntityID entityID, Types && ... components) {
+    
+    ([&]
+    {
+      registry.addComponent(entityID, components);
+      entities.at(entityID)->set(components->id);
+    } (), ...);
+    return *this;
+  }
+
   template <typename T>
   std::unordered_map<EntityID, std::shared_ptr<T>> &getComponents() {
     return *std::reinterpret_pointer_cast<std::unordered_map<EntityID, std::shared_ptr<T>>>(

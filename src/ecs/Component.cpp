@@ -9,9 +9,9 @@ Component::Component() { componentCount++; }
 std::string Component::getDescription() { return "this component has no description"; }
 
 int Position::id = -1;
-Position::Position(int x, int y) : x(x), y(y){};
+Position::Position(sf::Vector2i pos) : pos(pos){};
 void Position::debugPrint() { std::cout << getDescription() << std::endl; }
-std::string Position::getDescription() { return (std::stringstream() << "POSITION | x: " << x << ", y: " << y).str(); }
+std::string Position::getDescription() { return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str(); }
 
 int Size::id = -1;
 Size::Size(int width, int height) : width(width), height(height){};

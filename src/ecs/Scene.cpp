@@ -12,7 +12,8 @@ std::shared_ptr<ComponentMask> Scene::getEntityComponents(EntityID id) { return 
 
 void Scene::initComponents() {
   EntityID filler = createEntity();
-  addComponent(filler, std::make_shared<Position>(0, 0));
+  std::cout << "filler id " << filler << std::endl;
+  addComponent(filler, std::make_shared<Position>(sf::Vector2i(0, 0)));
   addComponent(filler, std::make_shared<Size>(0, 0));
   addComponent(filler, std::make_shared<Hp>(0));
   addComponent(filler, std::make_shared<Poisoned>(0, 0));

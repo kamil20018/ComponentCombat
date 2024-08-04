@@ -26,5 +26,8 @@ class GamePlay : public State {
   std::shared_ptr<Scene> scene;
   System system;
 
+  sf::Vector2i moveDir;
+  EntityID player;
+
   sf::Clock deltaClock;
 };

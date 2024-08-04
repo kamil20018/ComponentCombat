@@ -14,10 +14,9 @@ struct Component {
 };
 
 struct Position : public Component {
-  Position(int x, int y);
+  Position(sf::Vector2i pos);
   static int id;
-  int x;
-  int y;
+  sf::Vector2i pos;
   void debugPrint();
   std::string getDescription() override;
 };

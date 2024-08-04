@@ -28,12 +28,19 @@ void System::applyPoison() {
   }
 }
 
+void System::moveEntity(EntityID entityID, sf::Vector2i moveBy){
+  if_has(entityID, component::Position){
+    auto entityPos = scene->getComponent<component::Position>(entityID);
+    entityPos->pos += moveBy;
+  }
+}
+
 void System::drawComponents(sf::Vector2i mousePos) {
   for (auto &[entityID, position] : scene->getComponents<component::Position>()) {
     if (scene->entityHasComponent<component::Size>(entityID)) {
       auto size = scene->getComponent<component::Size>(entityID);
-      if (position->x * TILE_SIZE < mousePos.x && mousePos.x < position->x * TILE_SIZE + size->width &&
-          position->y * TILE_SIZE < mousePos.y && mousePos.y < position->y * TILE_SIZE + size->height) {
+      if (position->pos.x * TILE_SIZE < mousePos.x && mousePos.x < position->pos.x * TILE_SIZE + size->width &&
+          position->pos.y * TILE_SIZE < mousePos.y && mousePos.y < position->pos.y * TILE_SIZE + size->height) {
         if (ImGui::Begin("Debug component list", NULL,
                          ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
           auto components = scene->getEntityComponents(entityID);
@@ -59,7 +66,7 @@ void System::drawEntities(std::shared_ptr<sf::RenderWindow> window) {
       auto size = scene->getComponent<component::Size>(entityID);
       sf::RectangleShape rectangle(sf::Vector2f(size->width, size->height));
       rectangle.setFillColor(bodyColor->color);
-      rectangle.setPosition(position->x * TILE_SIZE, position->y * TILE_SIZE);
+      rectangle.setPosition(position->pos.x * TILE_SIZE, position->pos.y * TILE_SIZE);
       window->draw(rectangle);
     }
   }
