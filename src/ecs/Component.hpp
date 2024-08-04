@@ -8,57 +8,75 @@
 
 namespace component {
 struct Component {
-  Component();
-  virtual std::string getDescription();
-  static int componentCount;
+  inline static int componentCount = -1;
+  Component() {componentCount++;};
+  virtual std::string getDescription(){return "this component has no description";};
 };
 
 struct Position : public Component {
-  Position(sf::Vector2i pos);
-  static int id;
+  Position(sf::Vector2i pos) : pos(pos){};
+  void debugPrint() { std::cout << getDescription() << std::endl; }
+  std::string getDescription() override { return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str(); }
+  inline static int id = -1;
   sf::Vector2i pos;
-  void debugPrint();
-  std::string getDescription() override;
 };
 
 struct Size : public Component {
-  Size(int width, int height);
-  static int id;
+  Size(int width, int height) : width(width), height(height){};
+  void debugPrint() { std::cout << getDescription() << std::endl; }
+  std::string getDescription() override {
+    return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str();
+  }
+  inline static int id = -1;
   int width;
   int height;
-  void debugPrint();
-  std::string getDescription() override;
 };
 
 struct Hp : public Component {
-  Hp(int hp);
-  static int id;
+  Hp(int hp) : hp(hp){};
+  void debugPrint() { std::cout << getDescription() << std::endl; }
+  std::string getDescription() override { return (std::stringstream() << "HP | Hp: " << hp).str(); }
+  inline static int id = -1;
   int hp;
-  void debugPrint();
-  std::string getDescription() override;
 };
 
 struct Attack : public Component {
-  Attack(int attack);
-  static int id;
-  int attack;
+  Attack(int attack) : attack(attack){};
   void debugPrint();
   std::string getDescription() override;
+  inline static int id = -1;
+  int attack;
 };
 
 struct Poisoned : public Component {
-  Poisoned(int damage, int duration);
-  static int id;
+  Poisoned(int damage, int duration) : damage(damage), duration(duration){};
+  void debugPrint() { std::cout << getDescription() << std::endl; }
+  std::string getDescription() override {
+    return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str();
+  }
+  inline static int id = -1;
   int damage;
   int duration;
-  void debugPrint();
-  std::string getDescription() override;
 };
 
 struct BodyColor : public Component {
-  BodyColor(sf::Color color);
-  static int id;
+  BodyColor(sf::Color color) : color(color){};
+  void debugPrint() { printf("Color component"); }
+  inline static int id = -1;
   sf::Color color;
-  void debugPrint();
 };
+
+struct Name : public Component {
+  Name(std::string name) : name(name){};
+
+  void debugPrint(){
+    std::cout << getDescription() << std::endl;
+  };
+
+  std::string getDescription() override{
+    return (std::stringstream() << "NAME | name: " << name).str();
+  };
+  inline static int id = -1;
+  std::string name;
+}; 
 }  // namespace component

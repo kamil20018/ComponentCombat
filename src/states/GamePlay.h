@@ -18,6 +18,7 @@ class GamePlay : public State {
   void processInput() override;
   void update() override;
   void draw() override;
+  void drawDebugLines();
 
   void componentSelection();
 

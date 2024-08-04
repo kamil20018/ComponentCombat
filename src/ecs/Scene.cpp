@@ -18,4 +18,5 @@ void Scene::initComponents() {
   addComponent(filler, std::make_shared<Hp>(0));
   addComponent(filler, std::make_shared<Poisoned>(0, 0));
   addComponent(filler, std::make_shared<BodyColor>(sf::Color::Black));
+  addComponent(filler, std::make_shared<Name>(""));
 }

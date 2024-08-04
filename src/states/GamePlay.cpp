@@ -7,7 +7,7 @@ GamePlay::GamePlay(std::shared_ptr<Context> context)
   player = scene->createEntity();
 
   scene->addComponents(player, 
-    std::make_shared<component::Position>(sf::Vector2i(6, 6)),
+    std::make_shared<component::Position>(sf::Vector2i(14, 13)),
     std::make_shared<component::BodyColor>(sf::Color::Red),
     std::make_shared<component::Size>(TILE_SIZE, TILE_SIZE),
     std::make_shared<component::Hp>(100)
@@ -55,6 +55,17 @@ void GamePlay::update() {
 void GamePlay::draw() {
   _window->clear();
 
+  drawDebugLines();
+
+  system.drawEntities(_window);
+  system.drawComponents(sf::Mouse::getPosition(*_window));
+  ImGui::SFML::Render(*_window);
+
+  sf::RectangleShape line(sf::Vector2f(150, 5));
+  _window->display();
+}
+
+void GamePlay::drawDebugLines(){
   const int thickness = 2;
   
   for(int i = 0; i < WINDOW_WIDTH; i+= TILE_SIZE){
@@ -69,13 +80,6 @@ void GamePlay::draw() {
     line.setFillColor(sf::Color::Red);
     _window->draw(line);
   }
-  
-  system.drawEntities(_window);
-  system.drawComponents(sf::Mouse::getPosition(*_window));
-  ImGui::SFML::Render(*_window);
-
-  sf::RectangleShape line(sf::Vector2f(150, 5));
-  _window->display();
 }
 
 void GamePlay::componentSelection() {}
