@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <sstream>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 namespace component {
 struct Component {
@@ -15,6 +17,7 @@ struct Component {
 
 struct Position : public Component {
   Position(sf::Vector2i pos) : pos(pos){};
+  Position(json j) : pos(sf::Vector2i(j[0], j[1])){};
   void debugPrint() { std::cout << getDescription() << std::endl; }
   std::string getDescription() override { return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str(); }
   inline static int id = -1;
@@ -23,6 +26,7 @@ struct Position : public Component {
 
 struct Size : public Component {
   Size(int width, int height) : width(width), height(height){};
+  Size(json j) : width(j[0]), height(j[1]){}; 
   void debugPrint() { std::cout << getDescription() << std::endl; }
   std::string getDescription() override {
     return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str();
@@ -34,6 +38,7 @@ struct Size : public Component {
 
 struct Hp : public Component {
   Hp(int hp) : hp(hp){};
+  Hp(json j) : hp(j["Hp"]){};
   void debugPrint() { std::cout << getDescription() << std::endl; }
   std::string getDescription() override { return (std::stringstream() << "HP | Hp: " << hp).str(); }
   inline static int id = -1;
@@ -61,6 +66,7 @@ struct Poisoned : public Component {
 
 struct BodyColor : public Component {
   BodyColor(sf::Color color) : color(color){};
+  BodyColor(json j) : color(sf::Color(j["R"], j["G"], j["B"])){};
   void debugPrint() { printf("Color component"); }
   inline static int id = -1;
   sf::Color color;

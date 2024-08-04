@@ -4,16 +4,11 @@ GamePlay::GamePlay(std::shared_ptr<Context> context)
     : context(context), scene(std::make_shared<Scene>()), system(scene) {
   ImGui::SFML::Init(*_window);
 
-  player = scene->createEntity();
-
-  scene->addComponents(player, 
-    std::make_shared<component::Position>(sf::Vector2i(14, 13)),
-    std::make_shared<component::BodyColor>(sf::Color::Red),
-    std::make_shared<component::Size>(TILE_SIZE, TILE_SIZE),
-    std::make_shared<component::Hp>(100)
-  );
-
   auto savePath = context->savePath; //useless now, important to load this in the future
+  SaveLoader::loadSave(savePath, scene);
+  player = SaveLoader::idMapping.at("player").at(0);
+
+
 }
 
 void GamePlay::init() {}
@@ -48,7 +43,7 @@ void GamePlay::processInput() {
 
 void GamePlay::update() { 
   ImGui::SFML::Update(*_window, deltaClock.restart()); 
-  system.moveEntity(1, moveDir);
+  system.moveEntity(player, moveDir);
   moveDir = sf::Vector2i(0, 0);
 }
 

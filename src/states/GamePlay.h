@@ -10,6 +10,7 @@
 #include "Scene.hpp"
 #include "State.h"
 #include "System.hpp"
+#include "SaveLoader.hpp"
 
 class GamePlay : public State {
  public:

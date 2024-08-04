@@ -8,8 +8,8 @@ Game::Game() : context(std::make_shared<Context>()) {
   _window->setFramerateLimit(60);
   _window->setPosition(sf::Vector2i(200, 200));
   //_states->addState(std::make_unique<MainMenu>(this->context));
-  // _states->addState(std::make_unique<LoadGame>(this->context));
-  _states->addState(std::make_unique<GamePlay>(this->context));
+  _states->addState(std::make_unique<LoadGame>(this->context));
+  // _states->addState(std::make_unique<GamePlay>(this->context));
    
 }
 

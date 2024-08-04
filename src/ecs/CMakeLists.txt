@@ -3,6 +3,7 @@ add_library(ecs "")
 target_link_libraries(ecs
   PUBLIC
     ImGui-SFML::ImGui-SFML
+    nlohmann_json::nlohmann_json
 )
 
 target_sources(ecs

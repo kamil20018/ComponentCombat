@@ -42,7 +42,7 @@ void LoadGame::update() {
                ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
   static int selected = -1;
   for (int n = 0; n < saveFiles.size(); n++) {
-    std::string text = "Save " + std::to_string(n);
+    std::string text = saveFiles.at(n).stem();
     if (ImGui::Selectable(text.c_str(), selected == n)) selected = n;
   }
 
@@ -69,7 +69,7 @@ void LoadGame::draw() {
 }
 
 void LoadGame::updateSaveFiles() {
-  fs::path path = fs::current_path().parent_path() / "data" / "saves";
+  fs::path path = fs::current_path().parent_path() / "data" / "userSaves";
   if (!fs::exists(path)) {
     std::cout << "ERROR: path to the save files doesn't exit" << std::endl;
     std::exit(1);
@@ -79,10 +79,26 @@ void LoadGame::updateSaveFiles() {
 }
 
 fs::path LoadGame::createSaveFile() {
-  fs::path path =
-      fs::current_path().parent_path() / "data" / "saves" / ("new " + std::to_string(saveFiles.size() + 2) + ".json");
-  std::ofstream ofs(path);
-  // ofs << generateNewSave();  //TODO transfer base.json here
-  ofs.close();
-  return path;
+  fs::path inputPath = fs::current_path().parent_path() / "data" / "saves" / "base.json";
+  fs::path outputPath =
+      fs::current_path().parent_path() / "data" / "userSaves" / ("new " + std::to_string(saveFiles.size() + 1) + ".json");
+
+  std::ifstream inputFile(inputPath);
+  std::ofstream outputFile(outputPath);  
+  if (inputFile.is_open() && outputFile.is_open()) {
+    std::string line;
+    
+    while (std::getline(inputFile, line)) {  
+      outputFile << line << "\n";  
+    }
+
+    inputFile.close();   
+    outputFile.close();  
+
+    std::cout << "File copied successfully." << std::endl;
+  } else {
+    std::cout << "Failed to open the files." << std::endl;
+  }
+
+  return outputPath;
 }
