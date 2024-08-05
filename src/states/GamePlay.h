@@ -10,7 +10,8 @@
 #include "Scene.hpp"
 #include "State.h"
 #include "System.hpp"
-#include "SaveLoader.hpp"
+#include "SaveManager.hpp"
+#include "ImGuiHelper.hpp"
 
 class GamePlay : public State {
  public:
@@ -19,9 +20,6 @@ class GamePlay : public State {
   void processInput() override;
   void update() override;
   void draw() override;
-  void drawDebugLines();
-
-  void componentSelection();
 
  private:
   std::shared_ptr<Context> context;
@@ -32,4 +30,6 @@ class GamePlay : public State {
   EntityID player;
 
   sf::Clock deltaClock;
+  void drawDebugLines();
+  void handleSaveButton();
 };

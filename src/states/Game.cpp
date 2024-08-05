@@ -2,7 +2,7 @@
 
 #include "LoadGame.h"
 #include "MainMenu.h"
-
+#include "UiTest.hpp"
 Game::Game() : context(std::make_shared<Context>()) {
   _window->create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Simulation", sf::Style::Close);
   _window->setFramerateLimit(60);
@@ -10,6 +10,7 @@ Game::Game() : context(std::make_shared<Context>()) {
   //_states->addState(std::make_unique<MainMenu>(this->context));
   _states->addState(std::make_unique<LoadGame>(this->context));
   // _states->addState(std::make_unique<GamePlay>(this->context));
+  // _states->addState(std::make_unique<UiTest>(this->context));
    
 }
 

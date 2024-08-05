@@ -3,6 +3,7 @@ add_executable(game Source.cpp)
 add_subdirectory(stateManager)
 add_subdirectory(ecs)
 add_subdirectory(states)
+add_subdirectory(utility)
 
 target_link_libraries(game
   PRIVATE
@@ -11,4 +12,5 @@ target_link_libraries(game
     stateManager
     ecs
     states
+    utility
   )

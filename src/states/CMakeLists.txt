@@ -6,6 +6,7 @@ target_link_libraries(states
     ImGui-SFML::ImGui-SFML
     stateManager
     ecs
+    utility
 )
 
 target_sources(states
@@ -14,13 +15,15 @@ target_sources(states
     ${CMAKE_CURRENT_LIST_DIR}/LoadGame.cpp
     ${CMAKE_CURRENT_LIST_DIR}/MainMenu.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GamePlay.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/SaveLoader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/SaveManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/UiTest.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Game.h
     ${CMAKE_CURRENT_LIST_DIR}/LoadGame.h
     ${CMAKE_CURRENT_LIST_DIR}/MainMenu.h
     ${CMAKE_CURRENT_LIST_DIR}/GamePlay.h
-    ${CMAKE_CURRENT_LIST_DIR}/SaveLoader.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/SaveManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/UiTest.hpp
   )
 
 target_include_directories(states

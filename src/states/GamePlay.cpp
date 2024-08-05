@@ -5,8 +5,8 @@ GamePlay::GamePlay(std::shared_ptr<Context> context)
   ImGui::SFML::Init(*_window);
 
   auto savePath = context->savePath; //useless now, important to load this in the future
-  SaveLoader::loadSave(savePath, scene);
-  player = SaveLoader::idMapping.at("player").at(0);
+  SaveManager::loadSave(savePath, scene);
+  player = SaveManager::idMapping.at("player").at(0);
 
 
 }
@@ -51,6 +51,8 @@ void GamePlay::draw() {
   _window->clear();
 
   drawDebugLines();
+  handleSaveButton();
+  ImGui::ShowDemoWindow();
 
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
@@ -77,4 +79,22 @@ void GamePlay::drawDebugLines(){
   }
 }
 
-void GamePlay::componentSelection() {}
+void GamePlay::handleSaveButton(){
+  bool *open;
+  
+  ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_LEFT, 0.1f, 0.1f);
+  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+  ImGui::Begin("test", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
+  
+  // ImGui::Begin("test", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+  float buttonHue = 0.67f;
+  ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(buttonHue, 0.6f, 0.6f));
+  ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(buttonHue, 0.7f, 0.7f));
+  ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(buttonHue, 0.8f, 0.8f));
+  if(ImGui::Button("Save", ImGui::GetContentRegionAvail())){
+    SaveManager::updateSave(context->savePath, scene);
+  }
+  ImGui::PopStyleColor(3);
+  ImGui::End();
+  ImGui::PopStyleVar();
+}
