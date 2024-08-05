@@ -15,7 +15,9 @@ typedef size_t EntityID;
 typedef std::bitset<MAX_COMPONENTS> ComponentMask;
 
 struct Registry {
-  std::vector<std::shared_ptr<std::unordered_map<EntityID, std::shared_ptr<Component>>>> components;
+  std::vector<
+      std::shared_ptr<std::unordered_map<EntityID, std::shared_ptr<Component>>>>
+      components;
 
   template <typename T>
   void addComponent(EntityID id, std::shared_ptr<T> component) {
@@ -25,7 +27,9 @@ struct Registry {
     if (T::id == -1) {
       T::id = components.size();
 
-      components.push_back(std::make_shared<std::unordered_map<EntityID, std::shared_ptr<Component>>>());
+      components.push_back(
+          std::make_shared<
+              std::unordered_map<EntityID, std::shared_ptr<Component>>>());
     }
 
     components.at(T::id)->insert({id, component});

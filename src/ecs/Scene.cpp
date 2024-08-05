@@ -8,7 +8,9 @@ EntityID Scene::createEntity() {
   return id;
 }
 
-std::shared_ptr<ComponentMask> Scene::getEntityComponents(EntityID id) { return entities.at(id); }
+std::shared_ptr<ComponentMask> Scene::getEntityComponents(EntityID id) {
+  return entities.at(id);
+}
 
 void Scene::initComponents() {
   EntityID filler = createEntity();
@@ -17,5 +19,5 @@ void Scene::initComponents() {
   addComponent(filler, std::make_shared<Hp>(0));
   addComponent(filler, std::make_shared<Poisoned>(0, 0));
   addComponent(filler, std::make_shared<BodyColor>(sf::Color::Black));
-  addComponent(filler, std::make_shared<Name>((std::string)"a"));
+  addComponent(filler, std::make_shared<Name>((std::string) "a"));
 }

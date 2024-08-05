@@ -4,43 +4,43 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <sstream>
 #include <nlohmann/json.hpp>
+#include <sstream>
 using json = nlohmann::json;
 
 namespace component {
 struct Component {
   inline static int componentCount = -1;
-  Component() {componentCount++;};
-  virtual std::string getDescription(){return "this component has no description";};
+  Component() { componentCount++; };
+  virtual std::string getDescription() {
+    return "this component has no description";
+  };
   virtual json serialize() = 0;
 };
 
 struct Position : public Component {
   Position(sf::Vector2i pos) : pos(pos){};
   Position(json j) : pos(sf::Vector2i(j[0], j[1])){};
-  json serialize() override{
-    return json {
-      {"Position", {pos.x, pos.y}}
-    };
-  }
+  json serialize() override { return json{{"Position", {pos.x, pos.y}}}; }
   void debugPrint() { std::cout << getDescription() << std::endl; }
-  std::string getDescription() override { return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str(); }
+  std::string getDescription() override {
+    return (std::stringstream()
+            << "POSITION | x: " << pos.x << ", y: " << pos.y)
+        .str();
+  }
   inline static int id = -1;
   sf::Vector2i pos;
 };
 
 struct Size : public Component {
   Size(int width, int height) : width(width), height(height){};
-  Size(json j) : width(j[0]), height(j[1]){}; 
-  json serialize() override{
-    return json {
-      {"Size", {width, height}}
-    };
-  }
+  Size(json j) : width(j[0]), height(j[1]){};
+  json serialize() override { return json{{"Size", {width, height}}}; }
   void debugPrint() { std::cout << getDescription() << std::endl; }
   std::string getDescription() override {
-    return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str();
+    return (std::stringstream()
+            << "SIZE | width: " << width << ", height: " << height)
+        .str();
   }
   inline static int id = -1;
   int width;
@@ -50,13 +50,11 @@ struct Size : public Component {
 struct Hp : public Component {
   Hp(int hp) : hp(hp){};
   Hp(json j) : hp(j["Hp"]){};
-  json serialize() override{
-    return json {
-      {"Hp", hp}
-    };
-  }
+  json serialize() override { return json{{"Hp", hp}}; }
   void debugPrint() { std::cout << getDescription() << std::endl; }
-  std::string getDescription() override { return (std::stringstream() << "HP | Hp: " << hp).str(); }
+  std::string getDescription() override {
+    return (std::stringstream() << "HP | Hp: " << hp).str();
+  }
   inline static int id = -1;
   int hp;
 };
@@ -64,11 +62,7 @@ struct Hp : public Component {
 struct Attack : public Component {
   Attack(int attack) : attack(attack){};
   Attack(json j) : attack(j["Attack"]){};
-  json serialize() override{
-    return json {
-      {"Attack", attack}
-    };
-  }
+  json serialize() override { return json{{"Attack", attack}}; }
   void debugPrint();
   std::string getDescription() override;
   inline static int id = -1;
@@ -78,15 +72,14 @@ struct Attack : public Component {
 struct Poisoned : public Component {
   Poisoned(int damage, int duration) : damage(damage), duration(duration){};
   Poisoned(json j) : damage(j["Damage"]), duration(j["Duration"]){};
-  json serialize() override{
-    return json{
-      {"Damage", damage},
-      {"Duration", duration}
-    };
+  json serialize() override {
+    return json{{"Damage", damage}, {"Duration", duration}};
   }
   void debugPrint() { std::cout << getDescription() << std::endl; }
   std::string getDescription() override {
-    return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str();
+    return (std::stringstream()
+            << "POISONED | damage: " << damage << ", duration: " << duration)
+        .str();
   }
   inline static int id = -1;
   int damage;
@@ -96,16 +89,13 @@ struct Poisoned : public Component {
 struct BodyColor : public Component {
   BodyColor(sf::Color color) : color(color){};
   BodyColor(json j) : color(sf::Color(j["R"], j["G"], j["B"])){};
-  json serialize() override{
-    return json {
-      {
-        "Color", {
-          {"R", color.r},
-          {"G", color.g},
-          {"B", color.b},
-        }
-      }
-    };
+  json serialize() override {
+    return json{{"Color",
+                 {
+                     {"R", color.r},
+                     {"G", color.g},
+                     {"B", color.b},
+                 }}};
   }
   void debugPrint() { printf("Color component"); }
   inline static int id = -1;
@@ -115,19 +105,13 @@ struct BodyColor : public Component {
 struct Name : public Component {
   Name(std::string name) : name(name){};
   Name(json j) : name(j["name"]){};
-  json serialize() override{
-    return json {
-      {"Name", name}
-    };
-  }
-  void debugPrint(){
-    std::cout << getDescription() << std::endl;
-  };
+  json serialize() override { return json{{"Name", name}}; }
+  void debugPrint() { std::cout << getDescription() << std::endl; };
 
-  std::string getDescription() override{
+  std::string getDescription() override {
     return (std::stringstream() << "NAME | name: " << name).str();
   };
   inline static int id = -1;
   std::string name;
-}; 
+};
 }  // namespace component

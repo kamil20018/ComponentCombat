@@ -7,7 +7,8 @@
 
 MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {
   shape = sf::RectangleShape{sf::Vector2f{_window->getSize()}};
-  shader.loadFromFile(fs::current_path().parent_path() / "shaders" / "backgrounds" / "stars.frag",
+  shader.loadFromFile(fs::current_path().parent_path() / "shaders" /
+                          "backgrounds" / "stars.frag",
                       sf::Shader::Fragment);
 }
 
@@ -30,7 +31,8 @@ void MainMenu::processInput() {
         }
       }
     } else if (event.type == sf::Event::MouseMoved) {
-      mousePosition = _window->mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
+      mousePosition =
+          _window->mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
     }
   }
 }
@@ -39,12 +41,14 @@ void MainMenu::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
   bool *open;
   ImGuiIO &io = ImGui::GetIO();
-  ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
-  ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always,
-                          ImVec2(0.5f, 0.5f));
+  ImGui::SetNextWindowSize(
+      ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
+  ImGui::SetNextWindowPos(
+      ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f),
+      ImGuiCond_Always, ImVec2(0.5f, 0.5f));
   ImGui::Begin("Hello, world!", open,
-               ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
-                   ImGuiWindowFlags_NoBackground);
+               ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove |
+                   ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground);
   ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(100, 100, 100, 255));
   ImGui::SetWindowFontScale(6);
 
@@ -56,8 +60,10 @@ void MainMenu::update() {
   ImGui::SetWindowFontScale(2.3);
   ImGui::PopStyleColor();
   ImGui::Dummy(ImVec2(0.0f, 10.0f));
-  bool startGame = ImGui::Button("Start", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
-  bool exit = ImGui::Button("Exit", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
+  bool startGame = ImGui::Button(
+      "Start", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
+  bool exit = ImGui::Button(
+      "Exit", ImVec2(ImGui::GetWindowContentRegionMax().x - 8, 100));
   ImGui::End();
   if (startGame) _states->addState(std::make_unique<LoadGame>(context));
   if (exit) _states->popCurrent();

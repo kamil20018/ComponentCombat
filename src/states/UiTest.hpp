@@ -1,18 +1,19 @@
 #pragma once
 
 #include <SFML/Graphics/Text.hpp>
-#include <memory>
 #include <iostream>
+#include <memory>
 
 #include "Game.h"
-#include "State.h"
 #include "ImGuiHelper.hpp"
+#include "State.h"
 
 class UiTest : public State {
  private:
- sf::Clock deltaClock;
+  sf::Clock deltaClock;
   std::shared_ptr<Context> context;
   void handleWindow();
+
  public:
   UiTest(std::shared_ptr<Context> &context);
   ~UiTest();
