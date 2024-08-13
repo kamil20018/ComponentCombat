@@ -1,6 +1,9 @@
 #include "Scene.hpp"
 
-Scene::Scene() : entityCount(-1) { initComponents(); };
+Scene::Scene()
+    : entityCount(-1){
+          // initComponents();
+      };
 
 EntityID Scene::createEntity() {
   EntityID id = ++entityCount;

@@ -3,9 +3,7 @@
 GamePlay::GamePlay(std::shared_ptr<Context> context)
     : context(context), scene(std::make_shared<Scene>()), system(scene) {
   ImGui::SFML::Init(*_window);
-
-  auto savePath =
-      context->savePath;  // useless now, important to load this in the future
+  auto savePath = context->savePath;
   SaveManager::loadSave(savePath, scene);
   player = SaveManager::idMapping.at("player").at(0);
 }
@@ -33,7 +31,8 @@ void GamePlay::processInput() {
           moveDir = sf::Vector2i(1, 0);
           break;
         case sf::Keyboard::Escape:
-          _window->close();
+          context->states->popCurrent();
+          // _window->close();
           break;
       }
     }
@@ -52,7 +51,6 @@ void GamePlay::draw() {
   drawDebugLines();
   handleSaveButton();
   ImGui::ShowDemoWindow();
-
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
   ImGui::SFML::Render(*_window);
@@ -87,8 +85,6 @@ void GamePlay::handleSaveButton() {
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
                    ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
 
-  // ImGui::Begin("test", open, ImGuiWindowFlags_NoMove |
-  // ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
   float buttonHue = 0.67f;
   ImGui::PushStyleColor(ImGuiCol_Button,
                         (ImVec4)ImColor::HSV(buttonHue, 0.6f, 0.6f));

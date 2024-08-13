@@ -19,6 +19,14 @@ struct Registry {
       std::shared_ptr<std::unordered_map<EntityID, std::shared_ptr<Component>>>>
       components;
 
+  Registry() {
+    for (int i = 0; i < MAX_COMPONENTS; i++) {
+      components.push_back(
+          std::make_shared<
+              std::unordered_map<EntityID, std::shared_ptr<Component>>>());
+    }
+  }
+
   template <typename T>
   void addComponent(EntityID id, std::shared_ptr<T> component) {
     // we need to assign proper id if we use the component for the first time
