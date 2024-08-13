@@ -1,7 +1,6 @@
 #include "GamePlay.h"
 
-GamePlay::GamePlay(std::shared_ptr<Context> context)
-    : context(context), scene(std::make_shared<Scene>()), system(scene) {
+GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(std::make_shared<Scene>()), system(scene) {
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
   SaveManager::loadSave(savePath, scene);
@@ -81,17 +80,12 @@ void GamePlay::handleSaveButton() {
 
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_LEFT, 0.1f, 0.1f);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-  ImGui::Begin("test", open,
-               ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
-                   ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
+  ImGui::Begin("test", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
 
   float buttonHue = 0.67f;
-  ImGui::PushStyleColor(ImGuiCol_Button,
-                        (ImVec4)ImColor::HSV(buttonHue, 0.6f, 0.6f));
-  ImGui::PushStyleColor(ImGuiCol_ButtonHovered,
-                        (ImVec4)ImColor::HSV(buttonHue, 0.7f, 0.7f));
-  ImGui::PushStyleColor(ImGuiCol_ButtonActive,
-                        (ImVec4)ImColor::HSV(buttonHue, 0.8f, 0.8f));
+  ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(buttonHue, 0.6f, 0.6f));
+  ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(buttonHue, 0.7f, 0.7f));
+  ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(buttonHue, 0.8f, 0.8f));
   if (ImGui::Button("Save", ImGui::GetContentRegionAvail())) {
     SaveManager::updateSave(context->savePath, scene);
   }

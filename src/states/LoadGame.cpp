@@ -6,9 +6,7 @@
 #include <filesystem>
 #include <fstream>
 
-LoadGame::LoadGame(std::shared_ptr<Context> &context) : context(context) {
-  updateSaveFiles();
-}
+LoadGame::LoadGame(std::shared_ptr<Context> &context) : context(context) { updateSaveFiles(); }
 
 LoadGame::~LoadGame() {}
 
@@ -37,15 +35,10 @@ void LoadGame::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
   bool *open = NULL;
   ImGuiIO &io = ImGui::GetIO();
-  ImGui::SetNextWindowSize(
-      ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
-  ImGui::SetNextWindowPos(
-      ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f),
-      ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-  ImGui::Begin("Choose an exisiting save file, or create a new one", open,
-               ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove |
-                   ImGuiWindowFlags_NoResize);
-  static int selected = -1;
+  ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
+  ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+  ImGui::Begin("Choose an exisiting save file, or create a new one", open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+  static int selected = 0;
   for (int n = 0; n < saveFiles.size(); n++) {
     std::string text = saveFiles.at(n).stem();
     if (ImGui::Selectable(text.c_str(), selected == n)) selected = n;
@@ -80,16 +73,12 @@ void LoadGame::updateSaveFiles() {
     std::exit(1);
   }
   saveFiles.clear();
-  for (auto const &dir_entry : fs::directory_iterator{path})
-    saveFiles.push_back(dir_entry.path());
+  for (auto const &dir_entry : fs::directory_iterator{path}) saveFiles.push_back(dir_entry.path());
 }
 
 fs::path LoadGame::createSaveFile() {
-  fs::path inputPath =
-      fs::current_path().parent_path() / "data" / "saves" / "base.json";
-  fs::path outputPath =
-      fs::current_path().parent_path() / "data" / "userSaves" /
-      ("new " + std::to_string(saveFiles.size() + 1) + ".json");
+  fs::path inputPath = fs::current_path().parent_path() / "data" / "saves" / "base.json";
+  fs::path outputPath = fs::current_path().parent_path() / "data" / "userSaves" / ("new " + std::to_string(saveFiles.size() + 1) + ".json");
 
   std::ifstream inputFile(inputPath);
   std::ofstream outputFile(outputPath);

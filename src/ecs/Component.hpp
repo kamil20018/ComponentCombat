@@ -11,9 +11,7 @@ using json = nlohmann::json;
 namespace component {
 struct Component {
   Component(){};
-  virtual std::string getDescription() {
-    return "this component has no description";
-  };
+  virtual std::string getDescription() { return "this component has no description"; };
   virtual json serialize() = 0;
 };
 
@@ -21,11 +19,7 @@ struct Position : public Component {
   Position(sf::Vector2i pos) : pos(pos){};
   Position(json j) : pos(sf::Vector2i(j[0], j[1])){};
   json serialize() override { return json{{"Position", {pos.x, pos.y}}}; }
-  std::string getDescription() override {
-    return (std::stringstream()
-            << "POSITION | x: " << pos.x << ", y: " << pos.y)
-        .str();
-  }
+  std::string getDescription() override { return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str(); }
   inline static int id = 0;
   sf::Vector2i pos;
 };
@@ -34,11 +28,7 @@ struct Size : public Component {
   Size(int width, int height) : width(width), height(height){};
   Size(json j) : width(j[0]), height(j[1]){};
   json serialize() override { return json{{"Size", {width, height}}}; }
-  std::string getDescription() override {
-    return (std::stringstream()
-            << "SIZE | width: " << width << ", height: " << height)
-        .str();
-  }
+  std::string getDescription() override { return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str(); }
   inline static int id = 1;
   int width;
   int height;
@@ -48,9 +38,7 @@ struct Hp : public Component {
   Hp(int hp) : hp(hp){};
   Hp(json j) : hp(j["Hp"]){};
   json serialize() override { return json{{"Hp", hp}}; }
-  std::string getDescription() override {
-    return (std::stringstream() << "HP | Hp: " << hp).str();
-  }
+  std::string getDescription() override { return (std::stringstream() << "HP | Hp: " << hp).str(); }
   inline static int id = 2;
   int hp;
 };
@@ -67,14 +55,8 @@ struct Attack : public Component {
 struct Poisoned : public Component {
   Poisoned(int damage, int duration) : damage(damage), duration(duration){};
   Poisoned(json j) : damage(j["Damage"]), duration(j["Duration"]){};
-  json serialize() override {
-    return json{{"Damage", damage}, {"Duration", duration}};
-  }
-  std::string getDescription() override {
-    return (std::stringstream()
-            << "POISONED | damage: " << damage << ", duration: " << duration)
-        .str();
-  }
+  json serialize() override { return json{{"Damage", damage}, {"Duration", duration}}; }
+  std::string getDescription() override { return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str(); }
   inline static int id = 4;
   int damage;
   int duration;
@@ -100,9 +82,7 @@ struct Name : public Component {
   Name(json j) : name(j["name"]){};
   json serialize() override { return json{{"Name", name}}; }
 
-  std::string getDescription() override {
-    return (std::stringstream() << "NAME | name: " << name).str();
-  };
+  std::string getDescription() override { return (std::stringstream() << "NAME | name: " << name).str(); };
   inline static int id = 6;
   std::string name;
 };

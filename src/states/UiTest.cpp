@@ -45,9 +45,7 @@ void UiTest::draw() {
 void UiTest::handleWindow() {
   bool *open;
   ImVec2 saveButtonSize(200.f, 50.f);
-  ImGuiHelper::dockNextWindow(WindowDock::LEFT_MIDDLE, 0.5f, 0.5f, 0.05f,
-                              0.15f);
-  ImGui::Begin("test", open,
-               ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+  ImGuiHelper::dockNextWindow(WindowDock::LEFT_MIDDLE, 0.5f, 0.5f, 0.05f, 0.15f);
+  ImGui::Begin("test", open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
   ImGui::End();
 }
