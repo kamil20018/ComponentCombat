@@ -131,6 +131,4 @@ void GamePlay::handleInventory() {
   ImGui::End();
 }
 
-void handleCharacterScreen(){
-  
-}
+void handleCharacterScreen() {}

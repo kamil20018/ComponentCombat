@@ -1,8 +1,8 @@
 #pragma once
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <filesystem>
 
-#include <SFML/Graphics/RenderWindow.hpp>
 #include "AssetManager.h"
 #include "StateManager.h"
 namespace fs = std::filesystem;
