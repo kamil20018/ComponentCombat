@@ -5,7 +5,7 @@ project(recipe-07 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set (CMAKE_CXX_FLAGS "-Wall")
 #voodoo shit to make my code compile
 add_compile_options("-Wl,--copy-dt-needed-entries")
 link_libraries("-Wl,--copy-dt-needed-entries")

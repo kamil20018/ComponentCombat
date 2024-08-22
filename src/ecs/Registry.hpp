@@ -18,7 +18,7 @@ struct Registry {
   std::vector<std::shared_ptr<std::unordered_map<EntityID, std::shared_ptr<Component>>>> components;
 
   Registry() {
-    for (int i = 0; i < MAX_COMPONENTS; i++) {
+    for (size_t i = 0; i < MAX_COMPONENTS; i++) {
       components.push_back(std::make_shared<std::unordered_map<EntityID, std::shared_ptr<Component>>>());
     }
   }

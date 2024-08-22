@@ -33,6 +33,8 @@ void GamePlay::processInput() {
           context->states->popCurrent();
           // _window->close();
           break;
+        default:
+          break;
       }
     }
   }
@@ -77,11 +79,10 @@ void GamePlay::drawDebugLines() {
 }
 
 void GamePlay::handleSaveButton() {
-  bool *open;
 
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_LEFT, 0.1f, 0.1f);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-  ImGui::Begin("saveButton", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
+  ImGui::Begin("saveButton", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
 
   float buttonHue = 0.67f;
   ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(buttonHue, 0.6f, 0.6f));
@@ -96,14 +97,15 @@ void GamePlay::handleSaveButton() {
 }
 
 void GamePlay::handleInventory() {
-  bool *open;
+
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
-  ImGui::Begin("inventory", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  ImGui::Begin("inventory", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
   const int inventoryWidth = 4;
   const int inventoryHeight = 10;
-  static int selected_fish = -1;
-  const char *names[] = {"Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"};
-  static bool toggles[] = {true, false, false, false, false};
+  //variables below are placeholders for the proper equipment functionality
+  [[maybe_unused]] static int selected_fish = -1;
+  [[maybe_unused]] const char *names[] = {"Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"};
+  [[maybe_unused]] static bool toggles[] = {true, false, false, false, false};
   if (ImGui::BeginTable("inventory", inventoryWidth)) {
     for (int row = 0; row < inventoryHeight; row++) {
       ImGui::TableNextRow();
@@ -131,8 +133,7 @@ void GamePlay::handleInventory() {
 }
 
 void GamePlay::handleCharacterScreen() {
-  bool *open;
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
-  ImGui::Begin("character", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  ImGui::Begin("character", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
   ImGui::End();
 }
