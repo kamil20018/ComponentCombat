@@ -38,6 +38,7 @@ void UiTest::update() {
 void UiTest::draw() {
   _window->clear();
   handleWindow();
+  ImGui::ShowDemoWindow();
   ImGui::SFML::Render(*_window);
   _window->display();
 }
@@ -45,7 +46,35 @@ void UiTest::draw() {
 void UiTest::handleWindow() {
   bool *open;
   ImVec2 saveButtonSize(200.f, 50.f);
-  ImGuiHelper::dockNextWindow(WindowDock::LEFT_MIDDLE, 0.5f, 0.5f, 0.05f, 0.15f);
-  ImGui::Begin("test", open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+  ImGuiHelper::dockNextWindow(WindowDock::CENTER, 0.5f, 0.5f);
+  ImGui::Begin("test", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+  const int inventoryWidth = 12;
+  const int inventoryHeight = 6;
+  static int selected_fish = -1;
+  const char *names[] = {"Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"};
+  static bool toggles[] = {true, false, false, false, false};
+  if (ImGui::BeginTable("inventory", inventoryWidth)) {
+    for (int row = 0; row < inventoryHeight; row++) {
+      ImGui::TableNextRow();
+      for (int column = 0; column < inventoryWidth; column++) {
+        ImGui::TableSetColumnIndex(column);
+        std::string popupName = "popup" + std::to_string(inventoryWidth * row + column);
+        ImGui::PushID(inventoryWidth * row + column);
+        if (ImGui::ImageButton(_assets->GetTexture("book"))) {
+          ImGui::OpenPopup(popupName.c_str());
+        }
+        ImGui::SameLine();
+        if (ImGui::BeginPopup(popupName.c_str())) {
+          ImGui::Text(popupName.c_str());
+          ImGui::Separator();
+          for (int i = 0; i < IM_ARRAYSIZE(names); i++)
+            if (ImGui::Selectable(names[i])) selected_fish = i;
+          ImGui::EndPopup();
+        }
+        ImGui::PopID();
+      }
+    }
+    ImGui::EndTable();
+  }
   ImGui::End();
 }

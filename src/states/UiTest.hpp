@@ -8,6 +8,8 @@
 #include "ImGuiHelper.hpp"
 #include "State.h"
 
+namespace fs = std::filesystem;
+
 class UiTest : public State {
  private:
   sf::Clock deltaClock;

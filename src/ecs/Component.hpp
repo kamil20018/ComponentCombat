@@ -13,6 +13,7 @@ struct Component {
   Component(){};
   virtual std::string getDescription() { return "this component has no description"; };
   virtual json serialize() = 0;
+  inline static int componentCount = 0;
 };
 
 struct Position : public Component {
@@ -20,7 +21,7 @@ struct Position : public Component {
   Position(json j) : pos(sf::Vector2i(j[0], j[1])){};
   json serialize() override { return json{{"Position", {pos.x, pos.y}}}; }
   std::string getDescription() override { return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str(); }
-  inline static int id = 0;
+  inline static int id = -1;
   sf::Vector2i pos;
 };
 
@@ -29,7 +30,7 @@ struct Size : public Component {
   Size(json j) : width(j[0]), height(j[1]){};
   json serialize() override { return json{{"Size", {width, height}}}; }
   std::string getDescription() override { return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str(); }
-  inline static int id = 1;
+  inline static int id = -1;
   int width;
   int height;
 };
@@ -39,7 +40,7 @@ struct Hp : public Component {
   Hp(json j) : hp(j["Hp"]){};
   json serialize() override { return json{{"Hp", hp}}; }
   std::string getDescription() override { return (std::stringstream() << "HP | Hp: " << hp).str(); }
-  inline static int id = 2;
+  inline static int id = -1;
   int hp;
 };
 
@@ -48,7 +49,7 @@ struct Attack : public Component {
   Attack(json j) : attack(j["Attack"]){};
   json serialize() override { return json{{"Attack", attack}}; }
   std::string getDescription() override;
-  inline static int id = 3;
+  inline static int id = -1;
   int attack;
 };
 
@@ -57,7 +58,7 @@ struct Poisoned : public Component {
   Poisoned(json j) : damage(j["Damage"]), duration(j["Duration"]){};
   json serialize() override { return json{{"Damage", damage}, {"Duration", duration}}; }
   std::string getDescription() override { return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str(); }
-  inline static int id = 4;
+  inline static int id = -1;
   int damage;
   int duration;
 };
@@ -73,7 +74,7 @@ struct BodyColor : public Component {
                      {"B", color.b},
                  }}};
   }
-  inline static int id = 5;
+  inline static int id = -1;
   sf::Color color;
 };
 
@@ -83,7 +84,7 @@ struct Name : public Component {
   json serialize() override { return json{{"Name", name}}; }
 
   std::string getDescription() override { return (std::stringstream() << "NAME | name: " << name).str(); };
-  inline static int id = 6;
+  inline static int id = -1;
   std::string name;
 };
 }  // namespace component

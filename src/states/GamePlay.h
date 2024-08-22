@@ -32,4 +32,6 @@ class GamePlay : public State {
   sf::Clock deltaClock;
   void drawDebugLines();
   void handleSaveButton();
+  void handleInventory();
+  void handleCharacterScreen();
 };

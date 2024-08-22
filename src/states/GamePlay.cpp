@@ -49,6 +49,7 @@ void GamePlay::draw() {
 
   drawDebugLines();
   handleSaveButton();
+  handleInventory();
   ImGui::ShowDemoWindow();
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
@@ -80,7 +81,7 @@ void GamePlay::handleSaveButton() {
 
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_LEFT, 0.1f, 0.1f);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-  ImGui::Begin("test", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
+  ImGui::Begin("saveButton", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
 
   float buttonHue = 0.67f;
   ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(buttonHue, 0.6f, 0.6f));
@@ -92,4 +93,44 @@ void GamePlay::handleSaveButton() {
   ImGui::PopStyleColor(3);
   ImGui::End();
   ImGui::PopStyleVar();
+}
+
+void GamePlay::handleInventory() {
+  bool *open;
+  ImVec2 saveButtonSize(200.f, 50.f);
+  ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.2f, 0.5f);
+  ImGui::Begin("inventory", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  const int inventoryWidth = 4;
+  const int inventoryHeight = 10;
+  static int selected_fish = -1;
+  const char *names[] = {"Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"};
+  static bool toggles[] = {true, false, false, false, false};
+  if (ImGui::BeginTable("inventory", inventoryWidth)) {
+    for (int row = 0; row < inventoryHeight; row++) {
+      ImGui::TableNextRow();
+      for (int column = 0; column < inventoryWidth; column++) {
+        ImGui::TableSetColumnIndex(column);
+        std::string popupName = "popup" + std::to_string(inventoryWidth * row + column);
+        ImGui::PushID(inventoryWidth * row + column);
+        if (ImGui::ImageButton(_assets->GetTexture("book"))) {
+          ImGui::OpenPopup(popupName.c_str());
+        }
+        ImGui::SameLine();
+        if (ImGui::BeginPopup(popupName.c_str())) {
+          ImGui::Text(popupName.c_str());
+          ImGui::Separator();
+          for (int i = 0; i < IM_ARRAYSIZE(names); i++)
+            if (ImGui::Selectable(names[i])) selected_fish = i;
+          ImGui::EndPopup();
+        }
+        ImGui::PopID();
+      }
+    }
+    ImGui::EndTable();
+  }
+  ImGui::End();
+}
+
+void handleCharacterScreen(){
+  
 }

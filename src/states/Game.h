@@ -4,26 +4,18 @@
 #include <filesystem>
 #include <memory>
 
+#include "AssetManager.h"
+#include "Context.h"
+#include "ImageLoader.h"
 #include "StateManager.h"
 
 #define _window this->context->window
 #define _states this->context->states
+#define _assets this->context->assets
 
 namespace fs = std::filesystem;
 
 class StateManager;
-
-struct Context {
-  std::unique_ptr<StateManager> states;
-  std::shared_ptr<sf::RenderWindow> window;
-
-  fs::path savePath;
-
-  Context() {
-    states = std::make_unique<StateManager>();
-    window = std::make_shared<sf::RenderWindow>();
-  }
-};
 
 class Game {
  public:

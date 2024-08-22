@@ -7,5 +7,5 @@ enum class WindowDock { TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, TOP_MIDD
 
 class ImGuiHelper {
  public:
-  static void dockNextWindow(WindowDock dockDir, float heightPercent, float widthPercent, float xPadding = 0.0f, float yPadding = 0.0f);
+  static void dockNextWindow(WindowDock dockDir, float widthPercent, float heightPercent, float xPadding = 0.0f, float yPadding = 0.0f);
 };

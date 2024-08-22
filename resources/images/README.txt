@@ -1,0 +1,1 @@
+Most if not all images were taken from the crawl-tiles folder, make sure to read the README and LICENSE within.

@@ -29,7 +29,7 @@ struct Registry {
     // id of -1 also tells us that we need to create the map for the component
     // type
     if (T::id == -1) {
-      T::id = components.size();
+      T::id = Component::componentCount++;
 
       components.push_back(std::make_shared<std::unordered_map<EntityID, std::shared_ptr<Component>>>());
     }
