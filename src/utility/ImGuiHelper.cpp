@@ -41,3 +41,19 @@ void ImGuiHelper::dockNextWindow(WindowDock dockDir, float widthPercent, float h
       break;
   }
 }
+
+ImVec2 ImGuiHelper::prepareItem(float widthPercent, float heightPercent, float xPosPercent, float yPosPercent, bool square) {
+  ImVec2 windowSize = ImGui::GetWindowSize();
+  ImVec2 elementSize;
+
+  ImGui::SetCursorPos(ImVec2(windowSize.x * xPosPercent, windowSize.y * yPosPercent));
+
+  elementSize.x = windowSize.x * widthPercent;
+  if (square) {
+    elementSize.y = elementSize.x;
+  } else {
+    elementSize.y = windowSize.y * heightPercent;
+  }
+
+  return elementSize;
+}
