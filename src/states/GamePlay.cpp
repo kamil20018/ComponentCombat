@@ -67,19 +67,18 @@ void GamePlay::drawDebugLines() {
   for (int i = 0; i < WINDOW_WIDTH; i += TILE_SIZE) {
     sf::RectangleShape line(sf::Vector2f(thickness, WINDOW_HEIGHT));
     line.setPosition(sf::Vector2f(i, 0));
-    line.setFillColor(sf::Color(100,100,100));
+    line.setFillColor(sf::Color(100, 100, 100));
     _window->draw(line);
   }
   for (int i = 0; i < WINDOW_HEIGHT; i += TILE_SIZE) {
     sf::RectangleShape line(sf::Vector2f(WINDOW_WIDTH, thickness));
     line.setPosition(sf::Vector2f(0, i));
-    line.setFillColor(sf::Color(100,100,100));
+    line.setFillColor(sf::Color(100, 100, 100));
     _window->draw(line);
   }
 }
 
 void GamePlay::handleSaveButton() {
-
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_LEFT, 0.1f, 0.1f);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
   ImGui::Begin("saveButton", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
@@ -97,12 +96,11 @@ void GamePlay::handleSaveButton() {
 }
 
 void GamePlay::handleInventory() {
-
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
   ImGui::Begin("inventory", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
   const int inventoryWidth = 4;
   const int inventoryHeight = 10;
-  //variables below are placeholders for the proper equipment functionality
+  // variables below are placeholders for the proper equipment functionality
   [[maybe_unused]] static int selected_fish = -1;
   [[maybe_unused]] const char *names[] = {"Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"};
   [[maybe_unused]] static bool toggles[] = {true, false, false, false, false};
