@@ -29,7 +29,7 @@ void SaveManager::updateSave(fs::path savePath, std::shared_ptr<Scene> scene) {
 json SaveManager::savePlayer(std::shared_ptr<Scene> scene) {
   json playerSave;
   auto components = scene->getEntityComponents(idMapping["player"].at(0));
-  for (int i = 0; i < MAX_COMPONENTS; i++) {
+  for (size_t i = 0; i < MAX_COMPONENTS; i++) {
     bool hasComponent = (*components)[i];
     if (hasComponent) {
       playerSave.update(scene->getComponentSave(idMapping["player"].at(0), i));

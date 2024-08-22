@@ -36,11 +36,10 @@ void MainMenu::processInput() {
 
 void MainMenu::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
-  bool *open;
   ImGuiIO &io = ImGui::GetIO();
   ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
   ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-  ImGui::Begin("Hello, world!", open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground);
+  ImGui::Begin("Hello, world!", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground);
   ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(100, 100, 100, 255));
   ImGui::SetWindowFontScale(6);
 

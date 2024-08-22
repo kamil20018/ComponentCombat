@@ -38,7 +38,7 @@ void LoadGame::update() {
   ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x * 0.7, io.DisplaySize.y * 0.7));
   ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
   ImGui::Begin("Choose an exisiting save file, or create a new one", open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-  static int selected = 0;
+  static size_t selected = 0;
   for (size_t n = 0; n < saveFiles.size(); n++) {
     std::string text = saveFiles.at(n).stem();
     if (ImGui::Selectable(text.c_str(), selected == n)) selected = n;
@@ -50,7 +50,7 @@ void LoadGame::update() {
   }
 
   ImGui::SameLine();
-  if (ImGui::Button("Load") && selected != -1) {
+  if (ImGui::Button("Load")) {
     load = true;
     context->savePath = saveFiles.at(selected);
   }

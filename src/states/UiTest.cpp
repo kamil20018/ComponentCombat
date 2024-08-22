@@ -44,10 +44,9 @@ void UiTest::draw() {
 }
 
 void UiTest::handleWindow() {
-  bool *open;
   ImVec2 saveButtonSize(200.f, 50.f);
   ImGuiHelper::dockNextWindow(WindowDock::CENTER, 0.5f, 0.5f);
-  ImGui::Begin("test", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+  ImGui::Begin("test", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
   const int inventoryWidth = 12;
   const int inventoryHeight = 6;
   static int selected_fish = -1;

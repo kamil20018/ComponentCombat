@@ -42,7 +42,7 @@ void System::drawComponents(sf::Vector2i mousePos) {
           mousePos.y < position->pos.y * TILE_SIZE + size->height) {
         if (ImGui::Begin("Debug component list", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
           auto components = scene->getEntityComponents(entityID);
-          for (int i = 0; i < MAX_COMPONENTS; i++) {
+          for (size_t i = 0; i < MAX_COMPONENTS; i++) {
             bool hasComponent = (*components)[i];
             if (hasComponent) {
               ImGui::Text(scene->getDescription(entityID, i).c_str());

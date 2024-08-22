@@ -36,6 +36,9 @@ while getopts 'brashcfl' OPTION; do
             fi
             ;;
         c)
+            rm -rf build/src
+            ;;
+        C)
             rm -rf build
             ;;
         l)
