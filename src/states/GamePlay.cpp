@@ -133,5 +133,19 @@ void GamePlay::handleInventory() {
 void GamePlay::handleCharacterScreen() {
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
   ImGui::Begin("character", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  ImVec2 itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.1f, true);
+  ImGui::Button("head", itemSize);
+
+  itemSize = ImGuiHelper::prepareItem(0.24f, 0.34f, 0.38f, 0.3f);
+  ImGui::Button("body", itemSize);
+
+  itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.7f, true);
+  ImGui::Button("legs", itemSize);
+
+  itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.07f, 0.4f, true);
+  ImGui::Button("left_arm", itemSize);
+
+  itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.69f, 0.4f, true);
+  ImGui::Button("right_arm", itemSize);
   ImGui::End();
 }
