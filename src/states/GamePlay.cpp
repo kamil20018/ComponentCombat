@@ -42,20 +42,20 @@ void GamePlay::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
   system.moveEntity(player, moveDir);
   moveDir = sf::Vector2i(0, 0);
+  handleSaveButton();
+  handleInventory();
+  handleCharacterScreen();
+  ImGui::ShowDemoWindow();
 }
 
 void GamePlay::draw() {
   _window->clear();
 
   drawDebugLines();
-  handleSaveButton();
-  handleInventory();
-  ImGui::ShowDemoWindow();
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
   ImGui::SFML::Render(*_window);
 
-  sf::RectangleShape line(sf::Vector2f(150, 5));
   _window->display();
 }
 
@@ -65,13 +65,13 @@ void GamePlay::drawDebugLines() {
   for (int i = 0; i < WINDOW_WIDTH; i += TILE_SIZE) {
     sf::RectangleShape line(sf::Vector2f(thickness, WINDOW_HEIGHT));
     line.setPosition(sf::Vector2f(i, 0));
-    line.setFillColor(sf::Color::Red);
+    line.setFillColor(sf::Color(100,100,100));
     _window->draw(line);
   }
   for (int i = 0; i < WINDOW_HEIGHT; i += TILE_SIZE) {
     sf::RectangleShape line(sf::Vector2f(WINDOW_WIDTH, thickness));
     line.setPosition(sf::Vector2f(0, i));
-    line.setFillColor(sf::Color::Red);
+    line.setFillColor(sf::Color(100,100,100));
     _window->draw(line);
   }
 }
@@ -97,8 +97,7 @@ void GamePlay::handleSaveButton() {
 
 void GamePlay::handleInventory() {
   bool *open;
-  ImVec2 saveButtonSize(200.f, 50.f);
-  ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.2f, 0.5f);
+  ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
   ImGui::Begin("inventory", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
   const int inventoryWidth = 4;
   const int inventoryHeight = 10;
@@ -131,4 +130,9 @@ void GamePlay::handleInventory() {
   ImGui::End();
 }
 
-void handleCharacterScreen() {}
+void GamePlay::handleCharacterScreen() {
+  bool *open;
+  ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
+  ImGui::Begin("character", open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  ImGui::End();
+}
