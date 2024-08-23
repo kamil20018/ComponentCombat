@@ -1,9 +1,6 @@
 #include "Scene.hpp"
 
-Scene::Scene()
-    : entityCount(-1){
-          // initComponents();
-      };
+Scene::Scene() : entityCount(-1){};
 
 EntityID Scene::createEntity() {
   EntityID id = ++entityCount;
@@ -13,14 +10,4 @@ EntityID Scene::createEntity() {
 
 std::shared_ptr<ComponentMask> Scene::getEntityComponents(EntityID id) {
   return entities.at(id);
-}
-
-void Scene::initComponents() {
-  EntityID filler = createEntity();
-  addComponent(filler, std::make_shared<Position>(sf::Vector2i(0, 0)));
-  addComponent(filler, std::make_shared<Size>(0, 0));
-  addComponent(filler, std::make_shared<Hp>(0));
-  addComponent(filler, std::make_shared<Poisoned>(0, 0));
-  addComponent(filler, std::make_shared<BodyColor>(sf::Color::Black));
-  addComponent(filler, std::make_shared<Name>((std::string) "a"));
 }
