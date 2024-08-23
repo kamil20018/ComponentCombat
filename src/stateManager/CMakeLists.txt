@@ -12,10 +12,10 @@ target_sources(stateManager
     ${CMAKE_CURRENT_LIST_DIR}/AssetManager.cpp
   PUBLIC
   
-    ${CMAKE_CURRENT_LIST_DIR}/StateManager.h
-    ${CMAKE_CURRENT_LIST_DIR}/AssetManager.h
-    ${CMAKE_CURRENT_LIST_DIR}/State.h
-    ${CMAKE_CURRENT_LIST_DIR}/Context.h
+    ${CMAKE_CURRENT_LIST_DIR}/StateManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/AssetManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/State.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Context.hpp
   )
 
 target_include_directories(stateManager

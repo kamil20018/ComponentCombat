@@ -18,6 +18,7 @@ target_sources(ecs
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Constants.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Component.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/ItemComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Registry.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Scene.hpp
     ${SystemPath}/System.hpp

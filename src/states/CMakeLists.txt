@@ -18,11 +18,11 @@ target_sources(states
     ${CMAKE_CURRENT_LIST_DIR}/SaveManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/UiTest.cpp
   PUBLIC
-  ${CMAKE_CURRENT_LIST_DIR}/Game.h
-  ${CMAKE_CURRENT_LIST_DIR}/LoadGame.h
-  ${CMAKE_CURRENT_LIST_DIR}/MainMenu.h
-  ${CMAKE_CURRENT_LIST_DIR}/GamePlay.h
-  ${CMAKE_CURRENT_LIST_DIR}/ImageLoader.h
+  ${CMAKE_CURRENT_LIST_DIR}/Game.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/LoadGame.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/MainMenu.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/GamePlay.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/ImageLoader.hpp
     ${CMAKE_CURRENT_LIST_DIR}/SaveManager.hpp
     ${CMAKE_CURRENT_LIST_DIR}/UiTest.hpp
   )
