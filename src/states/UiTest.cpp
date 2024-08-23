@@ -7,7 +7,9 @@ UiTest::UiTest(std::shared_ptr<Context> &context) : context(context) {}
 
 UiTest::~UiTest() {}
 
-void UiTest::init() { ImGui::SFML::Init(*_window); }
+void UiTest::init() {
+  ImGui::SFML::Init(*_window);
+}
 
 void UiTest::processInput() {
   sf::Event event;

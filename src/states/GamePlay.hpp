@@ -8,12 +8,12 @@
 #include "Constants.hpp"
 #include "Game.hpp"
 #include "ImGuiHelper.hpp"
+#include "ImageLoader.hpp"
 #include "SaveManager.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
-#include "ImageLoader.hpp"
 
 class GamePlay : public State {
  public:

@@ -12,7 +12,9 @@ MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {
 
 MainMenu::~MainMenu() {}
 
-void MainMenu::init() { ImGui::SFML::Init(*_window); }
+void MainMenu::init() {
+  ImGui::SFML::Init(*_window);
+}
 
 void MainMenu::processInput() {
   sf::Event event;

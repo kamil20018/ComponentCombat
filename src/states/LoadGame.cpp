@@ -6,11 +6,15 @@
 #include <filesystem>
 #include <fstream>
 
-LoadGame::LoadGame(std::shared_ptr<Context> &context) : context(context) { updateSaveFiles(); }
+LoadGame::LoadGame(std::shared_ptr<Context> &context) : context(context) {
+  updateSaveFiles();
+}
 
 LoadGame::~LoadGame() {}
 
-void LoadGame::init() { ImGui::SFML::Init(*_window); }
+void LoadGame::init() {
+  ImGui::SFML::Init(*_window);
+}
 
 void LoadGame::processInput() {
   sf::Event event;

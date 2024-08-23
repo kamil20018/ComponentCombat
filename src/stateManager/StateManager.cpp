@@ -15,7 +15,9 @@ void StateManager::addState(std::shared_ptr<State> toAdd, bool replace) {
 }
 
 /*Pops the current state erasing it completely*/
-void StateManager::popCurrent() { this->remove = true; }
+void StateManager::popCurrent() {
+  this->remove = true;
+}
 
 void StateManager::processStateChange() {
   if (this->remove && !this->stateStack.empty()) {
@@ -45,4 +47,6 @@ void StateManager::processStateChange() {
   }
 }
 
-std::shared_ptr<State> &StateManager::getCurrent() { return stateStack.back(); }
+std::shared_ptr<State> &StateManager::getCurrent() {
+  return stateStack.back();
+}
