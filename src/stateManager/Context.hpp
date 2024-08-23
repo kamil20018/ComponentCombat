@@ -3,8 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <filesystem>
 
-#include "AssetManager.h"
-#include "StateManager.h"
+#include "AssetManager.hpp"
+#include "StateManager.hpp"
 namespace fs = std::filesystem;
 
 #define _window context->window

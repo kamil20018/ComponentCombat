@@ -3,7 +3,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "Context.h"
+#include "Context.hpp"
 #include "Scene.hpp"
 #include "ImGuiHelper.hpp"
 #include "ImageNames.hpp"

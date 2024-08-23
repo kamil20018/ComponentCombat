@@ -4,9 +4,9 @@
 #include <iostream>
 #include <memory>
 
-#include "Game.h"
+#include "Game.hpp"
 #include "ImGuiHelper.hpp"
-#include "State.h"
+#include "State.hpp"
 
 namespace fs = std::filesystem;
 

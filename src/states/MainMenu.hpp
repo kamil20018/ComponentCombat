@@ -3,8 +3,8 @@
 #include <SFML/Graphics/Text.hpp>
 #include <memory>
 
-#include "Game.h"
-#include "State.h"
+#include "Game.hpp"
+#include "State.hpp"
 class MainMenu : public State {
  private:
   std::shared_ptr<Context> context;

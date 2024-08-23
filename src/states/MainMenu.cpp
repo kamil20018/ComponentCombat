@@ -1,9 +1,9 @@
-#include "MainMenu.h"
+#include "MainMenu.hpp"
 
 #include <imgui-SFML.h>
 #include <imgui.h>
 
-#include "LoadGame.h"
+#include "LoadGame.hpp"
 
 MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {
   shape = sf::RectangleShape{sf::Vector2f{_window->getSize()}};

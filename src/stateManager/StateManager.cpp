@@ -1,4 +1,4 @@
-#include "StateManager.h"
+#include "StateManager.hpp"
 
 #include <iostream>
 StateManager::StateManager() : add(false), replace(false), remove(false) {}

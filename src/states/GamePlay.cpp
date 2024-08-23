@@ -1,4 +1,4 @@
-#include "GamePlay.h"
+#include "GamePlay.hpp"
 
 GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(std::make_shared<Scene>()), system(scene), uiSystem(scene, context) {
   ImGui::SFML::Init(*_window);
@@ -47,7 +47,6 @@ void GamePlay::update() {
   handleSaveButton();
   uiSystem.handleInventory();
   uiSystem.handleCharacterScreen();
-  ImGui::ShowDemoWindow();
 }
 
 void GamePlay::draw() {

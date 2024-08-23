@@ -6,14 +6,14 @@
 
 #include "Component.hpp"
 #include "Constants.hpp"
-#include "Game.h"
+#include "Game.hpp"
 #include "ImGuiHelper.hpp"
 #include "SaveManager.hpp"
 #include "Scene.hpp"
-#include "State.h"
+#include "State.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
-#include "ImageLoader.h"
+#include "ImageLoader.hpp"
 
 class GamePlay : public State {
  public:

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "State.h"
+#include "State.hpp"
 
 class StateManager {
  public:

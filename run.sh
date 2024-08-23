@@ -42,7 +42,7 @@ while getopts 'brashcfl' OPTION; do
             rm -rf build
             ;;
         l)
-            cloc --exclude-dir=imgui src
+            cloc --exclude-dir=imgui src/
             ;;
         f)
             clang-format -style=file -i src/**/*.h* src/**/*.cpp src/system/**/*.h* src/system/**/*.cpp

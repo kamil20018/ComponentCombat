@@ -4,10 +4,10 @@
 #include <filesystem>
 #include <memory>
 
-#include "AssetManager.h"
-#include "Context.h"
-#include "ImageLoader.h"
-#include "StateManager.h"
+#include "AssetManager.hpp"
+#include "Context.hpp"
+#include "ImageLoader.hpp"
+#include "StateManager.hpp"
 
 namespace fs = std::filesystem;
 

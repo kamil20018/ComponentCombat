@@ -1,4 +1,4 @@
-#include "AssetManager.h"
+#include "AssetManager.hpp"
 
 AssetManager::AssetManager() {}
 

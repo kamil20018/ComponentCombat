@@ -1,4 +1,4 @@
-#include "LoadGame.h"
+#include "LoadGame.hpp"
 
 #include <imgui-SFML.h>
 #include <imgui.h>

@@ -5,9 +5,9 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 
-#include "Game.h"
-#include "GamePlay.h"
-#include "State.h"
+#include "Game.hpp"
+#include "GamePlay.hpp"
+#include "State.hpp"
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
