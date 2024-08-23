@@ -9,10 +9,6 @@
 #include "ImageLoader.h"
 #include "StateManager.h"
 
-#define _window this->context->window
-#define _states this->context->states
-#define _assets this->context->assets
-
 namespace fs = std::filesystem;
 
 class StateManager;

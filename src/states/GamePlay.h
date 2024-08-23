@@ -11,7 +11,8 @@
 #include "SaveManager.hpp"
 #include "Scene.hpp"
 #include "State.h"
-#include "System.hpp"
+#include "system/System.hpp"
+#include "system/UiSystem.hpp"
 
 class GamePlay : public State {
  public:
@@ -20,18 +21,17 @@ class GamePlay : public State {
   void processInput() override;
   void update() override;
   void draw() override;
+  void handleSaveButton();
 
  private:
   std::shared_ptr<Context> context;
   std::shared_ptr<Scene> scene;
   System system;
+  UiSystem uiSystem;
 
   sf::Vector2i moveDir;
   EntityID player;
 
   sf::Clock deltaClock;
   void drawDebugLines();
-  void handleSaveButton();
-  void handleInventory();
-  void handleCharacterScreen();
 };
