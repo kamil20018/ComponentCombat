@@ -7,9 +7,9 @@
 #include "StateManager.h"
 namespace fs = std::filesystem;
 
-#define _window this->context->window
-#define _states this->context->states
-#define _assets this->context->assets
+#define _window context->window
+#define _states context->states
+#define _assets context->assets
 
 struct Context {
   std::unique_ptr<StateManager> states;

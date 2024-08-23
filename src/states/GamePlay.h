@@ -13,6 +13,7 @@
 #include "State.h"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
+#include "ImageLoader.h"
 
 class GamePlay : public State {
  public:

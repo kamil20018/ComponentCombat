@@ -38,7 +38,8 @@ void UiSystem::handleInventory() {
         ImGui::TableSetColumnIndex(column);
         std::string popupName = "popup" + std::to_string(inventoryWidth * row + column);
         ImGui::PushID(inventoryWidth * row + column);
-        if (ImGui::ImageButton(_assets->GetTexture("book"))) {
+        const sf::Texture &image = _assets->GetTexture(Item::BEEF_JERKY);
+        if (ImGui::ImageButton(image)) {
           ImGui::OpenPopup(popupName.c_str());
         }
           ImGui::SameLine();

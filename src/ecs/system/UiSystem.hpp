@@ -6,6 +6,7 @@
 #include "Context.h"
 #include "Scene.hpp"
 #include "ImGuiHelper.hpp"
+#include "ImageNames.hpp"
 
 /// @brief Handles ui rendering along with it's interactions with the ecs
 class UiSystem {

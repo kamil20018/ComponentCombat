@@ -11,6 +11,7 @@ target_sources(utility
     ${CMAKE_CURRENT_LIST_DIR}/ImGuiHelper.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/ImGuiHelper.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/ImageNames.hpp
   )
 
 target_include_directories(utility
