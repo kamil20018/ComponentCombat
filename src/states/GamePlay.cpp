@@ -5,6 +5,8 @@ GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(s
   auto savePath = context->savePath;
   SaveManager::loadSave(savePath, scene);
   player = SaveManager::idMapping.at("player").at(0);
+  mockCreateInventory();
+
 }
 
 void GamePlay::init() {}
@@ -45,8 +47,8 @@ void GamePlay::update() {
   system.moveEntity(player, moveDir);
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
-  uiSystem.handleInventory();
-  uiSystem.handleCharacterScreen();
+  uiSystem.handleInventory(inventory);
+  uiSystem.handleCharacterScreen(equippedItems);
 }
 
 void GamePlay::draw() {
@@ -55,6 +57,8 @@ void GamePlay::draw() {
   drawDebugLines();
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
+
+  ImGui::ShowDemoWindow();
   ImGui::SFML::Render(*_window);
 
   _window->display();
@@ -92,4 +96,11 @@ void GamePlay::handleSaveButton() {
   ImGui::PopStyleColor(3);
   ImGui::End();
   ImGui::PopStyleVar();
+}
+
+void GamePlay::mockCreateInventory(){
+  inventory.push_back(scene->createEntity());
+  scene->addComponents(inventory.at(0), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)Item::GREATSWORD1), std::make_shared<AttackRange>(5.0f, 10.0f));
+  inventory.push_back(scene->createEntity());
+  scene->addComponents(inventory.at(1), std::make_shared<ItemType>(ItemTypes::ARMOR), std::make_shared<TextureName>((std::string)Item::CLOAK2), std::make_shared<Defense>(5.0f), std::make_shared<AttackBonus>(5.0f));
 }

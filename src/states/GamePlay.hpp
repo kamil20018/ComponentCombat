@@ -5,6 +5,8 @@
 #include <vector>
 
 #include "Component.hpp"
+#include "ItemComponent.hpp"
+#include "ImageNames.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"
 #include "ImGuiHelper.hpp"
@@ -32,6 +34,10 @@ class GamePlay : public State {
 
   sf::Vector2i moveDir;
   EntityID player;
+
+  std::vector<EntityID> inventory;
+  EquippedItems equippedItems;
+  void mockCreateInventory();
 
   sf::Clock deltaClock;
   void drawDebugLines();

@@ -4,7 +4,7 @@
 
 namespace component {
 /// @brief Serialized to int
-enum class ItemTypes { WEAPON, ARMOR, NONE };
+enum class ItemTypes { HELMET, ARMOR, WEAPON, PANTS, BOOTS, NONE };
 
 struct ItemType : public Component {
   ItemType(ItemTypes type) : type(type){};
@@ -19,6 +19,19 @@ struct ItemType : public Component {
   ItemTypes type;
 };
 
+struct TextureName : public Component {
+  TextureName(std::string textureName) : textureName(textureName){};
+  TextureName(json j) : textureName(j["textureName"]){};
+  json serialize() override {
+    return json{{"textureName", {textureName}}};
+  }
+  std::string getDescription() override {
+    return (std::stringstream() << "ItemTexture | " << textureName).str();
+  }
+  inline static int id = -1;
+  std::string textureName;
+};
+
 struct AttackRange : public Component {
   AttackRange(float min, float max) : min(min), max(max){};
   AttackRange(json j) : min(j["min"]), max(j["max"]){};
@@ -28,6 +41,7 @@ struct AttackRange : public Component {
   std::string getDescription() override {
     return (std::stringstream() << "AttackRange | min: " << min << " max: " << max).str();
   }
+  inline static int id = -1;
   float min, max;
 };
 
@@ -40,21 +54,22 @@ struct Defense : public Component {
   std::string getDescription() override {
     return (std::stringstream() << "Defense | defense: " << defense).str();
   }
+  inline static int id = -1;
   float defense;
 };
-
+/// @brief Flat attack bonus applying to both ends of the attack range
 struct AttackBonus : public Component {
   AttackBonus(float attackBonus) : attackBonus(attackBonus){};
-  AttackBonus(json j) : attackBonus(j{attackBonus}){};
+  AttackBonus(json j) : attackBonus(j[attackBonus]){};
   json serialize() override {
     return json{{"attackBonus", {attackBonus}}};
   }
   std::string getDescription() override {
     return (std::stringstream() << "AttackBonus | attackBonus: " << attackBonus).str();
   }
-
+  inline static int id = -1;
   float attackBonus;
-}
+};
 
 
 }  // namespace component

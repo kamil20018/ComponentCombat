@@ -14,4 +14,6 @@ class ImGuiHelper {
   /// @param square ignores the heightPercent forcing the item to be a square
   /// @return size for the item
   static ImVec2 prepareItem(float widthPercent, float heightPercent, float xPosPercent, float yPosPercent, bool square = false);
+  /// @brief For easier sfml integration
+  static sf::Vector2f toVector2f(ImVec2 vec);
 };
