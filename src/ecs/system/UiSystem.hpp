@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
-
+#include <functional>
 #include "Context.hpp"
 #include "Scene.hpp"
 #include "ImGuiHelper.hpp"
@@ -24,7 +24,7 @@ public:
   UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context);
 
   void handleCharacterScreen(EquippedItems equippedItems);
-  void handleInventory(const std::vector<EntityID> &inventory);
+  void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
 private:
   std::shared_ptr<Scene> scene;
   std::shared_ptr<Context> context;

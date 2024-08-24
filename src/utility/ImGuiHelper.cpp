@@ -58,6 +58,6 @@ ImVec2 ImGuiHelper::prepareItem(float widthPercent, float heightPercent, float x
   return elementSize;
 }
 
-sf::Vector2f ImGuiHelper::toVector2f(ImVec2 vec){
+sf::Vector2f ImGuiHelper::toVector2f(ImVec2 vec) {
   return sf::Vector2f(vec.x, vec.y);
 }

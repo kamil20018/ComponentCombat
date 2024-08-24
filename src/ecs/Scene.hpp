@@ -33,6 +33,8 @@ class Scene {
     }
   }
 
+  void removeEntity(EntityID entityID);
+
   template <class... Types>
   Scene &addComponents(EntityID entityID, Types &&...components) {
     (

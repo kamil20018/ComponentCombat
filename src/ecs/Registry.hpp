@@ -41,4 +41,8 @@ struct Registry {
   void removeComponent(EntityID id) {
     components.at(T::id)->erase(id);
   }
+
+  void removeComponent(EntityID entityID, int componentID) {
+    components.at(componentID)->erase(entityID);
+  }
 };

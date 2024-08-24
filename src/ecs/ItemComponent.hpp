@@ -4,7 +4,7 @@
 
 namespace component {
 /// @brief Serialized to int
-enum class ItemTypes { HELMET, ARMOR, WEAPON, PANTS, BOOTS, NONE };
+enum class ItemTypes { HELMET, ARMOUR, WEAPON, PANTS, BOOTS, NONE };
 
 struct ItemType : public Component {
   ItemType(ItemTypes type) : type(type){};
@@ -70,6 +70,5 @@ struct AttackBonus : public Component {
   inline static int id = -1;
   float attackBonus;
 };
-
 
 }  // namespace component
