@@ -45,6 +45,6 @@ while getopts 'brashcfl' OPTION; do
             cloc --exclude-dir=imgui src/
             ;;
         f)
-            clang-format -style=file -i src/**/*.h* src/**/*.cpp src/system/**/*.h* src/system/**/*.cpp
+            find src/ -iname '*.h*' -o -iname '*.cpp' | xargs clang-format -style=file -i
     esac
 done

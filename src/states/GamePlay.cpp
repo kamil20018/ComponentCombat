@@ -99,20 +99,20 @@ void GamePlay::handleSaveButton() {
 
 void GamePlay::mockCreateInventory() {
   inventory.push_back(scene->createEntity());
-  scene->addComponents(inventory.at(0), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)Item::GREATSWORD1),
+  scene->addComponents(inventory.at(0), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD1),
                        std::make_shared<AttackRange>(5.0f, 10.0f));
 
   inventory.push_back(scene->createEntity());
-  scene->addComponents(inventory.at(1), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)Item::DAGGER),
+  scene->addComponents(inventory.at(1), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)image::items::weapon::DAGGER),
                        std::make_shared<AttackRange>(15.0f, 20.0f));
 
   inventory.push_back(scene->createEntity());
-  scene->addComponents(inventory.at(2), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)Item::CLUB),
+  scene->addComponents(inventory.at(2), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)image::items::weapon::CLUB),
                        std::make_shared<AttackRange>(25.0f, 30.0f));
   inventory.push_back(scene->createEntity());
-  scene->addComponents(inventory.at(3), std::make_shared<ItemType>(ItemTypes::ARMOUR), std::make_shared<TextureName>((std::string)Item::CLOAK2),
+  scene->addComponents(inventory.at(3), std::make_shared<ItemType>(ItemTypes::ARMOUR), std::make_shared<TextureName>((std::string)image::items::armour::CLOAK2),
                        std::make_shared<Defense>(5.0f), std::make_shared<AttackBonus>(5.0f));
   equippedItems.weapon = scene->createEntity();
-  scene->addComponents(equippedItems.weapon.value(), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)Item::GREATSWORD2),
-                       std::make_shared<AttackRange>(5.0f, 10.0f));
+  scene->addComponents(equippedItems.weapon.value(), std::make_shared<ItemType>(ItemTypes::WEAPON),
+                       std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD2), std::make_shared<AttackRange>(5.0f, 10.0f));
 }
