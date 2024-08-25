@@ -61,6 +61,7 @@ class Scene {
     return registry.components.at(componentID)->at(entityID)->getDescription();
   }
 
+  /// @brief Calls the `serialize` method on the specified component
   json getComponentSave(EntityID entityID, int componentID) {
     return registry.components.at(componentID)->at(entityID)->serialize();
   }

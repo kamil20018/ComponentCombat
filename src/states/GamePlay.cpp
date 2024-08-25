@@ -4,7 +4,8 @@ GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(s
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
   SaveManager::loadSave(savePath, scene);
-  player = SaveManager::idMapping.at("player").at(0);
+  equippedItems = EquippedItems(SaveManager::idMapping["equippedItems"]);
+  player = SaveManager::idMapping["player"];
   mockCreateInventory();
 }
 
@@ -43,7 +44,6 @@ void GamePlay::processInput() {
 
 void GamePlay::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
-  system.moveEntity(player, moveDir);
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
   uiSystem.handleInventory(inventory, equippedItems);
@@ -90,6 +90,7 @@ void GamePlay::handleSaveButton() {
   ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(buttonHue, 0.7f, 0.7f));
   ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(buttonHue, 0.8f, 0.8f));
   if (ImGui::Button("Save", ImGui::GetContentRegionAvail())) {
+    SaveManager::idMapping["equippedItems"] = equippedItems.getIdMapping();
     SaveManager::updateSave(context->savePath, scene);
   }
   ImGui::PopStyleColor(3);
@@ -112,7 +113,7 @@ void GamePlay::mockCreateInventory() {
   inventory.push_back(scene->createEntity());
   scene->addComponents(inventory.at(3), std::make_shared<ItemType>(ItemTypes::ARMOUR), std::make_shared<TextureName>((std::string)image::items::armour::CLOAK2),
                        std::make_shared<Defense>(5.0f), std::make_shared<AttackBonus>(5.0f));
-  equippedItems.weapon = scene->createEntity();
-  scene->addComponents(equippedItems.weapon.value(), std::make_shared<ItemType>(ItemTypes::WEAPON),
-                       std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD2), std::make_shared<AttackRange>(5.0f, 10.0f));
+  // equippedItems.weapon = scene->createEntity();
+  // scene->addComponents(equippedItems.weapon.value(), std::make_shared<ItemType>(ItemTypes::WEAPON),
+  //                      std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD2), std::make_shared<AttackRange>(5.0f, 10.0f));
 }

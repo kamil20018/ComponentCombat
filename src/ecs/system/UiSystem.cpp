@@ -5,7 +5,6 @@ UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> contex
 void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
   ImGui::Begin("character", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
-
   // if the item isn't equipped we draw an empty texture
   std::string helmetTextureName =
       equippedItems.helmet ? scene->getComponent<TextureName>(equippedItems.helmet.value())->textureName : image::other::TRANSPARENT;
@@ -21,7 +20,6 @@ void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
   if (ImGui::IsItemHovered() && equippedItems.helmet) {
     showItemPopup(equippedItems.helmet.value());
   }
-
   // armour
   itemSize = ImGuiHelper::prepareItem(0.24f, 0.34f, 0.38f, 0.3f);
   ImGui::ImageButton(_assets->GetTexture(armourTextureName), ImGuiHelper::toVector2f(itemSize));
