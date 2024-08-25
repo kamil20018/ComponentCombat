@@ -4,7 +4,8 @@ UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> contex
 
 void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
-  ImGui::Begin("character", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
+  ImGui::Begin("character", nullptr,
+               ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   // if the item isn't equipped we draw an empty texture
   std::string helmetTextureName =
       equippedItems.helmet ? scene->getComponent<TextureName>(equippedItems.helmet.value())->textureName : image::other::TRANSPARENT;
@@ -45,7 +46,8 @@ void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
 
 void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems) {
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
-  ImGui::Begin("inventory", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
+  ImGui::Begin("inventory", nullptr,
+               ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   const int inventoryWidth = 4;
   const int inventoryHeight = 10;
   int eqCounter = 0;
@@ -189,16 +191,16 @@ void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
   }
 }
 
-json UiSystem::saveInventory(Inventory inventory){
+json UiSystem::saveInventory(Inventory inventory) {
   json save;
-  for(auto itemID: inventory){
+  for (auto itemID : inventory) {
     save.push_back(saveItem(itemID));
   }
   return save;
 }
 
-void UiSystem::loadInventory(json &j, Inventory &inventory){
-  for(auto &item: j){
+void UiSystem::loadInventory(json &j, Inventory &inventory) {
+  for (auto &item : j) {
     EntityID itemID = scene->createEntity();
     inventory.push_back(itemID);
     loadItem(item, itemID);
