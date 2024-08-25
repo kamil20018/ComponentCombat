@@ -4,7 +4,7 @@ UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> contex
 
 void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
-  ImGui::Begin("character", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  ImGui::Begin("character", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   // if the item isn't equipped we draw an empty texture
   std::string helmetTextureName =
       equippedItems.helmet ? scene->getComponent<TextureName>(equippedItems.helmet.value())->textureName : image::other::TRANSPARENT;
@@ -45,7 +45,7 @@ void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
 
 void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems) {
   ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
-  ImGui::Begin("inventory", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+  ImGui::Begin("inventory", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   const int inventoryWidth = 4;
   const int inventoryHeight = 10;
   int eqCounter = 0;
@@ -161,16 +161,6 @@ json UiSystem::saveEquippedItems(EquippedItems equippedItems) {
   return equippedItemsSave;
 }
 
-json UiSystem::saveItem(EntityID entityID) {
-  json j;
-  if (scene->entityHasComponent<ItemType>(entityID)) j.update(scene->getComponentSave(entityID, ItemType::id));
-  if (scene->entityHasComponent<TextureName>(entityID)) j.update(scene->getComponentSave(entityID, TextureName::id));
-  if (scene->entityHasComponent<AttackRange>(entityID)) j.update(scene->getComponentSave(entityID, AttackRange::id));
-  if (scene->entityHasComponent<Defense>(entityID)) j.update(scene->getComponentSave(entityID, Defense::id));
-  if (scene->entityHasComponent<AttackBonus>(entityID)) j.update(scene->getComponentSave(entityID, AttackBonus::id));
-  return j;
-}
-
 void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
   if (save.contains("helmet")) {
     EntityID helmetID = scene->createEntity();
@@ -197,6 +187,32 @@ void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
     equippedItems.boots = bootsID;
     loadItem(save["boots"], bootsID);
   }
+}
+
+json UiSystem::saveInventory(Inventory inventory){
+  json save;
+  for(auto itemID: inventory){
+    save.push_back(saveItem(itemID));
+  }
+  return save;
+}
+
+void UiSystem::loadInventory(json &j, Inventory &inventory){
+  for(auto &item: j){
+    EntityID itemID = scene->createEntity();
+    inventory.push_back(itemID);
+    loadItem(item, itemID);
+  }
+}
+
+json UiSystem::saveItem(EntityID entityID) {
+  json j;
+  if (scene->entityHasComponent<ItemType>(entityID)) j.update(scene->getComponentSave(entityID, ItemType::id));
+  if (scene->entityHasComponent<TextureName>(entityID)) j.update(scene->getComponentSave(entityID, TextureName::id));
+  if (scene->entityHasComponent<AttackRange>(entityID)) j.update(scene->getComponentSave(entityID, AttackRange::id));
+  if (scene->entityHasComponent<Defense>(entityID)) j.update(scene->getComponentSave(entityID, Defense::id));
+  if (scene->entityHasComponent<AttackBonus>(entityID)) j.update(scene->getComponentSave(entityID, AttackBonus::id));
+  return j;
 }
 
 void UiSystem::loadItem(json &save, EntityID entityID) {

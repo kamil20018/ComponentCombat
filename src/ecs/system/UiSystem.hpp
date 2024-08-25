@@ -11,6 +11,8 @@
 #include "ItemComponent.hpp"
 #include "Scene.hpp"
 
+typedef std::vector<EntityID> Inventory;
+
 struct EquippedItems {
   EquippedItems(){};
   EquippedItems(json j) {
@@ -43,10 +45,14 @@ class UiSystem {
 
   void handleCharacterScreen(EquippedItems equippedItems);
   void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
-  json saveEquippedItems(EquippedItems equippedItems);
-  json saveItem(EntityID entityID);
 
+  json saveEquippedItems(EquippedItems equippedItems);
   void loadEquippedItems(json &j, EquippedItems &equippedItems);
+
+  json saveInventory(Inventory inventory);
+  void loadInventory(json &j, Inventory &inventory);
+
+  json saveItem(EntityID entityID);
   void loadItem(json &j, EntityID entityID);
 
  private:

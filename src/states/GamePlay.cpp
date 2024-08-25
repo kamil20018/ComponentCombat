@@ -3,7 +3,7 @@
 GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(std::make_shared<Scene>()), system(scene), uiSystem(scene, context) {
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
-  mockCreateInventory();
+  //mockCreateInventory();
 }
 
 void GamePlay::init() {
@@ -11,8 +11,12 @@ void GamePlay::init() {
   json save;
   reader >> save;
   reader.close();
+  std::cout <<"here" << std::endl;
   loadPlayer(save["player"]);
+  std::cout <<"here" << std::endl;
   uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
+  uiSystem.loadInventory(save["inventory"], inventory);
+  std::cout <<"here3" << std::endl;
 }
 
 void GamePlay::processInput() {
@@ -143,9 +147,9 @@ void GamePlay::loadPlayer(json &playerData) {
 void GamePlay::updateSave() {
     json save {
       {"equippedItems", uiSystem.saveEquippedItems(equippedItems)},
+      {"inventory", uiSystem.saveInventory(inventory)},
       {"player", savePlayer()}
     };
-    std::cout << save << std::setw(4) << std::endl;
     std::ofstream file(context->savePath);  // loading the json object into a file
     file << std::setw(4) << save;
     file.close();

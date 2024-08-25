@@ -35,7 +35,7 @@ class GamePlay : public State {
   sf::Vector2i moveDir;
   EntityID player;
 
-  std::vector<EntityID> inventory;
+  Inventory inventory;
   EquippedItems equippedItems;
   void mockCreateInventory();
 
