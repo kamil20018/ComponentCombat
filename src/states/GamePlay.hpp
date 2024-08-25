@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include "Component.hpp"
 #include "Constants.hpp"
@@ -11,7 +12,6 @@
 #include "ImageLoader.hpp"
 #include "ImageNames.hpp"
 #include "ItemComponent.hpp"
-#include "SaveManager.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
 #include "system/System.hpp"
@@ -41,4 +41,8 @@ class GamePlay : public State {
 
   sf::Clock deltaClock;
   void drawDebugLines();
+
+  void loadPlayer(json &save);
+  json savePlayer();
+  void updateSave();
 };

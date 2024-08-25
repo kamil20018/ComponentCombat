@@ -3,13 +3,17 @@
 GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(std::make_shared<Scene>()), system(scene), uiSystem(scene, context) {
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
-  SaveManager::loadSave(savePath, scene);
-  equippedItems = EquippedItems(SaveManager::idMapping["equippedItems"]);
-  player = SaveManager::idMapping["player"];
   mockCreateInventory();
 }
 
-void GamePlay::init() {}
+void GamePlay::init() {
+  std::ifstream reader(context->savePath);
+  json save;
+  reader >> save;
+  reader.close();
+  loadPlayer(save["player"]);
+  uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
+}
 
 void GamePlay::processInput() {
   sf::Event event;
@@ -44,6 +48,7 @@ void GamePlay::processInput() {
 
 void GamePlay::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
+  system.moveEntity(player, moveDir);
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
   uiSystem.handleInventory(inventory, equippedItems);
@@ -90,8 +95,7 @@ void GamePlay::handleSaveButton() {
   ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(buttonHue, 0.7f, 0.7f));
   ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(buttonHue, 0.8f, 0.8f));
   if (ImGui::Button("Save", ImGui::GetContentRegionAvail())) {
-    SaveManager::idMapping["equippedItems"] = equippedItems.getIdMapping();
-    SaveManager::updateSave(context->savePath, scene);
+    updateSave();
   }
   ImGui::PopStyleColor(3);
   ImGui::End();
@@ -116,4 +120,33 @@ void GamePlay::mockCreateInventory() {
   // equippedItems.weapon = scene->createEntity();
   // scene->addComponents(equippedItems.weapon.value(), std::make_shared<ItemType>(ItemTypes::WEAPON),
   //                      std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD2), std::make_shared<AttackRange>(5.0f, 10.0f));
+}
+
+json GamePlay::savePlayer() {
+  json playerSave;
+  auto components = scene->getEntityComponents(player);
+  for (size_t i = 0; i < MAX_COMPONENTS; i++) {
+    bool hasComponent = (*components)[i];
+    if (hasComponent) {
+      playerSave.update(scene->getComponentSave(player, i));
+    }
+  }
+  return playerSave;
+}
+
+void GamePlay::loadPlayer(json &playerData) {
+  player = scene->createEntity();
+  scene->addComponents(player, std::make_shared<Position>(playerData["position"]), std::make_shared<BodyColor>(playerData["color"]),
+                       std::make_shared<Hp>((int)playerData["hp"]), std::make_shared<Size>(playerData["size"]));
+}
+
+void GamePlay::updateSave() {
+    json save {
+      {"equippedItems", uiSystem.saveEquippedItems(equippedItems)},
+      {"player", savePlayer()}
+    };
+    std::cout << save << std::setw(4) << std::endl;
+    std::ofstream file(context->savePath);  // loading the json object into a file
+    file << std::setw(4) << save;
+    file.close();
 }

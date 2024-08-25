@@ -34,15 +34,6 @@ struct EquippedItems {
     if (boots) items.push_back(boots.value());
     return items;
   }
-  json getIdMapping() {
-    json j;
-    if (helmet) j["helmet"] = helmet.value();
-    if (armour) j["armour"] = armour.value();
-    if (weapon) j["weapon"] = weapon.value();
-    if (pants) j["pants"] = pants.value();
-    if (boots) j["boots"] = boots.value();
-    return j;
-  }
 };
 
 /// @brief Handles ui rendering along with it's interactions with the ecs
@@ -52,6 +43,11 @@ class UiSystem {
 
   void handleCharacterScreen(EquippedItems equippedItems);
   void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
+  json saveEquippedItems(EquippedItems equippedItems);
+  json saveItem(EntityID entityID);
+
+  void loadEquippedItems(json &j, EquippedItems &equippedItems);
+  void loadItem(json &j, EntityID entityID);
 
  private:
   std::shared_ptr<Scene> scene;

@@ -150,3 +150,69 @@ void UiSystem::showItemPopup(EntityID id) {
   }
   ImGui::End();
 }
+
+json UiSystem::saveEquippedItems(EquippedItems equippedItems) {
+  json equippedItemsSave;
+  if (equippedItems.helmet) equippedItemsSave["helmet"] = saveItem(equippedItems.helmet.value());
+  if (equippedItems.armour) equippedItemsSave["armour"] = saveItem(equippedItems.armour.value());
+  if (equippedItems.weapon) equippedItemsSave["weapon"] = saveItem(equippedItems.weapon.value());
+  if (equippedItems.pants) equippedItemsSave["pants"] = saveItem(equippedItems.pants.value());
+  if (equippedItems.boots) equippedItemsSave["boots"] = saveItem(equippedItems.boots.value());
+  return equippedItemsSave;
+}
+
+json UiSystem::saveItem(EntityID entityID) {
+  json j;
+  if (scene->entityHasComponent<ItemType>(entityID)) j.update(scene->getComponentSave(entityID, ItemType::id));
+  if (scene->entityHasComponent<TextureName>(entityID)) j.update(scene->getComponentSave(entityID, TextureName::id));
+  if (scene->entityHasComponent<AttackRange>(entityID)) j.update(scene->getComponentSave(entityID, AttackRange::id));
+  if (scene->entityHasComponent<Defense>(entityID)) j.update(scene->getComponentSave(entityID, Defense::id));
+  if (scene->entityHasComponent<AttackBonus>(entityID)) j.update(scene->getComponentSave(entityID, AttackBonus::id));
+  return j;
+}
+
+void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
+  if (save.contains("helmet")) {
+    EntityID helmetID = scene->createEntity();
+    equippedItems.helmet = helmetID;
+    loadItem(save["helmet"], helmetID);
+  }
+  if (save.contains("armour")) {
+    EntityID armourID = scene->createEntity();
+    equippedItems.armour = armourID;
+    loadItem(save["armour"], armourID);
+  }
+  if (save.contains("weapon")) {
+    EntityID weaponID = scene->createEntity();
+    equippedItems.weapon = weaponID;
+    loadItem(save["weapon"], weaponID);
+  }
+  if (save.contains("pants")) {
+    EntityID pantsID = scene->createEntity();
+    equippedItems.pants = pantsID;
+    loadItem(save["pants"], pantsID);
+  }
+  if (save.contains("boots")) {
+    EntityID bootsID = scene->createEntity();
+    equippedItems.boots = bootsID;
+    loadItem(save["boots"], bootsID);
+  }
+}
+
+void UiSystem::loadItem(json &save, EntityID entityID) {
+  if (save.contains("itemType")) {
+    scene->addComponent<ItemType>(entityID, std::make_shared<ItemType>(save));
+  };
+  if (save.contains("textureName")) {
+    scene->addComponent<TextureName>(entityID, std::make_shared<TextureName>(save));
+  };
+  if (save.contains("attackRange")) {
+    scene->addComponent<AttackRange>(entityID, std::make_shared<AttackRange>(save));
+  };
+  if (save.contains("defense")) {
+    scene->addComponent<Defense>(entityID, std::make_shared<Defense>(save));
+  };
+  if (save.contains("attackBonus")) {
+    scene->addComponent<AttackBonus>(entityID, std::make_shared<AttackBonus>(save));
+  };
+}
