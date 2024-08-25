@@ -22,7 +22,7 @@ namespace component {
     Position(sf::Vector2i pos) : pos(pos){};
     Position(json j) : pos(sf::Vector2i(j[0], j[1])){};
     json serialize() override {
-      return json{{"Position", {pos.x, pos.y}}};
+      return json{{"position", {pos.x, pos.y}}};
     }
     std::string getDescription() override {
       return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str();
@@ -33,9 +33,9 @@ namespace component {
 
   struct Size : public Component {
     Size(int width, int height) : width(width), height(height){};
-    Size(json j) : width(j[0]), height(j[1]){};
+    Size(json j) : width(j["width"]), height(j["height"]){};
     json serialize() override {
-      return json{{"Size", {width, height}}};
+      return json{{"size", {{"width", width}, {"height", height}}}};
     }
     std::string getDescription() override {
       return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str();
@@ -47,9 +47,9 @@ namespace component {
 
   struct Hp : public Component {
     Hp(int hp) : hp(hp){};
-    Hp(json j) : hp(j["Hp"]){};
+    Hp(json j) : hp(j["hp"]){};
     json serialize() override {
-      return json{{"Hp", hp}};
+      return json{{"hp", hp}};
     }
     std::string getDescription() override {
       return (std::stringstream() << "HP | Hp: " << hp).str();
@@ -60,9 +60,9 @@ namespace component {
 
   struct Attack : public Component {
     Attack(int attack) : attack(attack){};
-    Attack(json j) : attack(j["Attack"]){};
+    Attack(json j) : attack(j["attack"]){};
     json serialize() override {
-      return json{{"Attack", attack}};
+      return json{{"attack", attack}};
     }
     std::string getDescription() override;
     inline static int id = -1;
@@ -71,9 +71,9 @@ namespace component {
 
   struct Poisoned : public Component {
     Poisoned(int damage, int duration) : damage(damage), duration(duration){};
-    Poisoned(json j) : damage(j["Damage"]), duration(j["Duration"]){};
+    Poisoned(json j) : damage(j["damage"]), duration(j["duration"]){};
     json serialize() override {
-      return json{{"Damage", damage}, {"Duration", duration}};
+      return json{{"damage", damage}, {"duration", duration}};
     }
     std::string getDescription() override {
       return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str();
@@ -85,13 +85,13 @@ namespace component {
 
   struct BodyColor : public Component {
     BodyColor(sf::Color color) : color(color){};
-    BodyColor(json j) : color(sf::Color(j["R"], j["G"], j["B"])){};
+    BodyColor(json j) : color(sf::Color(j["r"], j["g"], j["b"])){};
     json serialize() override {
-      return json{{"Color",
+      return json{{"color",
                    {
-                       {"R", color.r},
-                       {"G", color.g},
-                       {"B", color.b},
+                       {"r", color.r},
+                       {"g", color.g},
+                       {"b", color.b},
                    }}};
     }
     inline static int id = -1;
@@ -102,7 +102,7 @@ namespace component {
     Name(std::string name) : name(name){};
     Name(json j) : name(j["name"]){};
     json serialize() override {
-      return json{{"Name", name}};
+      return json{{"name", name}};
     }
 
     std::string getDescription() override {

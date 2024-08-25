@@ -7,16 +7,16 @@ namespace component {
   enum class ItemTypes { HELMET, ARMOUR, WEAPON, PANTS, BOOTS, NONE };
 
   struct ItemType : public Component {
-    ItemType(ItemTypes type) : type(type){};
-    ItemType(json j) : type(static_cast<ItemTypes>(j["ItemType"])){};
+    ItemType(ItemTypes itemType) : itemType(itemType){};
+    ItemType(json j) : itemType(static_cast<ItemTypes>(j["itemType"])){};
     json serialize() override {
-      return json{{"ItemType", {static_cast<int>(type)}}};
+      return json{{"itemType", {static_cast<int>(itemType)}}};
     }
     std::string getDescription() override {
-      return (std::stringstream() << "Item type | " << static_cast<int>(type)).str();
+      return (std::stringstream() << "Item type | " << static_cast<int>(itemType)).str();
     }
     inline static int id = -1;
-    ItemTypes type;
+    ItemTypes itemType;
   };
 
   struct TextureName : public Component {

@@ -59,7 +59,7 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
   actions.push_back([&]() {
     EntityID itemId = inventory.at(eqCounter);
     inventory.erase(inventory.begin() + eqCounter);
-    ItemTypes itemType = scene->getComponent<ItemType>(itemId)->type;
+    ItemTypes itemType = scene->getComponent<ItemType>(itemId)->itemType;
     switch (itemType) {
       case ItemTypes::HELMET:
         if (equippedItems.helmet) {

@@ -14,8 +14,8 @@ void SaveManager::loadPlayer(json &playerData, std::shared_ptr<Scene> scene) {
   EntityID player = scene->createEntity();
   SaveManager::idMapping["player"] = std::vector<EntityID>{player};
 
-  scene->addComponents(player, std::make_shared<Position>(playerData["Position"]), std::make_shared<BodyColor>(playerData["Color"]),
-                       std::make_shared<Hp>((int)playerData["Hp"]), std::make_shared<Size>(playerData["Size"]));
+  scene->addComponents(player, std::make_shared<Position>(playerData["position"]), std::make_shared<BodyColor>(playerData["color"]),
+                       std::make_shared<Hp>((int)playerData["hp"]), std::make_shared<Size>(playerData["size"]));
 }
 
 void SaveManager::updateSave(fs::path savePath, std::shared_ptr<Scene> scene) {
