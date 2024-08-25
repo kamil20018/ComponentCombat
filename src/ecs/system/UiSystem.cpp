@@ -9,9 +9,11 @@ void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
   // if the item isn't equipped we draw an empty texture
   std::string helmetTextureName =
       equippedItems.helmet ? scene->getComponent<TextureName>(equippedItems.helmet.value())->textureName : image::other::TRANSPARENT;
-  std::string armourTextureName = equippedItems.armour ? scene->getComponent<TextureName>(equippedItems.armour.value())->textureName : image::other::TRANSPARENT;
+  std::string armourTextureName =
+      equippedItems.armour ? scene->getComponent<TextureName>(equippedItems.armour.value())->textureName : image::other::TRANSPARENT;
   std::string bootsTextureName = equippedItems.boots ? scene->getComponent<TextureName>(equippedItems.boots.value())->textureName : image::other::TRANSPARENT;
-  std::string weaponTextureName = equippedItems.weapon ? scene->getComponent<TextureName>(equippedItems.weapon.value())->textureName : image::other::TRANSPARENT;
+  std::string weaponTextureName =
+      equippedItems.weapon ? scene->getComponent<TextureName>(equippedItems.weapon.value())->textureName : image::other::TRANSPARENT;
 
   // helmet
   ImVec2 itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.1f, true);
@@ -123,6 +125,7 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
           for (int i = 0; i < IM_ARRAYSIZE(actionNames); i++) {
             if (ImGui::Button(actionNames[i])) {
               actions.at(i)();
+              ImGui::CloseCurrentPopup();
             }
           }
           ImGui::EndPopup();

@@ -99,8 +99,8 @@ void GamePlay::handleSaveButton() {
 
 void GamePlay::mockCreateInventory() {
   inventory.push_back(scene->createEntity());
-  scene->addComponents(inventory.at(0), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD1),
-                       std::make_shared<AttackRange>(5.0f, 10.0f));
+  scene->addComponents(inventory.at(0), std::make_shared<ItemType>(ItemTypes::WEAPON),
+                       std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD1), std::make_shared<AttackRange>(5.0f, 10.0f));
 
   inventory.push_back(scene->createEntity());
   scene->addComponents(inventory.at(1), std::make_shared<ItemType>(ItemTypes::WEAPON), std::make_shared<TextureName>((std::string)image::items::weapon::DAGGER),
