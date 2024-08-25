@@ -11,12 +11,9 @@ void GamePlay::init() {
   json save;
   reader >> save;
   reader.close();
-  std::cout << "here" << std::endl;
   loadPlayer(save["player"]);
-  std::cout << "here" << std::endl;
   uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
   uiSystem.loadInventory(save["inventory"], inventory);
-  std::cout << "here3" << std::endl;
 }
 
 void GamePlay::processInput() {
@@ -56,7 +53,7 @@ void GamePlay::update() {
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
   uiSystem.handleInventory(inventory, equippedItems);
-  uiSystem.handleCharacterScreen(equippedItems);
+  uiSystem.handleCharacterScreen(equippedItems, inventory);
 }
 
 void GamePlay::draw() {

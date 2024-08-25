@@ -43,7 +43,7 @@ class UiSystem {
  public:
   UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context);
 
-  void handleCharacterScreen(EquippedItems equippedItems);
+  void handleCharacterScreen(EquippedItems &equippedItems, Inventory &inventory);
   void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
 
   json saveEquippedItems(EquippedItems equippedItems);

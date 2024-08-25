@@ -2,7 +2,9 @@
 
 UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context) : scene(scene), context(context){};
 
-void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
+void UiSystem::handleCharacterScreen(EquippedItems &equippedItems, Inventory &inventory) {
+  std::string equippedActions{"equippedActions"};
+
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
   ImGui::Begin("character", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
@@ -15,31 +17,55 @@ void UiSystem::handleCharacterScreen(EquippedItems equippedItems) {
   std::string weaponTextureName =
       equippedItems.weapon ? scene->getComponent<TextureName>(equippedItems.weapon.value())->textureName : image::other::TRANSPARENT;
 
+  static std::optional<EntityID> *eqRef;
+
   // helmet
   ImVec2 itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.1f, true);
-  ImGui::ImageButton(_assets->GetTexture(helmetTextureName), ImGuiHelper::toVector2f(itemSize));
+  if (ImGui::ImageButton(_assets->GetTexture(helmetTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.helmet) {
+    eqRef = &equippedItems.helmet;
+    ImGui::OpenPopup(equippedActions.c_str());
+  }
   if (ImGui::IsItemHovered() && equippedItems.helmet) {
     showItemPopup(equippedItems.helmet.value());
   }
   // armour
   itemSize = ImGuiHelper::prepareItem(0.24f, 0.34f, 0.38f, 0.3f);
-  ImGui::ImageButton(_assets->GetTexture(armourTextureName), ImGuiHelper::toVector2f(itemSize));
+  if (ImGui::ImageButton(_assets->GetTexture(armourTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.armour) {
+    eqRef = &equippedItems.armour;
+    ImGui::OpenPopup(equippedActions.c_str());
+  }
   if (ImGui::IsItemHovered() && equippedItems.armour) {
     showItemPopup(equippedItems.armour.value());
   }
 
   // boots
   itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.7f, true);
-  ImGui::ImageButton(_assets->GetTexture(bootsTextureName), ImGuiHelper::toVector2f(itemSize));
+  if (ImGui::ImageButton(_assets->GetTexture(bootsTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.boots) {
+    eqRef = &equippedItems.boots;
+    ImGui::OpenPopup(equippedActions.c_str());
+  }
   if (ImGui::IsItemHovered() && equippedItems.boots) {
     showItemPopup(equippedItems.boots.value());
   }
 
   // weapon
   itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.07f, 0.4f, true);
-  ImGui::ImageButton(_assets->GetTexture(weaponTextureName), ImGuiHelper::toVector2f(itemSize));
+  if (ImGui::ImageButton(_assets->GetTexture(weaponTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.weapon) {
+    eqRef = &equippedItems.weapon;
+    ImGui::OpenPopup(equippedActions.c_str());
+  }
   if (ImGui::IsItemHovered() && equippedItems.weapon) {
     showItemPopup(equippedItems.weapon.value());
+  }
+
+  if (ImGui::BeginPopup(equippedActions.c_str())) {
+    if (ImGui::Button("unequip")) {
+      inventory.push_back(eqRef->value());
+      eqRef->reset();
+      ImGui::CloseCurrentPopup();
+    }
+
+    ImGui::EndPopup();
   }
   ImGui::End();
 }
