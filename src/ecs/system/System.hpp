@@ -7,6 +7,8 @@
 #include "imgui-SFML.h"
 #include "imgui.h"
 
+#include "component/ActorComponent.hpp"
+
 class System {
  public:
   System(std::shared_ptr<Scene> scene);

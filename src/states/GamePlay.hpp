@@ -5,13 +5,14 @@
 #include <iostream>
 #include <vector>
 
-#include "Component.hpp"
+#include "component/Component.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"
 #include "ImGuiHelper.hpp"
 #include "ImageLoader.hpp"
 #include "ImageNames.hpp"
-#include "ItemComponent.hpp"
+#include "component/ItemComponent.hpp"
+#include "component/ActorComponent.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
 #include "system/System.hpp"

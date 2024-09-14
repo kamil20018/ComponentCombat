@@ -1,12 +1,52 @@
 {
-  "player": {
-    "Position": [14, 13],
-    "Color": {
-      "R": 255,
-      "G": 0,
-      "B": 0
+    "equippedItems": {
+        "armour": {
+            "attackBonus": 5.0,
+            "defense": 5.0,
+            "itemType": 1,
+            "textureName": "cloak2.png"
+        },
+        "weapon": {
+            "attackRange": {
+                "max": 20.0,
+                "min": 15.0
+            },
+            "itemType": 2,
+            "textureName": "dagger.png"
+        }
     },
-    "Size": [40, 40],
-    "Hp": 100 
-  } 
+    "inventory": [
+        {
+            "attackRange": {
+                "max": 10.0,
+                "min": 5.0
+            },
+            "itemType": 2,
+            "textureName": "greatsword1.png"
+        },
+        {
+            "attackRange": {
+                "max": 30.0,
+                "min": 25.0
+            },
+            "itemType": 2,
+            "textureName": "club.png"
+        }
+    ],
+    "player": {
+        "color": {
+            "b": 0,
+            "g": 0,
+            "r": 255
+        },
+        "hp": 100,
+        "position": [
+            8,
+            7
+        ],
+        "size": {
+            "height": 40,
+            "width": 40
+        }
+    }
 }

@@ -9,6 +9,7 @@ target_link_libraries(ecs
 )
 
 set(SystemPath ${CMAKE_CURRENT_LIST_DIR}/system)
+set(ComponentPath ${CMAKE_CURRENT_LIST_DIR}/component)
 
 target_sources(ecs
   PRIVATE
@@ -17,8 +18,9 @@ target_sources(ecs
     ${SystemPath}/UiSystem.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Constants.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/Component.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/ItemComponent.hpp
+    ${ComponentPath}/Component.hpp
+    ${ComponentPath}/ActorComponent.hpp
+    ${ComponentPath}/ItemComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Registry.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Scene.hpp
     ${SystemPath}/System.hpp

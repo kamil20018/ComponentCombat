@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "Component.hpp"
+#include "component/Component.hpp"
 
 using namespace component;
 

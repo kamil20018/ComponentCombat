@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Component.hpp"
+#include "component/Component.hpp"
 
 namespace component {
   /// @brief Serialized to int
