@@ -17,6 +17,7 @@
 #include "State.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
+#include "system/BehaviorSystem.hpp"
 
 class GamePlay : public State {
  public:

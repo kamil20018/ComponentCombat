@@ -6,6 +6,7 @@ target_link_libraries(ecs
     nlohmann_json::nlohmann_json
     utility
     stateManager
+    BT::behaviortree_cpp
 )
 
 set(SystemPath ${CMAKE_CURRENT_LIST_DIR}/system)
@@ -16,6 +17,7 @@ target_sources(ecs
     ${CMAKE_CURRENT_LIST_DIR}/Scene.cpp
     ${SystemPath}/System.cpp
     ${SystemPath}/UiSystem.cpp
+    ${SystemPath}/BehaviorSystem.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Constants.hpp
     ${ComponentPath}/Component.hpp
@@ -24,6 +26,7 @@ target_sources(ecs
     ${CMAKE_CURRENT_LIST_DIR}/Registry.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Scene.hpp
     ${SystemPath}/System.hpp
+    ${SystemPath}/BehaviorSystem.hpp
     ${SystemPath}/UiSystem.cpp
   )
 

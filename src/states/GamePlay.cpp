@@ -14,6 +14,15 @@ void GamePlay::init() {
   loadPlayer(save["player"]);
   uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
   uiSystem.loadInventory(save["inventory"], inventory);
+
+
+
+  BT::BehaviorTreeFactory factory;
+
+  factory.registerNodeType<ApproachObject>("ApproachObject");
+  factory.registerNodeType<OpenSth>("OpenSth");
+  auto tree = factory.createTreeFromFile(fs::current_path().parent_path() / "resources" / "behavior_trees" / "my_tree.xml");
+  tree.tickWhileRunning();
 }
 
 void GamePlay::processInput() {

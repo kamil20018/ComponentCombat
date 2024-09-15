@@ -1,5 +1,4 @@
-message(STATUS "Fetching BehaviorTree.cpp...")
-
+include(FetchContent)
 FetchContent_Declare(
     behavior-tree
     GIT_REPOSITORY "https://github.com/BehaviorTree/BehaviorTree.CPP"
