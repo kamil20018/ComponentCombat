@@ -9,26 +9,22 @@ target_link_libraries(ecs
     BT::behaviortree_cpp
 )
 
-set(SystemPath ${CMAKE_CURRENT_LIST_DIR}/system)
-set(ComponentPath ${CMAKE_CURRENT_LIST_DIR}/component)
+file(GLOB_RECURSE fileCpp CONFIGURE_DEPENDS
+  "*.cpp"
+)
+
+file(GLOB_RECURSE fileHpp CONFIGURE_DEPENDS
+  "*.h"
+  "*.hpp"
+)
 
 target_sources(ecs
   PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/Scene.cpp
-    ${SystemPath}/System.cpp
-    ${SystemPath}/UiSystem.cpp
-    ${SystemPath}/BehaviorSystem.cpp
+    ${fileCpp}
   PUBLIC
-    ${CMAKE_CURRENT_LIST_DIR}/Constants.hpp
-    ${ComponentPath}/Component.hpp
-    ${ComponentPath}/ActorComponent.hpp
-    ${ComponentPath}/ItemComponent.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/Registry.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/Scene.hpp
-    ${SystemPath}/System.hpp
-    ${SystemPath}/BehaviorSystem.hpp
-    ${SystemPath}/UiSystem.cpp
+    ${fileHpp}
   )
+
 
 target_include_directories(ecs
   PUBLIC

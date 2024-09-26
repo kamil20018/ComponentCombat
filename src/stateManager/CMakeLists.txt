@@ -6,16 +6,20 @@ target_link_libraries(stateManager
     nlohmann_json::nlohmann_json
 )
 
+file(GLOB fileCpp CONFIGURE_DEPENDS
+  "*.cpp"
+)
+
+file(GLOB fileHpp CONFIGURE_DEPENDS
+  "*.h"
+  "*.hpp"
+)
+
 target_sources(stateManager
   PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/StateManager.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/AssetManager.cpp
+    ${fileCpp}
   PUBLIC
-  
-    ${CMAKE_CURRENT_LIST_DIR}/StateManager.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/AssetManager.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/State.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/Context.hpp
+    ${fileHpp}
   )
 
 target_include_directories(stateManager

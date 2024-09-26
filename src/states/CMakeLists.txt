@@ -9,20 +9,20 @@ target_link_libraries(states
     utility
 )
 
+file(GLOB fileCpp CONFIGURE_DEPENDS
+  "*.cpp"
+)
+
+file(GLOB fileHpp CONFIGURE_DEPENDS
+  "*.h"
+  "*.hpp"
+)
+
 target_sources(states
   PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/Game.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/LoadGame.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/MainMenu.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/GamePlay.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/UiTest.cpp
+    ${fileCpp}
   PUBLIC
-  ${CMAKE_CURRENT_LIST_DIR}/Game.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/LoadGame.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/MainMenu.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/GamePlay.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/ImageLoader.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/UiTest.hpp	
+    ${fileHpp}
   )
 
 target_include_directories(states

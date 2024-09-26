@@ -6,13 +6,22 @@ target_link_libraries(utility
     ImGui-SFML::ImGui-SFML
 )
 
+file(GLOB fileCpp CONFIGURE_DEPENDS
+  "*.cpp"
+)
+
+file(GLOB fileHpp CONFIGURE_DEPENDS
+  "*.h"
+  "*.hpp"
+)
+
 target_sources(utility
   PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/ImGuiHelper.cpp
+    ${fileCpp}
   PUBLIC
-    ${CMAKE_CURRENT_LIST_DIR}/ImGuiHelper.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/ImageNames.hpp
+    ${fileHpp}
   )
+
 
 target_include_directories(utility
   PUBLIC

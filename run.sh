@@ -2,7 +2,7 @@
 
 thread_count=$(nproc --all)
 
-while getopts 'brashcfl' OPTION; do
+while getopts 'brashcCfl' OPTION; do
     case "$OPTION" in
         h)
             echo "run - can set up the cmake project, build it and run it."
