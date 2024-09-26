@@ -5,19 +5,19 @@
 #include <iostream>
 #include <vector>
 
-#include "component/Component.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"
 #include "ImGuiHelper.hpp"
 #include "ImageLoader.hpp"
 #include "ImageNames.hpp"
-#include "component/ItemComponent.hpp"
-#include "component/ActorComponent.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
+#include "component/ActorComponent.hpp"
+#include "component/Component.hpp"
+#include "component/ItemComponent.hpp"
+#include "system/BehaviorSystem.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
-#include "system/BehaviorSystem.hpp"
 
 class GamePlay : public State {
  public:
@@ -36,6 +36,7 @@ class GamePlay : public State {
 
   sf::Vector2i moveDir;
   EntityID player;
+  EntityID enemy;
 
   Inventory inventory;
   EquippedItems equippedItems;
@@ -47,4 +48,5 @@ class GamePlay : public State {
   void loadPlayer(json &save);
   json savePlayer();
   void updateSave();
+  BT::Tree tree;
 };

@@ -15,14 +15,52 @@ void GamePlay::init() {
   uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
   uiSystem.loadInventory(save["inventory"], inventory);
 
-
+  enemy = scene->createEntity();
+  scene->addComponents(enemy, std::make_shared<BodyColor>(sf::Color::Blue), std::make_shared<Position>(sf::Vector2i(2, 2)), std::make_shared<Size>(40, 40),
+                       std::make_shared<Sight>(14), std::make_shared<Range>(7));
 
   BT::BehaviorTreeFactory factory;
+  factory.registerSimpleCondition("InSight", [&](BT::TreeNode &) {
+    auto playerPos = scene->getComponent<Position>(player);
+    auto enemyPos = scene->getComponent<Position>(enemy);
+    auto sight = scene->getComponent<Sight>(enemy);
+    float distance = sqrt(pow(playerPos->pos.x - enemyPos->pos.x, 2) + pow(playerPos->pos.y - enemyPos->pos.y, 2));
+    return distance < sight->sight ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
+  });
+  factory.registerSimpleCondition("InRange", [&](BT::TreeNode &) {
+    auto playerPos = scene->getComponent<Position>(player);
+    auto enemyPos = scene->getComponent<Position>(enemy);
+    auto range = scene->getComponent<Range>(enemy);
+    float distance = sqrt(pow(playerPos->pos.x - enemyPos->pos.x, 2) + pow(playerPos->pos.y - enemyPos->pos.y, 2));
+    return distance < range->range ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
+  });
+  factory.registerSimpleCondition("ApproachPlayer",
+                                  [&](BT::TreeNode &) {
+                                    auto playerPos = &scene->getComponent<Position>(player)->pos;
+                                    auto enemyPos = &scene->getComponent<Position>(enemy)->pos;
+                                    auto distance = sf::Vector2i(playerPos->x - enemyPos->x, playerPos->y - enemyPos->y);
+                                    bool hor = abs(distance.x) > abs(distance.y);
+                                    if (hor) {
+                                      if (distance.x > 0) {
+                                        *enemyPos += sf::Vector2i(1, 0);
+                                      } else if (distance.x < 0) {
+                                        *enemyPos += sf::Vector2i(-1, 0);
+                                      }
+                                    } else {
+                                      if (distance.y > 0) {
+                                        *enemyPos += sf::Vector2i(0, 1);
+                                      } else if (distance.y < 0) {
+                                        *enemyPos += sf::Vector2i(0, -1);
+                                      }
+                                    }
 
-  factory.registerNodeType<ApproachObject>("ApproachObject");
-  factory.registerNodeType<OpenSth>("OpenSth");
-  auto tree = factory.createTreeFromFile(fs::current_path().parent_path() / "resources" / "behavior_trees" / "my_tree.xml");
-  tree.tickWhileRunning();
+                                    return BT::NodeStatus::SUCCESS;
+                                  }
+
+  );
+  // factory.registerNodeType<ApproachObject>("ApproachObject", scene, player);
+  // factory.registerNodeType<OpenSth>("OpenSth");
+  tree = factory.createTreeFromFile(fs::current_path().parent_path() / "resources" / "behavior_trees" / "my_tree.xml");
 }
 
 void GamePlay::processInput() {
@@ -59,6 +97,7 @@ void GamePlay::processInput() {
 void GamePlay::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
   system.moveEntity(player, moveDir);
+  if (moveDir != sf::Vector2i(0, 0)) tree.tickExactlyOnce();
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
   uiSystem.handleInventory(inventory, equippedItems);

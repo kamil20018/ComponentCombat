@@ -1,0 +1,3 @@
+#behaviortree_cpp deps
+libzmq3-dev
+sqlite3

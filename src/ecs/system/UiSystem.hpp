@@ -8,8 +8,8 @@
 #include "Context.hpp"
 #include "ImGuiHelper.hpp"
 #include "ImageNames.hpp"
-#include "component/ItemComponent.hpp"
 #include "Scene.hpp"
+#include "component/ItemComponent.hpp"
 
 typedef std::vector<EntityID> Inventory;
 

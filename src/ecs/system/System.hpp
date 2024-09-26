@@ -4,10 +4,9 @@
 
 #include "Constants.hpp"
 #include "Scene.hpp"
+#include "component/ActorComponent.hpp"
 #include "imgui-SFML.h"
 #include "imgui.h"
-
-#include "component/ActorComponent.hpp"
 
 class System {
  public:

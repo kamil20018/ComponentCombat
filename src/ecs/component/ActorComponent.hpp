@@ -98,4 +98,32 @@ namespace component {
     inline static int id = -1;
     std::string name;
   };
+
+  struct Sight : public Component {
+    Sight(int sight) : sight(sight){};
+    Sight(json j) : sight(j["sight"]){};
+    json serialize() override {
+      return json{{"sight", sight}};
+    }
+
+    std::string getDescription() override {
+      return (std::stringstream() << "SIGHT | sight: " << sight).str();
+    }
+    inline static int id = -1;
+    int sight;
+  };
+
+  struct Range : public Component {
+    Range(int range) : range(range){};
+    Range(json j) : range(j["range"]){};
+    json serialize() override {
+      return json{{"range", range}};
+    }
+
+    std::string getDescription() override {
+      return (std::stringstream() << "RANGE | range: " << range).str();
+    }
+    inline static int id = -1;
+    int range;
+  };
 }  // namespace component

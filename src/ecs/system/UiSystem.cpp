@@ -76,7 +76,7 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   const int inventoryWidth = 4;
   const int inventoryHeight = 10;
-  int eqCounter = 0;
+  size_t eqCounter = 0;
 
   static int selectedAction = -1;
   const char *actionNames[] = {"Equip", "Delete"};
