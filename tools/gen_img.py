@@ -1,8 +1,8 @@
 from pathlib import Path
 import os
-GEN_FILE_PATH = "src/utility/ImageNames.hpp"
+GEN_FILE_PATH = "../src/utility/ImageNames.hpp"
 
-IMAGE_PATH = 'resources/images'
+IMAGE_PATH = '../resources/images'
 IMAGE_REGEX = '*.png'
 
 def write_file_start(toGen):
