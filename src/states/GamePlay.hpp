@@ -18,6 +18,7 @@
 #include "system/BehaviorSystem.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
+#include "CombatLog.hpp"
 
 class GamePlay : public State {
  public:

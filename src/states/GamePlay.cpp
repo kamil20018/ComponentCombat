@@ -4,6 +4,8 @@ GamePlay::GamePlay(std::shared_ptr<Context> context) : context(context), scene(s
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
   // mockCreateInventory();
+  // CombatLog::test();
+  
 }
 
 void GamePlay::init() {
@@ -39,8 +41,11 @@ void GamePlay::init() {
     auto playerHp = &scene->getComponent<Hp>(player)->hp;
     *playerHp -= enemyAttack;
     std::cout << "-----NEXT ATTACK-----" << std::endl;
+    CombatLog::addLog("-----NEXT ATTACK-----", LogType::COMBAT);
     std::cout << "player hp: " << scene->getComponent<Hp>(player)->hp << std::endl;
+    CombatLog::addLog((std::stringstream() << "player was hit with " << enemyAttack << " damage").str(), LogType::COMBAT);
     std::cout << "player was hit with " << enemyAttack << " damage" << std::endl;
+    CombatLog::addLog((std::stringstream() << "player has " << *playerHp << " hp left").str(), LogType::COMBAT);
     std::cout << "player has " << *playerHp << " hp left" << std::endl;
     return BT::NodeStatus::SUCCESS;
   });
@@ -121,6 +126,7 @@ void GamePlay::draw() {
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
 
+  CombatLog::display();
   ImGui::ShowDemoWindow();
   ImGui::SFML::Render(*_window);
 

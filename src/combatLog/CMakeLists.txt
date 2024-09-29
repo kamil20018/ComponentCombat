@@ -1,13 +1,9 @@
-add_library(states "")
+add_library(combatLog "")
 
-target_link_libraries(states
+target_link_libraries(combatLog
   PUBLIC
-    nlohmann_json::nlohmann_json
     ImGui-SFML::ImGui-SFML
     utility
-    combatLog
-    stateManager
-    ecs
 )
 
 file(GLOB fileCpp CONFIGURE_DEPENDS
@@ -19,14 +15,14 @@ file(GLOB fileHpp CONFIGURE_DEPENDS
   "*.hpp"
 )
 
-target_sources(states
+target_sources(combatLog
   PRIVATE
     ${fileCpp}
   PUBLIC
     ${fileHpp}
   )
 
-target_include_directories(states
+target_include_directories(combatLog
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
   )

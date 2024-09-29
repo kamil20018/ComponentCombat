@@ -3,6 +3,7 @@ add_executable(game Source.cpp)
 add_subdirectory(stateManager)
 add_subdirectory(ecs)
 add_subdirectory(states)
+add_subdirectory(combatLog)
 add_subdirectory(utility)
 
 target_link_libraries(game
@@ -13,4 +14,5 @@ target_link_libraries(game
     ecs
     states
     utility
+    combatLog
   )
