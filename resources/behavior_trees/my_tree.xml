@@ -1,11 +1,16 @@
  <root BTCPP_format="4" >
      <BehaviorTree ID="MainTree">
         <Sequence name="root_sequence">
-            <Action ID="InSight"/>
-            <Fallback>
-                <Action ID="InRange"/>
-                <Action ID="ApproachPlayer"/>
-            </Fallback>
+            <Sequence> <!-- attack sequence -->
+                <Action ID="InSight"/>
+                <Fallback>
+                    <Sequence>
+                        <Action ID="InRange"/>
+                        <Action ID="AttackPlayer"/>
+                    </Sequence>
+                    <Action ID="ApproachPlayer"/>
+                </Fallback>
+            </Sequence>
         </Sequence>
      </BehaviorTree>
  </root>

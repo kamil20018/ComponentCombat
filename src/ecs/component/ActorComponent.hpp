@@ -51,7 +51,9 @@ namespace component {
     json serialize() override {
       return json{{"attack", attack}};
     }
-    std::string getDescription() override;
+    std::string getDescription() override{
+      return (std::stringstream() << "ATTACK | " << attack).str();
+    };
     inline static int id = -1;
     int attack;
   };

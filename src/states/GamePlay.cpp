@@ -17,7 +17,7 @@ void GamePlay::init() {
 
   enemy = scene->createEntity();
   scene->addComponents(enemy, std::make_shared<BodyColor>(sf::Color::Blue), std::make_shared<Position>(sf::Vector2i(2, 2)), std::make_shared<Size>(40, 40),
-                       std::make_shared<Sight>(14), std::make_shared<Range>(7));
+                       std::make_shared<Sight>(14), std::make_shared<Range>(7),std::make_shared<Attack>(7));
 
   BT::BehaviorTreeFactory factory;
   factory.registerSimpleCondition("InSight", [&](BT::TreeNode &) {
@@ -33,6 +33,16 @@ void GamePlay::init() {
     auto range = scene->getComponent<Range>(enemy);
     float distance = sqrt(pow(playerPos->pos.x - enemyPos->pos.x, 2) + pow(playerPos->pos.y - enemyPos->pos.y, 2));
     return distance < range->range ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
+  });
+  factory.registerSimpleCondition("AttackPlayer", [&](BT::TreeNode &) {
+    auto enemyAttack = scene->getComponent<Attack>(enemy)->attack;
+    auto playerHp = &scene->getComponent<Hp>(player)->hp;
+    *playerHp -= enemyAttack;
+    std::cout << "-----NEXT ATTACK-----" << std::endl;
+    std::cout << "player hp: " << scene->getComponent<Hp>(player)->hp << std::endl;
+    std::cout << "player was hit with " << enemyAttack << " damage" << std::endl;
+    std::cout << "player has " << *playerHp << " hp left" << std::endl;
+    return BT::NodeStatus::SUCCESS;
   });
   factory.registerSimpleCondition("ApproachPlayer",
                                   [&](BT::TreeNode &) {
