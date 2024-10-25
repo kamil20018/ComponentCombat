@@ -36,7 +36,7 @@ struct {component_name}: public Component {{
       return (std::stringstream() << {vars_to_description()}).str();
     }}
     inline static int id = -1;
-    {vars_to_members()}
+    {vars_to_members()};
 }}
 """
 print(to_print)

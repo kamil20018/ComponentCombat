@@ -1,8 +1,13 @@
 #pragma once
 
+#include <filesystem>
+
+#include "behaviortree_cpp/bt_factory.h"
 #include "component/Component.hpp"
+#include "component/ComponentHelpers.hpp"
 
 using json = nlohmann::json;
+namespace fs = std::filesystem;
 
 namespace component {
   struct Position : public Component {
@@ -51,7 +56,7 @@ namespace component {
     json serialize() override {
       return json{{"attack", attack}};
     }
-    std::string getDescription() override{
+    std::string getDescription() override {
       return (std::stringstream() << "ATTACK | " << attack).str();
     };
     inline static int id = -1;
@@ -88,8 +93,8 @@ namespace component {
   };
 
   struct Name : public Component {
-    Name(std::string name) : name(name){};
-    Name(json j) : name(j["name"]){};
+    explicit Name(std::string name) : name(name){};
+    explicit Name(json j) : name(j["name"]){};
     json serialize() override {
       return json{{"name", name}};
     }
@@ -127,5 +132,21 @@ namespace component {
     }
     inline static int id = -1;
     int range;
+  };
+
+  struct BehaviorTree : public Component {
+    BehaviorTree(BT::BehaviorTreeFactory&& factory, fs::path path, BtType type) : path(path), type(type) {
+      tree = factory.createTreeFromFile(path);
+    };
+    json serialize() override {
+      return json{{"type", BtTypeToString.at(static_cast<int>(type))}, {"path", path.string()}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "BEHAVIOURTREE | tree: " << BtTypeToString.at(static_cast<int>(type))).str();
+    }
+    inline static int id = -1;
+    BT::Tree tree;
+    fs::path path;
+    BtType type;
   };
 }  // namespace component

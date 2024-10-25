@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 
+#include "CombatLog.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"
 #include "ImGuiHelper.hpp"
@@ -16,10 +17,9 @@
 #include "component/Component.hpp"
 #include "component/ItemComponent.hpp"
 #include "system/BehaviorSystem.hpp"
+#include "system/EnemySystem.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
-#include "CombatLog.hpp"
-
 class GamePlay : public State {
  public:
   GamePlay(std::shared_ptr<Context> context);
@@ -34,10 +34,10 @@ class GamePlay : public State {
   std::shared_ptr<Scene> scene;
   System system;
   UiSystem uiSystem;
+  EnemySystem enemySystem;
 
   sf::Vector2i moveDir;
   EntityID player;
-  EntityID enemy;
 
   Inventory inventory;
   EquippedItems equippedItems;

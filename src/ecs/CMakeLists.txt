@@ -6,6 +6,7 @@ target_link_libraries(ecs
     nlohmann_json::nlohmann_json
     utility
     stateManager
+    combatLog
     BT::behaviortree_cpp
 )
 
