@@ -1,35 +1,48 @@
 #pragma once
 
+#include <memory>
+
+#include "CombatLog.hpp"
 #include "Scene.hpp"
 #include "behaviortree_cpp/bt_factory.h"
 #include "component/ActorComponent.hpp"
 
-class ApproachObject : public BT::SyncActionNode {
+class InSight : public BT::ConditionNode {
  public:
-  ApproachObject(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<Scene> scene, EntityID playerID)
-      : BT::SyncActionNode(name, config), scene(scene), playerID(playerID) {}
-
-  // You must override the virtual function tick()
-  BT::NodeStatus tick() override {
-    std::cout << "ApproachObject" << std::endl;
-    auto position = scene->getComponent<component::Position>(playerID);
-    std::cout << "player pos from tree: " << position->pos.x;
-    return BT::NodeStatus::SUCCESS;
-  }
-  static BT::PortsList providedPorts() {
-    return {};
-  }
+  InSight(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene);
+  static BT::PortsList providedPorts();
+  BT::NodeStatus tick() override;
+  EntityID player;
+  EntityID enemy;
   std::shared_ptr<Scene> scene;
-  EntityID playerID;
 };
 
-class OpenSth : public BT::SyncActionNode {
+class InRange : public BT::ConditionNode {
  public:
-  OpenSth(const std::string& name) : BT::SyncActionNode(name, {}) {}
+  InRange(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene);
+  static BT::PortsList providedPorts();
+  BT::NodeStatus tick() override;
+  EntityID player;
+  EntityID enemy;
+  std::shared_ptr<Scene> scene;
+};
 
-  // You must override the virtual function tick()
-  BT::NodeStatus tick() override {
-    std::cout << "OpenSth: " << this->name() << std::endl;
-    return BT::NodeStatus::SUCCESS;
-  }
+class AttackPlayer : public BT::SyncActionNode {
+ public:
+  AttackPlayer(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene);
+  static BT::PortsList providedPorts();
+  BT::NodeStatus tick() override;
+  EntityID player;
+  EntityID enemy;
+  std::shared_ptr<Scene> scene;
+};
+
+class ApproachPlayer : public BT::SyncActionNode {
+ public:
+  ApproachPlayer(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene);
+  static BT::PortsList providedPorts();
+  BT::NodeStatus tick() override;
+  EntityID player;
+  EntityID enemy;
+  std::shared_ptr<Scene> scene;
 };

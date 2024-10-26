@@ -3,6 +3,7 @@
 #include <array>
 #include <ctime>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 #include "ImGuiHelper.hpp"
@@ -23,6 +24,7 @@ class CombatLog {
   static std::string getHour(tm datetime, bool includeSeconds = true);
   static void addLog(LogEntry logEntry);
   static void addLog(std::string message, LogType logType);
+  static void addLog(std::stringstream message, LogType logType);
   static void display();
 
  private:

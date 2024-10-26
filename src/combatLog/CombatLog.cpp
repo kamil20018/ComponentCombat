@@ -23,6 +23,14 @@ void CombatLog::addLog(std::string message, LogType logType) {
   trimLog();
 }
 
+void CombatLog::addLog(std::stringstream message, LogType logType) {
+  scrollToBottom = true;
+  time_t timestamp = time(&timestamp);
+  struct tm datetime = *localtime(&timestamp);
+  logs.push_back({logType, datetime, message.str()});
+  trimLog();
+}
+
 void CombatLog::trimLog() {
   if (logs.size() > LOG_CAP) {
     logs.erase(logs.begin(), logs.begin() + (logs.size() - LOG_CAP));

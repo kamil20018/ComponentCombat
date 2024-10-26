@@ -8,7 +8,7 @@
 #include "behaviortree_cpp/bt_factory.h"
 #include "component/ActorComponent.hpp"
 #include "component/ComponentHelpers.hpp"
-
+#include "system/BehaviorSystem.hpp"
 using ss = std::stringstream;
 class EnemySystem {
  public:
