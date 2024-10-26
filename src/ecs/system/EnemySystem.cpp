@@ -35,3 +35,30 @@ void EnemySystem::enemyTurn() {
     scene->getComponent<BehaviorTree>(enemy)->tree.tickOnce();
   }
 }
+
+json EnemySystem::saveEnemies() {
+  json save;
+  for (const auto &enemy : enemies) {
+    save.push_back(scene->getEntitySave(enemy));
+  }
+  return save;
+}
+
+void EnemySystem::loadEnemies(json &j) {
+  for (const auto &enemySave : j) {
+    EntityID enemyID = scene->createEntity();
+    BT::BehaviorTreeFactory factory;
+    factory.registerNodeType<InSight>("InSight", player, enemyID, scene);
+    factory.registerNodeType<InRange>("InRange", player, enemyID, scene);
+    factory.registerNodeType<AttackPlayer>("AttackPlayer", player, enemyID, scene);
+    factory.registerNodeType<ApproachPlayer>("ApproachPlayer", player, enemyID, scene);
+    enemies.push_back(enemyID);
+    scene->addComponents(enemyID, std::make_shared<BodyColor>(enemySave["color"]), std::make_shared<Position>(enemySave["position"]),
+                         std::make_shared<Name>(enemySave), std::make_shared<Size>(enemySave["size"]), std::make_shared<Range>(enemySave),
+                         std::make_shared<Attack>(enemySave));
+    std::cout << "first ok" << std::endl;
+    scene->addComponents(
+        enemyID, std::make_shared<Sight>(enemySave),
+        std::make_shared<BehaviorTree>(std::move(factory), enemySave["behaviorTree"]["path"], StringToBtType.at(enemySave["behaviorTree"]["type"])));
+  }
+}

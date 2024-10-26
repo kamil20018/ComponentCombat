@@ -66,6 +66,18 @@ class Scene {
     return registry.components.at(componentID)->at(entityID)->serialize();
   }
 
+  json getEntitySave(EntityID entityID) {
+    json entitySave;
+    auto components = getEntityComponents(entityID);
+    for (size_t i = 0; i < MAX_COMPONENTS; i++) {
+      bool hasComponent = (*components)[i];
+      if (hasComponent) {
+        entitySave.update(getComponentSave(entityID, i));
+      }
+    }
+    return entitySave;
+  }
+
   template <typename T>
   bool entityHasComponent(EntityID entityID) {
     return (*entities.at(entityID))[T::id];

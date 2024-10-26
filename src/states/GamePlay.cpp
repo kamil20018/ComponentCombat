@@ -16,9 +16,7 @@ void GamePlay::init() {
   loadPlayer(save["player"]);
   uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
   uiSystem.loadInventory(save["inventory"], inventory);
-
-  enemySystem.spawn(0);
-  enemySystem.spawn(1);
+  enemySystem.loadEnemies(save["enemies"]);
 }
 
 void GamePlay::processInput() {
@@ -132,18 +130,6 @@ void GamePlay::mockCreateInventory() {
   //                      std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD2), std::make_shared<AttackRange>(5.0f, 10.0f));
 }
 
-json GamePlay::savePlayer() {
-  json playerSave;
-  auto components = scene->getEntityComponents(player);
-  for (size_t i = 0; i < MAX_COMPONENTS; i++) {
-    bool hasComponent = (*components)[i];
-    if (hasComponent) {
-      playerSave.update(scene->getComponentSave(player, i));
-    }
-  }
-  return playerSave;
-}
-
 void GamePlay::loadPlayer(json &playerData) {
   player = scene->createEntity();
   enemySystem.setPlayer(player);
@@ -152,7 +138,10 @@ void GamePlay::loadPlayer(json &playerData) {
 }
 
 void GamePlay::updateSave() {
-  json save{{"equippedItems", uiSystem.saveEquippedItems(equippedItems)}, {"inventory", uiSystem.saveInventory(inventory)}, {"player", savePlayer()}};
+  json save{{"equippedItems", uiSystem.saveEquippedItems(equippedItems)},
+            {"inventory", uiSystem.saveInventory(inventory)},
+            {"player", scene->getEntitySave(player)},
+            {"enemies", enemySystem.saveEnemies()}};
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << save;
   file.close();

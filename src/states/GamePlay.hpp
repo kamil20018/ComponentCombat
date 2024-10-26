@@ -47,7 +47,6 @@ class GamePlay : public State {
   void drawDebugLines();
 
   void loadPlayer(json &save);
-  json savePlayer();
   void updateSave();
   BT::Tree tree;
 };

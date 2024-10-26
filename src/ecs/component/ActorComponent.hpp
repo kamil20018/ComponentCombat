@@ -139,7 +139,7 @@ namespace component {
       tree = factory.createTreeFromFile(path);
     };
     json serialize() override {
-      return json{{"type", BtTypeToString.at(static_cast<int>(type))}, {"path", path.string()}};
+      return json{{"behaviorTree", {{"type", BtTypeToString.at(static_cast<int>(type))}, {"path", path.string()}}}};
     }
     std::string getDescription() override {
       return (std::stringstream() << "BEHAVIOURTREE | tree: " << BtTypeToString.at(static_cast<int>(type))).str();

@@ -17,6 +17,9 @@ class EnemySystem {
   void enemyTurn();
   void setPlayer(EntityID player);
 
+  json saveEnemies();
+  void loadEnemies(json &j);
+
  private:
   std::vector<EntityID> enemies;
   std::shared_ptr<Scene> scene;
