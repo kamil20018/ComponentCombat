@@ -133,8 +133,8 @@ void GamePlay::mockCreateInventory() {
 void GamePlay::loadPlayer(json &playerData) {
   player = scene->createEntity();
   enemySystem.setPlayer(player);
-  scene->addComponents(player, std::make_shared<Position>(playerData["position"]), std::make_shared<BodyColor>(playerData["color"]),
-                       std::make_shared<Hp>((int)playerData["hp"]), std::make_shared<Size>(playerData["size"]));
+  scene->addComponents(player, std::make_shared<Position>(playerData), std::make_shared<BodyColor>(playerData), std::make_shared<Hp>(playerData),
+                       std::make_shared<Size>(playerData));
 }
 
 void GamePlay::updateSave() {

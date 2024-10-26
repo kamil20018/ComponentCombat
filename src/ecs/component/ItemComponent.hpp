@@ -8,7 +8,7 @@ namespace component {
 
   struct ItemType : public Component {
     ItemType(ItemTypes itemType) : itemType(itemType){};
-    ItemType(json j) : itemType(static_cast<ItemTypes>(j["itemType"])){};
+    ItemType(const json &j) : itemType(static_cast<ItemTypes>(j["itemType"])){};
     json serialize() override {
       return json{{"itemType", static_cast<int>(itemType)}};
     }
@@ -21,7 +21,7 @@ namespace component {
 
   struct TextureName : public Component {
     TextureName(std::string textureName) : textureName(textureName){};
-    TextureName(json j) : textureName(j["textureName"]){};
+    TextureName(const json &j) : textureName(j["textureName"]){};
     json serialize() override {
       return json{{"textureName", textureName}};
     }
@@ -34,7 +34,7 @@ namespace component {
 
   struct AttackRange : public Component {
     AttackRange(float min, float max) : min(min), max(max){};
-    AttackRange(json j) : min(j["attackRange"]["min"]), max(j["attackRange"]["max"]){};
+    AttackRange(const json &j) : min(j["attackRange"]["min"]), max(j["attackRange"]["max"]){};
     json serialize() override {
       return json{{"attackRange", {{"min", min}, {"max", max}}}};
     }
@@ -47,7 +47,7 @@ namespace component {
 
   struct Defense : public Component {
     Defense(float defense) : defense(defense){};
-    Defense(json j) : defense(j["defense"]){};
+    Defense(const json &j) : defense(j["defense"]){};
     json serialize() override {
       return json{{"defense", defense}};
     }
@@ -60,7 +60,7 @@ namespace component {
   /// @brief Flat attack bonus applying to both ends of the attack range
   struct AttackBonus : public Component {
     AttackBonus(float attackBonus) : attackBonus(attackBonus){};
-    AttackBonus(json j) : attackBonus(j["attackBonus"]){};
+    AttackBonus(const json &j) : attackBonus(j["attackBonus"]){};
     json serialize() override {
       return json{{"attackBonus", attackBonus}};
     }

@@ -12,7 +12,7 @@ namespace fs = std::filesystem;
 namespace component {
   struct Position : public Component {
     Position(sf::Vector2i pos) : pos(pos){};
-    Position(json j) : pos(sf::Vector2i(j[0], j[1])){};
+    Position(const json &j) : pos(sf::Vector2i(j["position"][0], j["position"][1])){};
     json serialize() override {
       return json{{"position", {pos.x, pos.y}}};
     }
@@ -25,7 +25,7 @@ namespace component {
 
   struct Size : public Component {
     Size(int width, int height) : width(width), height(height){};
-    Size(json j) : width(j["width"]), height(j["height"]){};
+    Size(const json &j) : width(j["size"]["width"]), height(j["size"]["height"]){};
     json serialize() override {
       return json{{"size", {{"width", width}, {"height", height}}}};
     }
@@ -39,7 +39,7 @@ namespace component {
 
   struct Hp : public Component {
     Hp(int hp) : hp(hp){};
-    Hp(json j) : hp(j["hp"]){};
+    Hp(const json &j) : hp(j["hp"]){};
     json serialize() override {
       return json{{"hp", hp}};
     }
@@ -52,7 +52,7 @@ namespace component {
 
   struct Attack : public Component {
     Attack(int attack) : attack(attack){};
-    Attack(json j) : attack(j["attack"]){};
+    Attack(const json &j) : attack(j["attack"]){};
     json serialize() override {
       return json{{"attack", attack}};
     }
@@ -65,7 +65,7 @@ namespace component {
 
   struct Poisoned : public Component {
     Poisoned(int damage, int duration) : damage(damage), duration(duration){};
-    Poisoned(json j) : damage(j["damage"]), duration(j["duration"]){};
+    Poisoned(const json &j) : damage(j["damage"]), duration(j["duration"]){};
     json serialize() override {
       return json{{"damage", damage}, {"duration", duration}};
     }
@@ -79,7 +79,7 @@ namespace component {
 
   struct BodyColor : public Component {
     BodyColor(sf::Color color) : color(color){};
-    BodyColor(json j) : color(sf::Color(j["r"], j["g"], j["b"])){};
+    BodyColor(const json &j) : color(sf::Color(j["color"]["r"], j["color"]["g"], j["color"]["b"])){};
     json serialize() override {
       return json{{"color",
                    {
@@ -94,7 +94,7 @@ namespace component {
 
   struct Name : public Component {
     explicit Name(std::string name) : name(name){};
-    explicit Name(json j) : name(j["name"]){};
+    explicit Name(const json &j) : name(j["name"]){};
     json serialize() override {
       return json{{"name", name}};
     }
@@ -108,7 +108,7 @@ namespace component {
 
   struct Sight : public Component {
     Sight(int sight) : sight(sight){};
-    Sight(json j) : sight(j["sight"]){};
+    Sight(const json &j) : sight(j["sight"]){};
     json serialize() override {
       return json{{"sight", sight}};
     }
@@ -122,7 +122,7 @@ namespace component {
 
   struct Range : public Component {
     Range(int range) : range(range){};
-    Range(json j) : range(j["range"]){};
+    Range(const json &j) : range(j["range"]){};
     json serialize() override {
       return json{{"range", range}};
     }
@@ -135,6 +135,9 @@ namespace component {
   };
 
   struct BehaviorTree : public Component {
+    BehaviorTree(BT::BehaviorTreeFactory&& factory, const json &j) : path(j["behaviorTree"]["path"]), type(StringToBtType.at(j["behaviorTree"]["type"])) {
+      tree = factory.createTreeFromFile(path);
+    };
     BehaviorTree(BT::BehaviorTreeFactory&& factory, fs::path path, BtType type) : path(path), type(type) {
       tree = factory.createTreeFromFile(path);
     };
