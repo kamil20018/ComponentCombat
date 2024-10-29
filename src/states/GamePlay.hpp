@@ -20,6 +20,7 @@
 #include "system/EnemySystem.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
+
 class GamePlay : public State {
  public:
   GamePlay(std::shared_ptr<Context> context);
@@ -37,6 +38,7 @@ class GamePlay : public State {
   EnemySystem enemySystem;
 
   sf::Vector2i moveDir;
+  bool playerUsedAction;
   EntityID player;
 
   Inventory inventory;
@@ -48,5 +50,4 @@ class GamePlay : public State {
 
   void loadPlayer(json &save);
   void updateSave();
-  BT::Tree tree;
 };

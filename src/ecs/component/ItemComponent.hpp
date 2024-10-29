@@ -71,4 +71,18 @@ namespace component {
     float attackBonus;
   };
 
+  struct Poison : public Component {
+    Poison(int damage, int duration) : damage(damage), duration(duration){};
+    Poison(const json &j) : damage(j["poison"]["damage"]), duration(j["poison"]["duration"]){};
+    json serialize() override {
+      return json{{"poison", {{"damage", damage}, {"duration", duration}}}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "POISON | damage: " << damage << ", duration: " << duration).str();
+    }
+    inline static int id = -1;
+    int damage;
+    int duration;
+  };
+
 }  // namespace component

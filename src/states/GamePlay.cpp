@@ -1,7 +1,7 @@
 #include "GamePlay.hpp"
 
 GamePlay::GamePlay(std::shared_ptr<Context> context)
-    : context(context), scene(std::make_shared<Scene>()), system(scene), uiSystem(scene, context), enemySystem(scene, context) {
+    : context(context), scene(std::make_shared<Scene>()), system(scene), uiSystem(scene, context), enemySystem(scene, context), playerUsedAction(false) {
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
   // mockCreateInventory();

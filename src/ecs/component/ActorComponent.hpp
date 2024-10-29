@@ -65,9 +65,9 @@ namespace component {
 
   struct Poisoned : public Component {
     Poisoned(int damage, int duration) : damage(damage), duration(duration){};
-    Poisoned(const json &j) : damage(j["damage"]), duration(j["duration"]){};
+    Poisoned(const json &j) : damage(j["poisoned"]["damage"]), duration(j["poisoned"]["duration"]){};
     json serialize() override {
-      return json{{"damage", damage}, {"duration", duration}};
+      return json{{"poisoned", {{"damage", damage}, {"duration", duration}}}};
     }
     std::string getDescription() override {
       return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str();

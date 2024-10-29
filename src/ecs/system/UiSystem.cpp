@@ -240,6 +240,7 @@ json UiSystem::saveItem(EntityID entityID) {
   if (scene->entityHasComponent<AttackRange>(entityID)) j.update(scene->getComponentSave(entityID, AttackRange::id));
   if (scene->entityHasComponent<Defense>(entityID)) j.update(scene->getComponentSave(entityID, Defense::id));
   if (scene->entityHasComponent<AttackBonus>(entityID)) j.update(scene->getComponentSave(entityID, AttackBonus::id));
+  if (scene->entityHasComponent<Poison>(entityID)) j.update(scene->getComponentSave(entityID, Poison::id));
   return j;
 }
 
@@ -258,5 +259,8 @@ void UiSystem::loadItem(json &save, EntityID entityID) {
   };
   if (save.contains("attackBonus")) {
     scene->addComponent<AttackBonus>(entityID, std::make_shared<AttackBonus>(save));
+  };
+  if (save.contains("poison")) {
+    scene->addComponent<Poison>(entityID, std::make_shared<Poison>(save));
   };
 }
