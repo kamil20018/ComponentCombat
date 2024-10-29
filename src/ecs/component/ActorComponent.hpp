@@ -135,10 +135,10 @@ namespace component {
   };
 
   struct BehaviorTree : public Component {
-    BehaviorTree(BT::BehaviorTreeFactory&& factory, const json &j) : path(j["behaviorTree"]["path"]), type(StringToBtType.at(j["behaviorTree"]["type"])) {
+    BehaviorTree(BT::BehaviorTreeFactory &&factory, const json &j) : path(j["behaviorTree"]["path"]), type(StringToBtType.at(j["behaviorTree"]["type"])) {
       tree = factory.createTreeFromFile(path);
     };
-    BehaviorTree(BT::BehaviorTreeFactory&& factory, fs::path path, BtType type) : path(path), type(type) {
+    BehaviorTree(BT::BehaviorTreeFactory &&factory, fs::path path, BtType type) : path(path), type(type) {
       tree = factory.createTreeFromFile(path);
     };
     json serialize() override {

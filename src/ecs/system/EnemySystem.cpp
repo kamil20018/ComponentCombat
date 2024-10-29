@@ -53,8 +53,9 @@ void EnemySystem::loadEnemies(json &j) {
     factory.registerNodeType<AttackPlayer>("AttackPlayer", player, enemyID, scene);
     factory.registerNodeType<ApproachPlayer>("ApproachPlayer", player, enemyID, scene);
     enemies.push_back(enemyID);
-    scene->addComponents(enemyID, std::make_shared<BodyColor>(enemySave), std::make_shared<Position>(enemySave), std::make_shared<Hp>(enemySave), std::make_shared<Name>(enemySave),
-                         std::make_shared<Size>(enemySave), std::make_shared<Range>(enemySave), std::make_shared<Attack>(enemySave),
-                         std::make_shared<Sight>(enemySave), std::make_shared<BehaviorTree>(std::move(factory), enemySave));
+    scene->addComponents(enemyID, std::make_shared<BodyColor>(enemySave), std::make_shared<Position>(enemySave), std::make_shared<Hp>(enemySave),
+                         std::make_shared<Name>(enemySave), std::make_shared<Size>(enemySave), std::make_shared<Range>(enemySave),
+                         std::make_shared<Attack>(enemySave), std::make_shared<Sight>(enemySave),
+                         std::make_shared<BehaviorTree>(std::move(factory), enemySave));
   }
 }
