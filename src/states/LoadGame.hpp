@@ -26,7 +26,15 @@ class LoadGame : public State {
   void update() override;
   void draw() override;
 
-  fs::path createSaveFile();
+  void handleSavePopup();
+  void handleDeletePopup();
+  fs::path createSaveFile(const std::string& saveName);
+  void deleteSave(const std::string& saveName);
   void updateSaveFiles();
+  bool pressedEnter; //saves in popup window
+  bool pressedEscape; //cancels in popup window
+  size_t selectedSaveIndex;
   std::vector<fs::path> saveFiles;
+  fs::path baseSavePath;
+  fs::path userSavesPath;
 };
