@@ -1,125 +1,127 @@
 {
-    "enemies": [
-        {
-            "attack": 7,
-            "behaviorTree": {
-                "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/my_tree.xml",
-                "type": "LONG_RANGE"
+    "gameState": {
+        "enemies": [
+            {
+                "attack": 7,
+                "behaviorTree": {
+                    "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/my_tree.xml",
+                    "type": "LONG_RANGE"
+                },
+                "color": {
+                    "b": 255,
+                    "g": 0,
+                    "r": 0
+                },
+                "hp": 50,
+                "name": "Fag",
+                "position": [
+                    0,
+                    0
+                ],
+                "range": 7,
+                "sight": 14,
+                "size": {
+                    "height": 40,
+                    "width": 40
+                }
             },
-            "color": {
-                "b": 255,
-                "g": 0,
-                "r": 0
+            {
+                "attack": 3,
+                "behaviorTree": {
+                    "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/my_tree.xml",
+                    "type": "LONG_RANGE"
+                },
+                "color": {
+                    "b": 0,
+                    "g": 255,
+                    "r": 0
+                },
+                "hp": 39,
+                "name": "Goblin",
+                "position": [
+                    2,
+                    2
+                ],
+                "range": 10,
+                "sight": 20,
+                "size": {
+                    "height": 40,
+                    "width": 40
+                }
+            }
+        ],
+        "equippedItems": {
+            "armour": {
+                "attackBonus": 5.0,
+                "defense": 5.0,
+                "itemType": 1,
+                "textureName": "cloak2.png"
             },
-            "hp": 50,
-            "name": "Fag",
-            "position": [
-                0,
-                0
-            ],
-            "range": 7,
-            "sight": 14,
-            "size": {
-                "height": 40,
-                "width": 40
+            "weapon": {
+                "attackRange": {
+                    "max": 30.0,
+                    "min": 25.0
+                },
+                "itemType": 2,
+                "poison": {
+                    "damage": 5,
+                    "duration": 3
+                },
+                "textureName": "club.png"
             }
         },
-        {
-            "attack": 3,
-            "behaviorTree": {
-                "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/my_tree.xml",
-                "type": "LONG_RANGE"
+        "inventory": [
+            {
+                "attackBonus": 5.0,
+                "defense": 5.0,
+                "itemType": 0,
+                "textureName": "elven_leather_helm.png"
             },
+            {
+                "defense": 5.0,
+                "itemType": 1,
+                "textureName": "cloak2.png"
+            },
+            {
+                "attackRange": {
+                    "max": 20.0,
+                    "min": 15.0
+                },
+                "itemType": 2,
+                "textureName": "dagger.png"
+            },
+            {
+                "attackRange": {
+                    "max": 100.0,
+                    "min": 5.0
+                },
+                "itemType": 2,
+                "textureName": "greatsword1.png"
+            },
+            {
+                "attackRange": {
+                    "max": 30.0,
+                    "min": 25.0
+                },
+                "itemType": 2,
+                "textureName": "club.png"
+            }
+        ],
+        "player": {
             "color": {
                 "b": 0,
-                "g": 255,
-                "r": 0
+                "g": 0,
+                "r": 255
             },
-            "hp": 39,
-            "name": "Goblin",
+            "hp": 1213,
             "position": [
-                2,
-                2
+                10,
+                9
             ],
-            "range": 10,
-            "sight": 20,
             "size": {
                 "height": 40,
                 "width": 40
             }
-        }
-    ],
-    "equippedItems": {
-        "armour": {
-            "attackBonus": 5.0,
-            "defense": 5.0,
-            "itemType": 1,
-            "textureName": "cloak2.png"
-        },
-        "weapon": {
-            "attackRange": {
-                "max": 30.0,
-                "min": 25.0
-            },
-            "itemType": 2,
-            "poison": {
-                "damage": 5,
-                "duration": 3
-            },
-            "textureName": "club.png"
-        }
-    },
-    "inventory": [
-        {
-            "attackBonus": 5.0,
-            "defense": 5.0,
-            "itemType": 0,
-            "textureName": "elven_leather_helm.png"
-        },
-        {
-            "defense": 5.0,
-            "itemType": 1,
-            "textureName": "cloak2.png"
-        },
-        {
-            "attackRange": {
-                "max": 20.0,
-                "min": 15.0
-            },
-            "itemType": 2,
-            "textureName": "dagger.png"
-        },
-        {
-            "attackRange": {
-                "max": 100.0,
-                "min": 5.0
-            },
-            "itemType": 2,
-            "textureName": "greatsword1.png"
-        },
-        {
-            "attackRange": {
-                "max": 30.0,
-                "min": 25.0
-            },
-            "itemType": 2,
-            "textureName": "club.png"
-        }
-    ],
-    "player": {
-        "color": {
-            "b": 0,
-            "g": 0,
-            "r": 255
-        },
-        "hp": 1213,
-        "position": [
-            6,
-            9
-        ],
-        "size": {
-            "height": 40,
-            "width": 40
         }
     }
 }

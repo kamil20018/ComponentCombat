@@ -6,7 +6,10 @@
 #include <filesystem>
 #include <fstream>
 
-LoadGame::LoadGame(std::shared_ptr<Context> &context) : context(context), baseSavePath(fs::current_path().parent_path() / "data" / "saves" / "base.json"), userSavesPath(fs::current_path().parent_path() / "data" / "userSaves") {
+LoadGame::LoadGame(std::shared_ptr<Context> &context)
+    : context(context),
+      baseSavePath(fs::current_path().parent_path() / "data" / "saves" / "base.json"),
+      userSavesPath(fs::current_path().parent_path() / "data" / "userSaves") {
   updateSaveFiles();
 }
 
@@ -62,8 +65,8 @@ void LoadGame::update() {
     ImGui::OpenPopup("New Save");
   }
   handleSavePopup();
-pressedEnter = false;
-pressedEscape = false;
+  pressedEnter = false;
+  pressedEscape = false;
   ImGui::SameLine();
   if (ImGui::Button("Delete")) {
     ImGui::OpenPopup("Delete");
@@ -88,7 +91,6 @@ void LoadGame::handleSavePopup() {
   if (ImGui::BeginPopupModal("New Save", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
     ImGui::InputText("Save Name", saveName, IM_ARRAYSIZE(saveName));
     if (ImGui::Button("OK", ImVec2(120, 0)) || pressedEnter) {
-      
       context->savePath = createSaveFile(saveName);
       updateSaveFiles();
       ImGui::CloseCurrentPopup();
@@ -96,7 +98,6 @@ void LoadGame::handleSavePopup() {
     ImGui::SetItemDefaultFocus();
     ImGui::SameLine();
     if (ImGui::Button("Cancel", ImVec2(120, 0)) || pressedEscape) {
-      
       ImGui::CloseCurrentPopup();
     }
     ImGui::EndPopup();
@@ -130,7 +131,7 @@ void LoadGame::updateSaveFiles() {
   for (auto const &dir_entry : fs::directory_iterator{userSavesPath}) saveFiles.push_back(dir_entry.path());
 }
 
-fs::path LoadGame::createSaveFile(const std::string& saveName) {
+fs::path LoadGame::createSaveFile(const std::string &saveName) {
   fs::path inputPath = baseSavePath;
   fs::path outputPath = userSavesPath / (saveName + ".json");
   std::cout << baseSavePath << " " << userSavesPath << " " << saveName << std::endl;
@@ -154,7 +155,7 @@ fs::path LoadGame::createSaveFile(const std::string& saveName) {
   return outputPath;
 }
 
-void LoadGame::deleteSave(const std::string& saveName) {
+void LoadGame::deleteSave(const std::string &saveName) {
   fs::path path = userSavesPath / (saveName + ".json");
   fs::remove(path);
 }

@@ -18,7 +18,7 @@ class LoadGame : public State {
   sf::Clock deltaClock;
 
  public:
-  LoadGame(std::shared_ptr<Context> &context);
+  LoadGame(std::shared_ptr<Context>& context);
   ~LoadGame();
 
   void init() override;
@@ -31,8 +31,8 @@ class LoadGame : public State {
   fs::path createSaveFile(const std::string& saveName);
   void deleteSave(const std::string& saveName);
   void updateSaveFiles();
-  bool pressedEnter; //saves in popup window
-  bool pressedEscape; //cancels in popup window
+  bool pressedEnter;   // saves in popup window
+  bool pressedEscape;  // cancels in popup window
   size_t selectedSaveIndex;
   std::vector<fs::path> saveFiles;
   fs::path baseSavePath;

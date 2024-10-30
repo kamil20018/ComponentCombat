@@ -13,10 +13,11 @@ void GamePlay::init() {
   json save;
   reader >> save;
   reader.close();
-  loadPlayer(save["player"]);
-  uiSystem.loadEquippedItems(save["equippedItems"], equippedItems);
-  uiSystem.loadInventory(save["inventory"], inventory);
-  enemySystem.loadEnemies(save["enemies"]);
+  json gameStateSave = save["gameState"];
+  loadPlayer(gameStateSave["player"]);
+  uiSystem.loadEquippedItems(gameStateSave["equippedItems"], equippedItems);
+  uiSystem.loadInventory(gameStateSave["inventory"], inventory);
+  enemySystem.loadEnemies(gameStateSave["enemies"]);
 }
 
 void GamePlay::processInput() {
@@ -138,10 +139,11 @@ void GamePlay::loadPlayer(json &playerData) {
 }
 
 void GamePlay::updateSave() {
-  json save{{"equippedItems", uiSystem.saveEquippedItems(equippedItems)},
-            {"inventory", uiSystem.saveInventory(inventory)},
-            {"player", scene->getEntitySave(player)},
-            {"enemies", enemySystem.saveEnemies()}};
+  json save{{"gameState",
+             {{"equippedItems", uiSystem.saveEquippedItems(equippedItems)},
+              {"inventory", uiSystem.saveInventory(inventory)},
+              {"player", scene->getEntitySave(player)},
+              {"enemies", enemySystem.saveEnemies()}}}};
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << save;
   file.close();
