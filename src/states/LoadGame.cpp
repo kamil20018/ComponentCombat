@@ -90,7 +90,7 @@ void LoadGame::update() {
 
   ImGui::End();
   if (load || pressedEnter) {
-    context->savePath = saveFiles.at(selectedS  aveIndex);
+    context->savePath = saveFiles.at(selectedSaveIndex);
     std::ifstream reader(context->savePath);
     reader >> context->saveFile;
     reader.close();
