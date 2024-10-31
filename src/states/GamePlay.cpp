@@ -9,11 +9,7 @@ GamePlay::GamePlay(std::shared_ptr<Context> context)
 }
 
 void GamePlay::init() {
-  std::ifstream reader(context->savePath);
-  json save;
-  reader >> save;
-  reader.close();
-  json gameStateSave = save["gameState"];
+  json gameStateSave = context->saveFile["gameState"];
   loadPlayer(gameStateSave["player"]);
   uiSystem.loadEquippedItems(gameStateSave["equippedItems"], equippedItems);
   uiSystem.loadInventory(gameStateSave["inventory"], inventory);
@@ -143,7 +139,8 @@ void GamePlay::loadPlayer(json &playerData) {
 }
 
 void GamePlay::updateSave() {
-  json save{{"gameState", {uiSystem.saveEquippedItems(equippedItems), uiSystem.saveInventory(inventory), savePlayer(), enemySystem.saveEnemies()}}};
+  json save{{"gameState", {uiSystem.saveEquippedItems(equippedItems), uiSystem.saveInventory(inventory), savePlayer(), enemySystem.saveEnemies()}},
+            {"stateDestination", "gamePlay"}};
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << save;
   file.close();

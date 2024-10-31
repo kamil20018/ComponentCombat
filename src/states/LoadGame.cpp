@@ -81,7 +81,7 @@ void LoadGame::update() {
   if (ImGui::Button("Create a new save file")) {
     ImGui::OpenPopup("New Save");
   }
-  handleSavePopup();
+  handleCreateSavePopup();
   ImGui::SameLine();
   if (ImGui::Button("Delete")) {
     ImGui::OpenPopup("Delete");
@@ -91,7 +91,15 @@ void LoadGame::update() {
   ImGui::End();
   if (load || pressedEnter) {
     context->savePath = saveFiles.at(selectedSaveIndex);
-    _states->addState(std::make_unique<GamePlay>(context));
+    std::ifstream reader(context->savePath);
+    reader >> context->saveFile;
+    reader.close();
+    auto destination = context->saveFile["stateDestination"];
+    if (destination == "gamePlay") {
+      _states->addState(std::make_unique<GamePlay>(context));
+    } else if (destination == "characterCreation") {
+      _states->addState(std::make_unique<CharacterCreation>(context));
+    }
   }
   pressedEnter = false;
   pressedEscape = false;
@@ -104,7 +112,7 @@ void LoadGame::draw() {
   _window->display();
 }
 
-void LoadGame::handleSavePopup() {
+void LoadGame::handleCreateSavePopup() {
   ImVec2 center = ImGui::GetMainViewport()->GetCenter();
   ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
   static char saveName[16];

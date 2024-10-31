@@ -123,5 +123,6 @@
                 "width": 40
             }
         }
-    }
+    },
+    "stateDestination": "characterCreation"
 }

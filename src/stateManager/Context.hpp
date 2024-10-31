@@ -2,10 +2,13 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <filesystem>
+#include <nlohmann/json.hpp>
 
 #include "AssetManager.hpp"
 #include "StateManager.hpp"
+
 namespace fs = std::filesystem;
+using json = nlohmann::json;
 
 #define _window context->window
 #define _states context->states
@@ -17,6 +20,7 @@ struct Context {
   std::shared_ptr<sf::RenderWindow> window;
 
   fs::path savePath;
+  json saveFile;
 
   Context() {
     states = std::make_unique<StateManager>();

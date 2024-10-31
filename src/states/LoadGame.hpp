@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 
+#include "CharacterCreation.hpp"
 #include "Game.hpp"
 #include "GamePlay.hpp"
 #include "State.hpp"
@@ -26,7 +27,7 @@ class LoadGame : public State {
   void update() override;
   void draw() override;
 
-  void handleSavePopup();
+  void handleCreateSavePopup();
   void handleDeletePopup();
   fs::path createSaveFile(const std::string& saveName);
   void deleteSave(const std::string& saveName);
