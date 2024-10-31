@@ -131,6 +131,10 @@ void GamePlay::mockCreateInventory() {
   //                      std::make_shared<TextureName>((std::string)image::items::weapon::GREATSWORD2), std::make_shared<AttackRange>(5.0f, 10.0f));
 }
 
+json GamePlay::savePlayer() {
+  return {"player", scene->getEntitySave(player)};
+}
+
 void GamePlay::loadPlayer(json &playerData) {
   player = scene->createEntity();
   enemySystem.setPlayer(player);
@@ -139,11 +143,7 @@ void GamePlay::loadPlayer(json &playerData) {
 }
 
 void GamePlay::updateSave() {
-  json save{{"gameState",
-             {{"equippedItems", uiSystem.saveEquippedItems(equippedItems)},
-              {"inventory", uiSystem.saveInventory(inventory)},
-              {"player", scene->getEntitySave(player)},
-              {"enemies", enemySystem.saveEnemies()}}}};
+  json save{{"gameState", {uiSystem.saveEquippedItems(equippedItems), uiSystem.saveInventory(inventory), savePlayer(), enemySystem.saveEnemies()}}};
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << save;
   file.close();

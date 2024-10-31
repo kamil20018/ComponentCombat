@@ -34,6 +34,12 @@ void LoadGame::processInput() {
         case sf::Keyboard::Enter:
           pressedEnter = true;
           break;
+        case sf::Keyboard::Up:
+          arrowInput = -1;
+          break;
+        case sf::Keyboard::Down:
+          arrowInput = 1;
+          break;
         default: {
           break;
         }
@@ -44,7 +50,19 @@ void LoadGame::processInput() {
 
 void LoadGame::update() {
   bool load = false;
-
+  switch (arrowInput) {
+    case -1:
+      if (selectedSaveIndex == 0)
+        selectedSaveIndex = saveFiles.size() - 1;
+      else
+        selectedSaveIndex--;
+      break;
+    case 1:
+      ++selectedSaveIndex %= saveFiles.size();
+    default:
+      break;
+  }
+  arrowInput = 0;
   ImGui::SFML::Update(*_window, deltaClock.restart());
   bool *open = NULL;
   ImGuiIO &io = ImGui::GetIO();
@@ -58,15 +76,12 @@ void LoadGame::update() {
 
   if (ImGui::Button("Load")) {
     load = true;
-    context->savePath = saveFiles.at(selectedSaveIndex);
   }
   ImGui::SameLine();
   if (ImGui::Button("Create a new save file")) {
     ImGui::OpenPopup("New Save");
   }
   handleSavePopup();
-  pressedEnter = false;
-  pressedEscape = false;
   ImGui::SameLine();
   if (ImGui::Button("Delete")) {
     ImGui::OpenPopup("Delete");
@@ -74,7 +89,12 @@ void LoadGame::update() {
   handleDeletePopup();
 
   ImGui::End();
-  if (load) _states->addState(std::make_unique<GamePlay>(context));
+  if (load || pressedEnter) {
+    context->savePath = saveFiles.at(selectedSaveIndex);
+    _states->addState(std::make_unique<GamePlay>(context));
+  }
+  pressedEnter = false;
+  pressedEscape = false;
 }
 
 void LoadGame::draw() {
@@ -91,6 +111,7 @@ void LoadGame::handleSavePopup() {
   if (ImGui::BeginPopupModal("New Save", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
     ImGui::InputText("Save Name", saveName, IM_ARRAYSIZE(saveName));
     if (ImGui::Button("OK", ImVec2(120, 0)) || pressedEnter) {
+      pressedEnter = false;
       context->savePath = createSaveFile(saveName);
       updateSaveFiles();
       ImGui::CloseCurrentPopup();
@@ -98,6 +119,7 @@ void LoadGame::handleSavePopup() {
     ImGui::SetItemDefaultFocus();
     ImGui::SameLine();
     if (ImGui::Button("Cancel", ImVec2(120, 0)) || pressedEscape) {
+      pressedEscape = false;
       ImGui::CloseCurrentPopup();
     }
     ImGui::EndPopup();

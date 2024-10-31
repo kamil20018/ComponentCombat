@@ -186,7 +186,7 @@ json UiSystem::saveEquippedItems(EquippedItems equippedItems) {
   if (equippedItems.weapon) equippedItemsSave["weapon"] = saveItem(equippedItems.weapon.value());
   if (equippedItems.pants) equippedItemsSave["pants"] = saveItem(equippedItems.pants.value());
   if (equippedItems.boots) equippedItemsSave["boots"] = saveItem(equippedItems.boots.value());
-  return equippedItemsSave;
+  return {"equippedItems", equippedItemsSave};
 }
 
 void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
@@ -222,7 +222,7 @@ json UiSystem::saveInventory(Inventory inventory) {
   for (auto itemID : inventory) {
     save.push_back(saveItem(itemID));
   }
-  return save;
+  return {"inventory", save};
 }
 
 void UiSystem::loadInventory(json &j, Inventory &inventory) {

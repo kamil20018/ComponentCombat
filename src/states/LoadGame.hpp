@@ -33,6 +33,7 @@ class LoadGame : public State {
   void updateSaveFiles();
   bool pressedEnter;   // saves in popup window
   bool pressedEscape;  // cancels in popup window
+  int arrowInput;      //-1, 0 or 1
   size_t selectedSaveIndex;
   std::vector<fs::path> saveFiles;
   fs::path baseSavePath;

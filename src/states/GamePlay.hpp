@@ -48,6 +48,7 @@ class GamePlay : public State {
   sf::Clock deltaClock;
   void drawDebugLines();
 
+  json savePlayer();
   void loadPlayer(json &save);
   void updateSave();
 };

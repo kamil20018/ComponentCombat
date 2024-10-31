@@ -41,7 +41,7 @@ json EnemySystem::saveEnemies() {
   for (const auto &enemy : enemies) {
     save.push_back(scene->getEntitySave(enemy));
   }
-  return save;
+  return {"enemies", save};
 }
 
 void EnemySystem::loadEnemies(json &j) {
