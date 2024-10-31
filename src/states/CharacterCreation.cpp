@@ -40,12 +40,16 @@ void CharacterCreation::update() {
   ImGui::Begin("inventory", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   ImGui::End();
+  // this->handleSaveButton();
+  for (int i = 0; i < 10; i++) {
+    std::cout << "a" << std::endl;
+  }
   //_states->addState(std::make_unique<GamePlay>(context));
 }
 
 void CharacterCreation::draw() {
-    _window->clear(sf::Color::Black);
-    ImGui::ShowDemoWindow();
-    ImGui::SFML::Render(*_window);
+  _window->clear(sf::Color::Black);
+  ImGui::ShowDemoWindow();
+  ImGui::SFML::Render(*_window);
   _window->display();
 }
