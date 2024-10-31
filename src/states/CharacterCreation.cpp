@@ -40,6 +40,9 @@ void CharacterCreation::update() {
   ImGui::Begin("inventory", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
   ImGui::End();
+  // so
+  // commit hook might not be working
+  // properly
   //_states->addState(std::make_unique<GamePlay>(context));
 }
 
