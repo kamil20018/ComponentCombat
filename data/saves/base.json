@@ -124,5 +124,9 @@
             }
         }
     },
-    "stateDestination": "characterCreation"
+    "stateDestination": "characterCreation",
+    "metaProgression": {
+        "goodKarma": 10,
+        "badKarma": 0
+    }
 }

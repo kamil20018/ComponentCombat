@@ -9,7 +9,7 @@
 LoadGame::LoadGame(std::shared_ptr<Context> &context)
     : context(context),
       baseSavePath(fs::current_path().parent_path() / "data" / "saves" / "base.json"),
-      userSavesPath(fs::current_path().parent_path() / "data" / "userSaves") {
+      userSavesPath(fs::current_path().parent_path() / "data" / "userSaves"), pressedEnter(false), pressedEscape(false), arrowInput(0) {
   updateSaveFiles();
 }
 
@@ -90,7 +90,7 @@ void LoadGame::update() {
 
   ImGui::End();
   if (load || pressedEnter) {
-    context->savePath = saveFiles.at(selectedSaveIndex);
+    context->savePath = saveFiles.at(selectedS  aveIndex);
     std::ifstream reader(context->savePath);
     reader >> context->saveFile;
     reader.close();

@@ -50,5 +50,7 @@ class GamePlay : public State {
 
   json savePlayer();
   void loadPlayer(json &save);
+  json saveMetaProgression();
+  json saveStateDestination();
   void updateSave();
 };
