@@ -148,7 +148,8 @@ void GamePlay::loadPlayer(json &playerData) {
 
 void GamePlay::updateSave() {
   json save{{"gameState", {uiSystem.saveEquippedItems(equippedItems), uiSystem.saveInventory(inventory), savePlayer(), enemySystem.saveEnemies()}},
-            saveMetaProgression(), saveStateDestination()};
+            saveMetaProgression(),
+            saveStateDestination()};
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << save;
   file.close();

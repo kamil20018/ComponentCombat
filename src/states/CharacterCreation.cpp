@@ -12,8 +12,7 @@ CharacterCreation::CharacterCreation(std::shared_ptr<Context> &context) : contex
 
 CharacterCreation::~CharacterCreation() {}
 
-void CharacterCreation::init() {
-}
+void CharacterCreation::init() {}
 
 void CharacterCreation::processInput() {
   sf::Event event;
@@ -45,8 +44,8 @@ void CharacterCreation::update() {
 }
 
 void CharacterCreation::draw() {
-  _window->clear(sf::Color::Black);
-  ImGui::ShowDemoWindow();
-  ImGui::SFML::Render(*_window);
+    _window->clear(sf::Color::Black);
+    ImGui::ShowDemoWindow();
+    ImGui::SFML::Render(*_window);
   _window->display();
 }

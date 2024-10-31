@@ -9,7 +9,10 @@
 LoadGame::LoadGame(std::shared_ptr<Context> &context)
     : context(context),
       baseSavePath(fs::current_path().parent_path() / "data" / "saves" / "base.json"),
-      userSavesPath(fs::current_path().parent_path() / "data" / "userSaves"), pressedEnter(false), pressedEscape(false), arrowInput(0) {
+      userSavesPath(fs::current_path().parent_path() / "data" / "userSaves"),
+      pressedEnter(false),
+      pressedEscape(false),
+      arrowInput(0) {
   updateSaveFiles();
 }
 

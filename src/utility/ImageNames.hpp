@@ -46,5 +46,5 @@ namespace image {
       constexpr char BEEF_JERKY[] = "beef_jerky.png";
       constexpr char APRICOT[] = "apricot.png";
     }  // namespace food
-  }  // namespace items
+  }    // namespace items
 }  // namespace image
