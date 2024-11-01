@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <vector>
 
 #include "Game.hpp"
@@ -34,9 +35,12 @@ class CharacterCreation : public State {
 
  private:
   void cultivationTypeChoice();
+  void qiCultivatorCreator();
+  void bodyCultivatorCreator();
+  void demonicCultivatorCreator();
 
   json UiText;
-
+  std::optional<CultivationType> selectedCultivationType;
   std::shared_ptr<Context> context;
   sf::Clock deltaClock;
 };

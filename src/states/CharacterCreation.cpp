@@ -42,7 +42,21 @@ void CharacterCreation::update() {
   ImGuiHelper::dockNextWindow(WindowDock::CENTER, 0.75f, 0.75f);
   ImGui::Begin("Character Creation", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoCollapse);
-  cultivationTypeChoice();
+  if (!selectedCultivationType) {
+    cultivationTypeChoice();
+  } else {
+    switch (*selectedCultivationType) {
+      case CultivationType::QI:
+        qiCultivatorCreator();
+        break;
+      case CultivationType::BODY:
+        bodyCultivatorCreator();
+        break;
+      case CultivationType::DEMONIC:
+        demonicCultivatorCreator();
+        break;
+    }
+  }
   ImGui::End();
   //_states->addState(std::make_unique<GamePlay>(context));
 }
@@ -65,10 +79,18 @@ void CharacterCreation::cultivationTypeChoice() {
         ImGui::Image(_assets->GetTexture(cultivationTypeToImageNames.at(cultivationType)), ImVec2(size, size));
       });
     };
+
+    auto showCultivationOverview = [&](CultivationType cultivationType) {
+      json cultivation = UiText[CultivationTypeToName.at(cultivationType)];
+      MyGui::topDownPaddingRelative(0.02f, [&] {
+        MyGui::TextWrapped(cultivation["description"]);
+      });
+    };
+
     auto showCultivationText = [&](CultivationType cultivationType) {
       json cultivation = UiText[CultivationTypeToName.at(cultivationType)];
       MyGui::topDownPaddingRelative(0.01f, [&] {
-        MyGui::TextWrapped(cultivation["description"]);
+        // MyGui::TextWrapped(cultivation["description"]);
         ImGui::Text("Pros:");
         for (const auto &pros : cultivation["pros"]) {
           MyGui::TextWrapped(pros);
@@ -78,6 +100,19 @@ void CharacterCreation::cultivationTypeChoice() {
           MyGui::TextWrapped(cons);
         }
       });
+      float buttonSize = ImGui::GetContentRegionAvail().x * 0.75f;
+      MyGui::centerHorizontally(buttonSize);
+      ImGui::SetCursorPosY(ImGui::GetWindowSize().y * 0.93);
+      if (cultivationType == CultivationType::QI) {
+        if (ImGui::Button("Select", ImVec2(buttonSize, 0))) {
+          selectedCultivationType = cultivationType;
+        }
+      } else {
+        if (ImGui::Button("Not Implemented", ImVec2(buttonSize, 0))) {
+          // selectedCultivationType = cultivationType;
+          std::cout << "not implemented" << std::endl;
+        }
+      }
     };
 
     ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
@@ -89,11 +124,19 @@ void CharacterCreation::cultivationTypeChoice() {
 
     std::vector<CultivationType> cultivationTypes = {CultivationType::QI, CultivationType::BODY, CultivationType::DEMONIC};
 
+    // images
     ImGui::TableNextRow();
     for (const auto &cultivationType : cultivationTypes) {
       ImGui::TableNextColumn();
       showCultivationImage(cultivationType);
     }
+    // overviews
+    ImGui::TableNextRow();
+    for (const auto &cultivationType : cultivationTypes) {
+      ImGui::TableNextColumn();
+      showCultivationOverview(cultivationType);
+    }
+    // descriptions
     ImGui::TableNextRow();
     for (const auto &cultivationType : cultivationTypes) {
       ImGui::TableNextColumn();
@@ -101,4 +144,16 @@ void CharacterCreation::cultivationTypeChoice() {
     }
     ImGui::EndTable();
   }
+}
+
+void CharacterCreation::qiCultivatorCreator() {
+  ImGui::Text("Qi Cultivator Creator");
+}
+
+void CharacterCreation::bodyCultivatorCreator() {
+  // TODO
+}
+
+void CharacterCreation::demonicCultivatorCreator() {
+  // TODO
 }

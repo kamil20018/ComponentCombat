@@ -1,6 +1,6 @@
 {
     "Qi cultivation": {
-        "description": "Gather Qi and break through to gain immortality.",
+        "description": "Gather Qi and break through your mortal limits",
         "pros": [
             "- high Qi affinity",
             "- long range focused"
@@ -10,7 +10,7 @@
         ]
     },
     "Body cultivation": {
-        "description": "Refine your body to the extreme",
+        "description": "Refine your body to the extreme, turning yourself into a walking fortress",
         "pros": [
             "- powerful body",
             "- close range focused"
@@ -20,7 +20,7 @@
         ]
     },
     "Demonic cultivation": {
-        "description": "Embrace the dark side",
+        "description": "Embrace the dark side and gain power by any means necessary",
         "pros": [
             "- strong evil spells",
             "- medium Qi affinity",
