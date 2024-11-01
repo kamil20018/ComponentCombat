@@ -2,7 +2,7 @@
 
 thread_count=$(nproc --all)
 
-while getopts 'brashcCfl' OPTION; do
+while getopts 'brashcCfli' OPTION; do
     case "$OPTION" in
         h)
             echo "run - can set up the cmake project, build it and run it."
@@ -15,6 +15,8 @@ while getopts 'brashcCfl' OPTION; do
             echo "-a   builds and runs the project"
             echo "-c   removes all of the build files"
             echo "-l   get line count"
+            echo "-f   format files"
+            echo "-i   generate image file"
             ;;
         s)
             mkdir build
@@ -46,5 +48,10 @@ while getopts 'brashcCfl' OPTION; do
             ;;
         f)
             find src/ -iname '*.h*' -o -iname '*.cpp' | xargs clang-format -style=file -i
+            ;;
+        i)
+            cd tools
+            python3 gen_img.py  
+            cd ..
     esac
 done

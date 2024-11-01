@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Game.hpp"
+#include "ImageNames.hpp"
 #include "State.hpp"
 class MainMenu : public State {
  private:

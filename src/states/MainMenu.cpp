@@ -8,6 +8,7 @@
 MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {
   shape = sf::RectangleShape{sf::Vector2f{_window->getSize()}};
   shader.loadFromFile(fs::current_path().parent_path() / "shaders" / "backgrounds" / "stars.frag", sf::Shader::Fragment);
+  shader.loadFromFile(fs::current_path().parent_path() / "shaders" / "backgrounds" / "stars.frag", sf::Shader::Fragment);
 }
 
 MainMenu::~MainMenu() {}
@@ -65,7 +66,13 @@ void MainMenu::update() {
 
 void MainMenu::draw() {
   _window->clear();
-  _window->draw(shape, &shader);
+  // _window->draw(shape, &shader);
+  sf::Sprite backgroundSprite(_assets->GetTexture(image::backgrounds::OUTPUT));
+  float width = _window->getSize().x;
+  float height = _window->getSize().y;
+  backgroundSprite.setScale(width / backgroundSprite.getGlobalBounds().width, height / backgroundSprite.getGlobalBounds().height);
+  _window->draw(backgroundSprite);
+  // _window->draw(_assets->GetTexture(image::backgrounds::OUTPUT));
   ImGui::SFML::Render(*_window);
   _window->display();
 }
