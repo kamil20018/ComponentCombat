@@ -48,9 +48,20 @@ void UiTest::draw() {
 void UiTest::handleWindow() {
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.2f, 0.5f, 0.05f, 0.05f);
   ImGui::Begin("test", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-  ImVec2 buttonSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.1f, true);
-  ImGui::Button("test2", buttonSize);
-  buttonSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.4f, true);
-  ImGui::Button("test3", buttonSize);
+  ImGui::BeginTable("table2", 3, ImGuiTableFlags_SizingStretchSame, ImGui::GetContentRegionAvail());
+  ImGui::TableSetupColumn("a");
+  ImGui::TableSetupColumn("b");
+  ImGui::TableHeadersRow();
+
+  for (int i = 0; i < 7; i++) {
+    ImGui::TableNextRow();
+    ImGui::TableNextColumn();
+    ImGui::Text("a %d", i);
+    ImGui::TableNextRow();
+    ImGui::Text("b %d", i);
+    ImGui::TableNextColumn();
+    ImGui::Text("c %d", i);
+  }
+  ImGui::EndTable();
   ImGui::End();
 }

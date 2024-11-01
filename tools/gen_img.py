@@ -22,6 +22,7 @@ def traverse_directory(path, toGen):
         elif item.is_file() and item.suffix == ".png":
             file_name = item.name
             cpp_var_name = item.stem.upper()
+            cpp_var_name = cpp_var_name.replace("-", "_")
             toGen.write(f"  constexpr char {cpp_var_name}[] = \"{file_name}\";\n")
 
 def append_file_contents(toGen):

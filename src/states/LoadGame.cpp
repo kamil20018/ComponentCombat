@@ -12,7 +12,8 @@ LoadGame::LoadGame(std::shared_ptr<Context> &context)
       userSavesPath(fs::current_path().parent_path() / "data" / "userSaves"),
       pressedEnter(false),
       pressedEscape(false),
-      arrowInput(0) {
+      arrowInput(0),
+      selectedSaveIndex(0) {
   updateSaveFiles();
 }
 

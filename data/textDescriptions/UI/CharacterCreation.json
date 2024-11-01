@@ -1,0 +1,34 @@
+{
+    "Qi cultivation": {
+        "description": "Gather Qi and break through to gain immortality.",
+        "pros": [
+            "- high Qi affinity",
+            "- long range focused"
+        ],
+        "cons": [
+            "- weak body"
+        ]
+    },
+    "Body cultivation": {
+        "description": "Refine your body to the extreme",
+        "pros": [
+            "- powerful body",
+            "- close range focused"
+        ],
+        "cons": [
+            "- low Qi affinity"
+        ]
+    },
+    "Demonic cultivation": {
+        "description": "Embrace the dark side",
+        "pros": [
+            "- strong evil spells",
+            "- medium Qi affinity",
+            "- medium body cultivation potential"
+        ],
+        "cons": [
+            "- jack of all trades, master of none",
+            "- universally hated by all the righteous path cultivators"
+        ]
+    }
+}
