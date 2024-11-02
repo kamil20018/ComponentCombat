@@ -124,7 +124,7 @@
             }
         }
     },
-    "stateDestination": "characterCreation",
+    "stateDestination": "gamePlay",
     "metaProgression": {
         "goodKarma": 10,
         "badKarma": 0

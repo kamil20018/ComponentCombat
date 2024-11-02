@@ -5,10 +5,13 @@
 
 #include "LoadGame.hpp"
 
-MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context) {
+MainMenu::MainMenu(std::shared_ptr<Context> &context) : context(context), backgroundSprite(_assets->GetTexture(image::backgrounds::OUTPUT)) {
   shape = sf::RectangleShape{sf::Vector2f{_window->getSize()}};
   shader.loadFromFile(fs::current_path().parent_path() / "shaders" / "backgrounds" / "stars.frag", sf::Shader::Fragment);
   shader.loadFromFile(fs::current_path().parent_path() / "shaders" / "backgrounds" / "stars.frag", sf::Shader::Fragment);
+  float width = _window->getSize().x;
+  float height = _window->getSize().y;
+  backgroundSprite.setScale(width / backgroundSprite.getGlobalBounds().width, height / backgroundSprite.getGlobalBounds().height);
 }
 
 MainMenu::~MainMenu() {}

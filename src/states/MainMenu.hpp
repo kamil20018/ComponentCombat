@@ -14,6 +14,7 @@ class MainMenu : public State {
   sf::Shader shader;
   sf::RectangleShape shape;
   sf::Vector2f mousePosition;
+  sf::Sprite backgroundSprite;
 
  public:
   MainMenu(std::shared_ptr<Context> &context);

@@ -45,17 +45,7 @@ void CharacterCreation::update() {
   if (!selectedCultivationType) {
     cultivationTypeChoice();
   } else {
-    switch (*selectedCultivationType) {
-      case CultivationType::QI:
-        qiCultivatorCreator();
-        break;
-      case CultivationType::BODY:
-        bodyCultivatorCreator();
-        break;
-      case CultivationType::DEMONIC:
-        demonicCultivatorCreator();
-        break;
-    }
+    cultivatorCreator();
   }
   ImGui::End();
   //_states->addState(std::make_unique<GamePlay>(context));
@@ -63,7 +53,12 @@ void CharacterCreation::update() {
 
 void CharacterCreation::draw() {
   _window->clear(sf::Color::Black);
-  ImGui::ShowDemoWindow();
+  sf::Sprite backgroundSprite(_assets->GetTexture(image::backgrounds::OUTPUT));
+  float width = _window->getSize().x;
+  float height = _window->getSize().y;
+  backgroundSprite.setScale(width / backgroundSprite.getGlobalBounds().width, height / backgroundSprite.getGlobalBounds().height);
+  _window->draw(backgroundSprite);
+  // ImGui::ShowDemoWindow();
   ImGui::SFML::Render(*_window);
   _window->display();
 }
@@ -143,6 +138,23 @@ void CharacterCreation::cultivationTypeChoice() {
       showCultivationText(cultivationType);
     }
     ImGui::EndTable();
+  }
+}
+
+void CharacterCreation::cultivatorCreator() {
+  ImGui::Text("Cultivator Creator");
+  auto metaProgresstionData = context->saveFile["metaProgression"];
+
+  switch (*selectedCultivationType) {
+    case CultivationType::QI:
+      qiCultivatorCreator();
+      break;
+    case CultivationType::BODY:
+      bodyCultivatorCreator();
+      break;
+    case CultivationType::DEMONIC:
+      demonicCultivatorCreator();
+      break;
   }
 }
 

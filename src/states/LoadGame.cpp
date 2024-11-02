@@ -13,8 +13,13 @@ LoadGame::LoadGame(std::shared_ptr<Context> &context)
       pressedEnter(false),
       pressedEscape(false),
       arrowInput(0),
-      selectedSaveIndex(0) {
+      selectedSaveIndex(0),
+
+      backgroundSprite(_assets->GetTexture(image::backgrounds::OUTPUT)) {
   updateSaveFiles();
+  float width = _window->getSize().x;
+  float height = _window->getSize().y;
+  backgroundSprite.setScale(width / backgroundSprite.getGlobalBounds().width, height / backgroundSprite.getGlobalBounds().height);
 }
 
 LoadGame::~LoadGame() {}
@@ -110,7 +115,7 @@ void LoadGame::update() {
 }
 
 void LoadGame::draw() {
-  _window->clear(sf::Color::Black);
+  _window->draw(backgroundSprite);
   ImGui::ShowDemoWindow();
   ImGui::SFML::Render(*_window);
   _window->display();

@@ -39,4 +39,6 @@ class LoadGame : public State {
   std::vector<fs::path> saveFiles;
   fs::path baseSavePath;
   fs::path userSavesPath;
+
+  sf::Sprite backgroundSprite;
 };

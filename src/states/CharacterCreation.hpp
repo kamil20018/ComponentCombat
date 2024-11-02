@@ -35,6 +35,7 @@ class CharacterCreation : public State {
 
  private:
   void cultivationTypeChoice();
+  void cultivatorCreator();  // for generic layout, to be filled by selected type
   void qiCultivatorCreator();
   void bodyCultivatorCreator();
   void demonicCultivatorCreator();
