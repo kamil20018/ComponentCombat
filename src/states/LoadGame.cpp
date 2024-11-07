@@ -168,6 +168,7 @@ void LoadGame::updateSaveFiles() {
   }
   saveFiles.clear();
   for (auto const &dir_entry : fs::directory_iterator{userSavesPath}) saveFiles.push_back(dir_entry.path());
+  std::sort(saveFiles.begin(), saveFiles.end());
 }
 
 fs::path LoadGame::createSaveFile(const std::string &saveName) {

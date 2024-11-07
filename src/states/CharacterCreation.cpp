@@ -29,6 +29,17 @@ void CharacterCreation::processInput() {
         case sf::Keyboard::Escape:
           context->states->popCurrent();
           break;
+        case sf::Keyboard::Num1:
+          selectedCultivationType = CultivationType::QI;
+          break;
+        case sf::Keyboard::Num2:
+          selectedCultivationType = std::nullopt;
+          // selectedCultivationType = CultivationType::BODY;
+          break;
+        case sf::Keyboard::Num3:
+          selectedCultivationType = std::nullopt;
+          // selectedCultivationType = CultivationType::DEMONIC;
+          break;
         default: {
           break;
         }
@@ -48,7 +59,6 @@ void CharacterCreation::update() {
     cultivatorCreator();
   }
   ImGui::End();
-  //_states->addState(std::make_unique<GamePlay>(context));
 }
 
 void CharacterCreation::draw() {
@@ -58,7 +68,7 @@ void CharacterCreation::draw() {
   float height = _window->getSize().y;
   backgroundSprite.setScale(width / backgroundSprite.getGlobalBounds().width, height / backgroundSprite.getGlobalBounds().height);
   _window->draw(backgroundSprite);
-  // ImGui::ShowDemoWindow();
+  ImGui::ShowDemoWindow();
   ImGui::SFML::Render(*_window);
   _window->display();
 }
@@ -142,9 +152,40 @@ void CharacterCreation::cultivationTypeChoice() {
 }
 
 void CharacterCreation::cultivatorCreator() {
-  ImGui::Text("Cultivator Creator");
   auto metaProgresstionData = context->saveFile["metaProgression"];
+  static ImGuiTableFlags flags1 = ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuterH | ImGuiTableFlags_RowBg | ImGuiTableFlags_ContextMenuInBody;
+  float width = ImGui::GetContentRegionAvail().x * 0.85f;
+  MyGui::centerHorizontally(width);
+  if (ImGui::BeginTable("table2", 2, flags1, ImVec2(width, 0))) {
+    ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
+    ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0, 0, 0, 0));
+    ImGui::TableSetupColumn("Good karma");
+    ImGui::TableSetupColumn("Bad karma");
+    ImGui::TableHeadersRow();
 
+    // images
+    ImGui::TableNextRow();
+    ImGui::TableNextColumn();
+    ImGui::Text("Karma left: %d", metaProgresstionData["goodKarma"].get<int>());
+    ImGui::TableNextColumn();
+    ImGui::Text("Karma left: %d", metaProgresstionData["badKarma"].get<int>());
+    ImGui::TableNextRow();
+    ImGui::TableNextColumn();
+    if (ImGui::TreeNode("good karma")) {
+      for (int i = 0; i < 5; i++) {
+        ImGui::Text("item %d", i);
+      }
+      ImGui::TreePop();
+    }
+    ImGui::TableNextColumn();
+    if (ImGui::TreeNode("bad karma")) {
+      for (int i = 0; i < 5; i++) {
+        ImGui::Text("item %d", i);
+      }
+      ImGui::TreePop();
+    }
+    ImGui::EndTable();
+  }
   switch (*selectedCultivationType) {
     case CultivationType::QI:
       qiCultivatorCreator();
@@ -156,11 +197,19 @@ void CharacterCreation::cultivatorCreator() {
       demonicCultivatorCreator();
       break;
   }
+
+  if (ImGui::Button("spend karma")) {
+    spendGoodKarma(1);
+    spendBadKarma(2);
+  }
+
+  if (ImGui::Button("Finalize")) {
+    context->saveFile["stateDestination"] = "gamePlay";
+    _states->addState(std::make_unique<GamePlay>(context), true);
+  }
 }
 
-void CharacterCreation::qiCultivatorCreator() {
-  ImGui::Text("Qi Cultivator Creator");
-}
+void CharacterCreation::qiCultivatorCreator() {}
 
 void CharacterCreation::bodyCultivatorCreator() {
   // TODO
@@ -168,4 +217,12 @@ void CharacterCreation::bodyCultivatorCreator() {
 
 void CharacterCreation::demonicCultivatorCreator() {
   // TODO
+}
+
+void CharacterCreation::spendGoodKarma(int amount) {
+  context->saveFile["metaProgression"]["goodKarma"] = context->saveFile["metaProgression"]["goodKarma"].get<int>() - amount;
+}
+
+void CharacterCreation::spendBadKarma(int amount) {
+  context->saveFile["metaProgression"]["badKarma"] = context->saveFile["metaProgression"]["badKarma"].get<int>() - amount;
 }

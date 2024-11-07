@@ -40,6 +40,9 @@ class CharacterCreation : public State {
   void bodyCultivatorCreator();
   void demonicCultivatorCreator();
 
+  void spendGoodKarma(int amount);
+  void spendBadKarma(int amount);
+
   json UiText;
   std::optional<CultivationType> selectedCultivationType;
   std::shared_ptr<Context> context;
