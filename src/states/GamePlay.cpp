@@ -72,6 +72,7 @@ void GamePlay::draw() {
 
   CombatLog::display();
   ImGui::ShowDemoWindow();
+
   ImGui::SFML::Render(*_window);
 
   _window->display();

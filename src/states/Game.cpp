@@ -23,7 +23,6 @@ void Game::run() {
     _states->getCurrent()->processInput();
 
     _states->getCurrent()->update();
-
     _states->getCurrent()->draw();
   }
 }

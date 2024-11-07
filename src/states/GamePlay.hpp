@@ -13,6 +13,7 @@
 #include "ImageNames.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
+#include "Timer.hpp"
 #include "component/ActorComponent.hpp"
 #include "component/Component.hpp"
 #include "component/ItemComponent.hpp"
