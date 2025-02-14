@@ -5,6 +5,7 @@
 #include "Constants.hpp"
 #include "Scene.hpp"
 #include "component/ActorComponent.hpp"
+#include "component/TraitComponent.hpp"
 #include "imgui-SFML.h"
 #include "imgui.h"
 

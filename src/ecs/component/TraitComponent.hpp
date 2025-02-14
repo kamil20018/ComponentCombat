@@ -17,4 +17,17 @@ namespace component {
     int damage;
   };
 
+  struct Hp : public Component {
+    Hp(int hp) : hp(hp){};
+    Hp(const json &j) : hp(j["hp"]){};
+    json serialize() override {
+      return json{{"hp", hp}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "HP | Hp: " << hp).str();
+    }
+    inline static int id = -1;
+    int hp;
+  };
+
 }  // namespace component

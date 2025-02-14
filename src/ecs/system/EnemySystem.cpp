@@ -9,7 +9,7 @@ EntityID EnemySystem::spawn(int variant) {
   if (variant == 0) {
     scene->addComponents(
         enemy, std::make_shared<BodyColor>(sf::Color::Red), std::make_shared<Position>(sf::Vector2i(0, 10)), std::make_shared<Name>((std::string) "Fag"),
-        std::make_shared<Size>(40, 40), std::make_shared<Sight>(14), std::make_shared<Range>(7), std::make_shared<Attack>(7), std::make_shared<Hp>(7),
+        std::make_shared<Size>(40, 40), std::make_shared<Sight>(14), std::make_shared<RangedAttack>(8, 10), std::make_shared<Hp>(7),
         std::make_shared<BehaviorTree>(BTranger(enemy), fs::current_path().parent_path() / "resources" / "behavior_trees" / "ranger.xml", BtType::LONG_RANGE));
   } else if (variant == 1) {
     scene->addComponents(
@@ -51,8 +51,7 @@ void EnemySystem::loadEnemies(json &j) {
 BT::BehaviorTreeFactory EnemySystem::BTranger(EntityID entityID) {
   BT::BehaviorTreeFactory rangerBT;
   rangerBT.registerNodeType<InSight>("InSight", player, entityID, scene);
-  rangerBT.registerNodeType<InRange>("InRange", player, entityID, scene);
-  rangerBT.registerNodeType<AttackPlayer>("AttackPlayer", player, entityID, scene);
+  rangerBT.registerNodeType<PerformRangedAttack>("PerformRangedAttack", player, entityID, scene);
   rangerBT.registerNodeType<ApproachPlayer>("ApproachPlayer", player, entityID, scene);
   return std::move(rangerBT);
 }

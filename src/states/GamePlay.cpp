@@ -18,7 +18,7 @@ void GamePlay::init() {
   uiSystem.loadEquippedItems(gameStateSave["equippedItems"], equippedItems);
   uiSystem.loadInventory(gameStateSave["inventory"], inventory);
   enemySystem.loadEnemies(gameStateSave["enemies"]);
-  // enemySystem.spawn(0);
+  enemySystem.spawn(0);
 }
 
 void GamePlay::processInput() {

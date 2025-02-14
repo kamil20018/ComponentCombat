@@ -46,6 +46,23 @@ BT::NodeStatus AttackPlayer::tick() {
   return BT::NodeStatus::SUCCESS;
 }
 
+PerformRangedAttack::PerformRangedAttack(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
+    : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene) {}
+
+BT::PortsList PerformRangedAttack::providedPorts() {
+  return {};
+}
+
+BT::NodeStatus PerformRangedAttack::tick() {
+  auto enemyAttack = scene->getComponent<RangedAttack>(enemy)->damage;
+  auto playerHp = &scene->getComponent<Hp>(player)->hp;
+  *playerHp -= enemyAttack;
+  CombatLog::addLog(std::stringstream() << "-----" << scene->getComponent<Name>(enemy)->name << "-----", LogType::COMBAT);
+  CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
+  CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
+  return BT::NodeStatus::SUCCESS;
+}
+
 ApproachPlayer::ApproachPlayer(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
     : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene) {}
 BT::PortsList ApproachPlayer::providedPorts() {
