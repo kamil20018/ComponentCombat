@@ -41,6 +41,10 @@ class GamePlay : public State {
   sf::Vector2i moveDir;
   bool playerUsedAction;
   EntityID player;
+  bool passTurn = false;
+
+  bool inventoryOpen = true;
+  bool logOpened = true;
 
   Inventory inventory;
   EquippedItems equippedItems;

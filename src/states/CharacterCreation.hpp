@@ -40,8 +40,7 @@ class CharacterCreation : public State {
   void bodyCultivatorCreator();
   void demonicCultivatorCreator();
 
-  void spendGoodKarma(int amount);
-  void spendBadKarma(int amount);
+  void spendEvolutionPoints(int amount);
 
   json UiText;
   std::optional<CultivationType> selectedCultivationType;

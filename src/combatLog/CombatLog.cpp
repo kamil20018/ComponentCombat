@@ -42,7 +42,7 @@ std::string CombatLog::constructLog(LogEntry logEntry) {
 }
 
 void CombatLog::display() {
-  ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_MIDDLE, 0.5f, 0.24f, 0.005f, 0.005f);
+  ImGuiHelper::dockNextWindow(WindowDock::TOP_LEFT, 0.5f, 0.24f, 0.005f, 0.005f);
   ImGui::Begin("test", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
 
   for (const auto& logEntry : logs) {

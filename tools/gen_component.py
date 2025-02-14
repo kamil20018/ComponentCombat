@@ -1,6 +1,10 @@
 import sys
 
 input_vars = []
+if(len(sys.argv) < 2):
+    print("Usage: python3 tools/gen_component.py \"<component_name> <var_type> <var_name> <var_type> <var_name> ...\"")
+    exit(1)
+
 argv = sys.argv[1]
 argv = argv.split()
 component_name = argv[0]

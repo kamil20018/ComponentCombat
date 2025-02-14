@@ -53,11 +53,11 @@ void CharacterCreation::update() {
   ImGuiHelper::dockNextWindow(WindowDock::CENTER, 0.75f, 0.75f);
   ImGui::Begin("Character Creation", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoCollapse);
-  if (!selectedCultivationType) {
-    cultivationTypeChoice();
-  } else {
-    cultivatorCreator();
-  }
+  // if (!selectedCultivationType) {
+  //   cultivationTypeChoice();
+  // } else {
+  cultivatorCreator();
+  // }
   ImGui::End();
 }
 
@@ -153,37 +153,49 @@ void CharacterCreation::cultivationTypeChoice() {
 
 void CharacterCreation::cultivatorCreator() {
   auto metaProgresstionData = context->saveFile["metaProgression"];
-  static ImGuiTableFlags flags1 = ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuterH | ImGuiTableFlags_RowBg | ImGuiTableFlags_ContextMenuInBody;
-  float width = ImGui::GetContentRegionAvail().x * 0.85f;
+  static ImGuiTableFlags flags1 =
+      ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuterH | ImGuiTableFlags_RowBg | ImGuiTableFlags_ContextMenuInBody | ImGuiTableFlags_SizingFixedFit;
+  float width = ImGui::GetContentRegionAvail().x * 0.95f;
+  ImGui::Text("You have %d evolution points", metaProgresstionData["evolutionPoints"].get<int>());
   MyGui::centerHorizontally(width);
-  if (ImGui::BeginTable("table2", 2, flags1, ImVec2(width, 0))) {
+  if (ImGui::BeginTable("table2", 6, flags1, ImVec2(width, 0))) {
     ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
     ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0, 0, 0, 0));
-    ImGui::TableSetupColumn("Good karma");
-    ImGui::TableSetupColumn("Bad karma");
+    ImGui::TableSetupColumn("Cost");
+    ImGui::TableSetupColumn("Name");
+    ImGui::TableSetupColumn("Type");
+    ImGui::TableSetupColumn("Description");
+    ImGui::TableSetupColumn("Details");
+    ImGui::TableSetupColumn("Buy");
     ImGui::TableHeadersRow();
 
-    // images
     ImGui::TableNextRow();
     ImGui::TableNextColumn();
-    ImGui::Text("Karma left: %d", metaProgresstionData["goodKarma"].get<int>());
-    ImGui::TableNextColumn();
-    ImGui::Text("Karma left: %d", metaProgresstionData["badKarma"].get<int>());
-    ImGui::TableNextRow();
-    ImGui::TableNextColumn();
-    if (ImGui::TreeNode("good karma")) {
-      for (int i = 0; i < 5; i++) {
-        ImGui::Text("item %d", i);
+    for (auto trait : UiText["Traits"]) {
+      ImGui::Text(std::to_string(trait["cost"].get<int>()).c_str());
+      ImGui::TableNextColumn();
+      ImGui::Text(trait["name"].get<std::string>().c_str());
+      ImGui::TableNextColumn();
+      ImGui::Text(trait["type"].get<std::string>().c_str());
+      ImGui::TableNextColumn();
+      ImGui::Text(trait["description"].get<std::string>().c_str());
+      ImGui::TableNextColumn();
+      ImGui::Text("i");
+      ImGui::TableNextColumn();
+      ImGui::PushID(trait["number"].get<int>());
+      if (ImGui::Button("Buy")) {
+        std::cout << trait["number"] << std::endl;
+        if (trait["cost"].get<int>() <= metaProgresstionData["evolutionPoints"].get<int>()) {
+          context->saveFile["metaProgression"]["evolutionPoints"] =
+              context->saveFile["metaProgression"]["evolutionPoints"].get<int>() - trait["cost"].get<int>();
+          context->saveFile["metaProgression"]["boughtTraits"].push_back(trait["number"]);
+        }
       }
-      ImGui::TreePop();
+      ImGui::PopID();
+      ImGui::TableNextRow();
+      ImGui::TableNextColumn();
     }
-    ImGui::TableNextColumn();
-    if (ImGui::TreeNode("bad karma")) {
-      for (int i = 0; i < 5; i++) {
-        ImGui::Text("item %d", i);
-      }
-      ImGui::TreePop();
-    }
+
     ImGui::EndTable();
   }
   switch (*selectedCultivationType) {
@@ -198,12 +210,7 @@ void CharacterCreation::cultivatorCreator() {
       break;
   }
 
-  if (ImGui::Button("spend karma")) {
-    spendGoodKarma(1);
-    spendBadKarma(2);
-  }
-
-  if (ImGui::Button("Finalize")) {
+  if (ImGui::Button("Finish")) {
     context->saveFile["stateDestination"] = "gamePlay";
     _states->addState(std::make_unique<GamePlay>(context), true);
   }
@@ -217,12 +224,4 @@ void CharacterCreation::bodyCultivatorCreator() {
 
 void CharacterCreation::demonicCultivatorCreator() {
   // TODO
-}
-
-void CharacterCreation::spendGoodKarma(int amount) {
-  context->saveFile["metaProgression"]["goodKarma"] = context->saveFile["metaProgression"]["goodKarma"].get<int>() - amount;
-}
-
-void CharacterCreation::spendBadKarma(int amount) {
-  context->saveFile["metaProgression"]["badKarma"] = context->saveFile["metaProgression"]["badKarma"].get<int>() - amount;
 }

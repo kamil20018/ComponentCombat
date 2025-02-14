@@ -21,6 +21,7 @@ class EnemySystem {
   void loadEnemies(json &j);
 
  private:
+  BT::BehaviorTreeFactory BTranger(EntityID entityID);
   std::vector<EntityID> enemies;
   std::shared_ptr<Scene> scene;
   std::shared_ptr<Context> context;

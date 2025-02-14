@@ -4,7 +4,7 @@
             {
                 "attack": 7,
                 "behaviorTree": {
-                    "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/my_tree.xml",
+                    "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/ranger.xml",
                     "type": "LONG_RANGE"
                 },
                 "color": {
@@ -20,30 +20,6 @@
                 ],
                 "range": 7,
                 "sight": 14,
-                "size": {
-                    "height": 40,
-                    "width": 40
-                }
-            },
-            {
-                "attack": 3,
-                "behaviorTree": {
-                    "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/my_tree.xml",
-                    "type": "LONG_RANGE"
-                },
-                "color": {
-                    "b": 0,
-                    "g": 255,
-                    "r": 0
-                },
-                "hp": 39,
-                "name": "Goblin",
-                "position": [
-                    2,
-                    2
-                ],
-                "range": 10,
-                "sight": 20,
                 "size": {
                     "height": 40,
                     "width": 40
@@ -127,6 +103,8 @@
     "stateDestination": "characterCreation",
     "metaProgression": {
         "goodKarma": 10,
-        "badKarma": 10
+        "badKarma": 10,
+        "evolutionPoints": 100,
+        "boughtTraits": []
     }
 }

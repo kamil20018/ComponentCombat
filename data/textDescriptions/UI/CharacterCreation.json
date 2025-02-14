@@ -30,5 +30,29 @@
             "- jack of all trades, master of none",
             "- universally hated by all the righteous path cultivators"
         ]
-    }
+    },
+    "Traits": [
+        {
+            "cost": 10,
+            "name": "Melee attack",
+            "type": "Active ability",
+            "description": "Allows you to attack the neighbouring tiles",
+            "stats": {
+                "damage": 3,
+                "range": 1
+            },
+            "number": 0
+        },
+        {
+            "cost": 10,
+            "name": "Ranged attack",
+            "type": "Active ability",
+            "description": "Allows you to attack from afar at the cost of reduced damage",
+            "stats": {
+                "damage": 1.5,
+                "range": 3
+            },
+            "number": 1
+        }
+    ]
 }

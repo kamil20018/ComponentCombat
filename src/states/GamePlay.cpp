@@ -18,6 +18,7 @@ void GamePlay::init() {
   uiSystem.loadEquippedItems(gameStateSave["equippedItems"], equippedItems);
   uiSystem.loadInventory(gameStateSave["inventory"], inventory);
   enemySystem.loadEnemies(gameStateSave["enemies"]);
+  // enemySystem.spawn(0);
 }
 
 void GamePlay::processInput() {
@@ -28,6 +29,7 @@ void GamePlay::processInput() {
       _window->close();
     } else if (event.type == sf::Event::KeyPressed) {
       switch (event.key.code) {
+        // movement
         case sf::Keyboard::W:
           moveDir = sf::Vector2i(0, -1);
           break;
@@ -40,9 +42,18 @@ void GamePlay::processInput() {
         case sf::Keyboard::D:
           moveDir = sf::Vector2i(1, 0);
           break;
+        case sf::Keyboard::Space:
+          passTurn = true;
+          break;
+        // leave game
         case sf::Keyboard::Escape:
           context->states->popCurrent();
-          // _window->close();
+          break;
+        case sf::Keyboard::I:
+          inventoryOpen = !inventoryOpen;
+          break;
+        case sf::Keyboard::L:
+          logOpened = !logOpened;
           break;
         default:
           break;
@@ -54,13 +65,17 @@ void GamePlay::processInput() {
 void GamePlay::update() {
   ImGui::SFML::Update(*_window, deltaClock.restart());
   system.moveEntity(player, moveDir);
-  if (moveDir != sf::Vector2i(0, 0)) {
+  if (moveDir != sf::Vector2i(0, 0) || passTurn) {
+    passTurn = false;
     enemySystem.enemyTurn();
   };
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
-  uiSystem.handleInventory(inventory, equippedItems);
-  uiSystem.handleCharacterScreen(equippedItems, inventory);
+
+  if (inventoryOpen) {
+    uiSystem.handleInventory(inventory, equippedItems);
+    uiSystem.handleCharacterScreen(equippedItems, inventory);
+  }
 }
 
 void GamePlay::draw() {
@@ -70,7 +85,10 @@ void GamePlay::draw() {
   system.drawEntities(_window);
   system.drawComponents(sf::Mouse::getPosition(*_window));
 
-  CombatLog::display();
+  if (logOpened) {
+    CombatLog::display();
+  }
+
   ImGui::ShowDemoWindow();
 
   ImGui::SFML::Render(*_window);

@@ -144,7 +144,7 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
             showItemPopup(inventory.at(eqCounter));
           }
         } else {
-          ImGui::Button("chuj");
+          ImGui::Button("   ");
         }
         ImGui::SameLine();
         if (ImGui::BeginPopup(popupName.c_str())) {
