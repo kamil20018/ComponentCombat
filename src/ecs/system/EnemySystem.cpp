@@ -11,11 +11,6 @@ EntityID EnemySystem::spawn(int variant) {
         enemy, std::make_shared<BodyColor>(sf::Color::Red), std::make_shared<Position>(sf::Vector2i(0, 10)), std::make_shared<Name>((std::string) "Fag"),
         std::make_shared<Size>(40, 40), std::make_shared<Sight>(14), std::make_shared<RangedAttack>(8, 10), std::make_shared<Hp>(7),
         std::make_shared<BehaviorTree>(BTranger(enemy), fs::current_path().parent_path() / "resources" / "behavior_trees" / "ranger.xml", BtType::LONG_RANGE));
-  } else if (variant == 1) {
-    scene->addComponents(
-        enemy, std::make_shared<BodyColor>(sf::Color::Green), std::make_shared<Position>(sf::Vector2i(10, 5)), std::make_shared<Name>((std::string) "Goblin"),
-        std::make_shared<Size>(40, 40), std::make_shared<Sight>(20), std::make_shared<Range>(10), std::make_shared<Attack>(3), std::make_shared<Hp>(7),
-        std::make_shared<BehaviorTree>(BTranger(enemy), fs::current_path().parent_path() / "resources" / "behavior_trees" / "ranger.xml", BtType::LONG_RANGE));
   }
   return enemy;
 }
@@ -44,9 +39,7 @@ void EnemySystem::loadEnemies(json &j) {
     enemies.push_back(enemyID);
     scene->addComponents(enemyID, std::make_shared<BodyColor>(enemySave), std::make_shared<Position>(enemySave), std::make_shared<Hp>(enemySave),
                          std::make_shared<Name>(enemySave), std::make_shared<Size>(enemySave), std::make_shared<Sight>(enemySave),
-                         std::make_shared<BehaviorTree>(BTranger(enemyID), enemySave));
-    std::cout << enemySave << std::endl;
-    scene->addComponents(enemyID, std::make_shared<RangedAttack>(enemySave));
+                         std::make_shared<BehaviorTree>(BTranger(enemyID), enemySave), std::make_shared<RangedAttack>(enemySave));
   }
 }
 

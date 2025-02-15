@@ -16,6 +16,7 @@ namespace component {
       return (std::stringstream() << "Item type | " << static_cast<int>(itemType)).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "ItemType";
     ItemTypes itemType;
   };
 
@@ -29,6 +30,7 @@ namespace component {
       return (std::stringstream() << "ItemTexture | " << textureName).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "TextureName";
     std::string textureName;
   };
 
@@ -42,6 +44,7 @@ namespace component {
       return (std::stringstream() << "AttackRange | min: " << min << " max: " << max).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "AttackRange";
     float min, max;
   };
 
@@ -55,6 +58,7 @@ namespace component {
       return (std::stringstream() << "Defense | defense: " << defense).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Defense";
     float defense;
   };
   /// @brief Flat attack bonus applying to both ends of the attack range
@@ -68,6 +72,7 @@ namespace component {
       return (std::stringstream() << "AttackBonus | attackBonus: " << attackBonus).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "AttackBonus";
     float attackBonus;
   };
 
@@ -81,6 +86,7 @@ namespace component {
       return (std::stringstream() << "POISON | damage: " << damage << ", duration: " << duration).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Poison";
     int damage;
     int duration;
   };

@@ -13,6 +13,7 @@ namespace component {
       return (std::stringstream() << "RANGEDATTACK | range: " << range << ", damage: " << damage).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "RangedAttack";
     int range;
     int damage;
   };
@@ -27,6 +28,7 @@ namespace component {
       return (std::stringstream() << "HP | Hp: " << hp).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Hp";
     int hp;
   };
 

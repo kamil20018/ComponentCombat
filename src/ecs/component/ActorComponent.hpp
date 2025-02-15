@@ -20,6 +20,7 @@ namespace component {
       return (std::stringstream() << "POSITION | x: " << pos.x << ", y: " << pos.y).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Position";
     sf::Vector2i pos;
   };
 
@@ -33,6 +34,7 @@ namespace component {
       return (std::stringstream() << "SIZE | width: " << width << ", height: " << height).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Size";
     int width;
     int height;
   };
@@ -47,6 +49,7 @@ namespace component {
       return (std::stringstream() << "ATTACK | " << attack).str();
     };
     inline static int id = -1;
+    inline static std::string componentName = "Attack";
     int attack;
   };
 
@@ -60,6 +63,7 @@ namespace component {
       return (std::stringstream() << "POISONED | damage: " << damage << ", duration: " << duration).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Poisoned";
     int damage;
     int duration;
   };
@@ -76,6 +80,7 @@ namespace component {
                    }}};
     }
     inline static int id = -1;
+    inline static std::string componentName = "BodyColor";
     sf::Color color;
   };
 
@@ -90,6 +95,7 @@ namespace component {
       return (std::stringstream() << "NAME | name: " << name).str();
     };
     inline static int id = -1;
+    inline static std::string componentName = "Name";
     std::string name;
   };
 
@@ -104,6 +110,7 @@ namespace component {
       return (std::stringstream() << "SIGHT | sight: " << sight).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Sight";
     int sight;
   };
 
@@ -118,6 +125,7 @@ namespace component {
       return (std::stringstream() << "RANGE | range: " << range).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "Range";
     int range;
   };
 
@@ -135,6 +143,7 @@ namespace component {
       return (std::stringstream() << "BEHAVIOURTREE | tree: " << BtTypeToString.at(static_cast<int>(type))).str();
     }
     inline static int id = -1;
+    inline static std::string componentName = "BehaviorTree";
     BT::Tree tree;
     fs::path path;
     BtType type;

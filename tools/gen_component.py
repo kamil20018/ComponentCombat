@@ -40,6 +40,7 @@ struct {component_name}: public Component {{
       return (std::stringstream() << {vars_to_description()}).str();
     }}
     inline static int id = -1;
+    inline static std::string componentName = "{component_name}";
     {vars_to_members()};
 }}
 """

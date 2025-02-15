@@ -53,6 +53,11 @@ class Scene {
 
   template <typename T>
   std::shared_ptr<T> getComponent(EntityID id) {
+    if (!registry.components.at(T::id)->contains(id)) {
+      std::cout << "ERROR: component " << T::componentName << " not found on entity " << id << std::endl;
+      std::cout << "entity has components: " << std::endl;
+      std::cout << std::setw(4) << getEntitySave(id) << std::endl;
+    }
     // I've just commited a coding war crime, fight me
     return std::reinterpret_pointer_cast<T>(registry.components.at(T::id)->at(id));
   }
