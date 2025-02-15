@@ -51,6 +51,7 @@ void EnemySystem::loadEnemies(json &j) {
 BT::BehaviorTreeFactory EnemySystem::BTranger(EntityID entityID) {
   BT::BehaviorTreeFactory rangerBT;
   rangerBT.registerNodeType<InSight>("InSight", player, entityID, scene);
+  rangerBT.registerNodeType<InRange>("InRange", player, entityID, scene);
   rangerBT.registerNodeType<PerformRangedAttack>("PerformRangedAttack", player, entityID, scene);
   rangerBT.registerNodeType<ApproachPlayer>("ApproachPlayer", player, entityID, scene);
   return std::move(rangerBT);
