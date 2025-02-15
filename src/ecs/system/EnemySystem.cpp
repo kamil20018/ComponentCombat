@@ -43,15 +43,17 @@ void EnemySystem::loadEnemies(json &j) {
     EntityID enemyID = scene->createEntity();
     enemies.push_back(enemyID);
     scene->addComponents(enemyID, std::make_shared<BodyColor>(enemySave), std::make_shared<Position>(enemySave), std::make_shared<Hp>(enemySave),
-                         std::make_shared<Name>(enemySave), std::make_shared<Size>(enemySave), std::make_shared<Range>(enemySave),
-                         std::make_shared<Attack>(enemySave), std::make_shared<Sight>(enemySave), std::make_shared<BehaviorTree>(BTranger(enemyID), enemySave));
+                         std::make_shared<Name>(enemySave), std::make_shared<Size>(enemySave), std::make_shared<Sight>(enemySave),
+                         std::make_shared<BehaviorTree>(BTranger(enemyID), enemySave));
+    std::cout << enemySave << std::endl;
+    scene->addComponents(enemyID, std::make_shared<RangedAttack>(enemySave));
   }
 }
 
 BT::BehaviorTreeFactory EnemySystem::BTranger(EntityID entityID) {
   BT::BehaviorTreeFactory rangerBT;
   rangerBT.registerNodeType<InSight>("InSight", player, entityID, scene);
-  rangerBT.registerNodeType<InRange>("InRange", player, entityID, scene);
+  rangerBT.registerNodeType<InRangeGeneric<RangedAttack>>("InRangeGeneric", player, entityID, scene);
   rangerBT.registerNodeType<PerformRangedAttack>("PerformRangedAttack", player, entityID, scene);
   rangerBT.registerNodeType<ApproachPlayer>("ApproachPlayer", player, entityID, scene);
   return std::move(rangerBT);

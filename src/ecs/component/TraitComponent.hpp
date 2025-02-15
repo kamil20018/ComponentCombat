@@ -5,7 +5,7 @@
 namespace component {
   struct RangedAttack : public Component {
     RangedAttack(int range, int damage) : range(range), damage(damage){};
-    RangedAttack(json j) : range(j["range"]), damage(j["damage"]){};
+    RangedAttack(json j) : range(j["rangedAttack"]["range"]), damage(j["rangedAttack"]["damage"]){};
     json serialize() override {
       return json{{"rangedAttack", {{"range", range}, {"damage", damage}}}};
     }

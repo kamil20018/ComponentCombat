@@ -5,7 +5,7 @@
                 <Action ID="InSight"/>
                 <Fallback>
                     <Sequence>
-                        <Action ID="InRange"/>
+                        <Action ID="InRangeGeneric"/>
                         <Action ID="PerformRangedAttack"/>
                     </Sequence>
                     <Action ID="ApproachPlayer"/>

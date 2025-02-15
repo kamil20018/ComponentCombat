@@ -2,23 +2,25 @@
     "gameState": {
         "enemies": [
             {
-                "attack": 7,
                 "behaviorTree": {
                     "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/ranger.xml",
                     "type": "LONG_RANGE"
                 },
                 "color": {
-                    "b": 255,
+                    "b": 0,
                     "g": 0,
-                    "r": 0
+                    "r": 255
                 },
-                "hp": 50,
+                "hp": 7,
                 "name": "Fag",
                 "position": [
-                    0,
-                    0
+                    11,
+                    10
                 ],
-                "range": 7,
+                "rangedAttack": {
+                    "damage": 10,
+                    "range": 8
+                },
                 "sight": 14,
                 "size": {
                     "height": 40,

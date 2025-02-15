@@ -14,21 +14,6 @@ BT::NodeStatus InSight::tick() {
   return distance < sight->sight ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
 }
 
-InRange::InRange(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
-    : BT::ConditionNode(name, config), player(player), enemy(enemy), scene(scene) {}
-
-BT::PortsList InRange::providedPorts() {
-  return {};
-}
-
-BT::NodeStatus InRange::tick() {
-  auto playerPos = scene->getComponent<Position>(player);
-  auto enemyPos = scene->getComponent<Position>(enemy);
-  auto range = scene->getComponent<RangedAttack>(enemy)->range;
-  float distance = sqrt(pow(playerPos->pos.x - enemyPos->pos.x, 2) + pow(playerPos->pos.y - enemyPos->pos.y, 2));
-  return distance < range ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
-}
-
 AttackPlayer::AttackPlayer(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
     : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene) {}
 
