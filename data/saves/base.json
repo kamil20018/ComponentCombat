@@ -8,18 +8,18 @@
                 },
                 "color": {
                     "b": 0,
-                    "g": 0,
-                    "r": 255
+                    "g": 255,
+                    "r": 0
                 },
                 "hp": 7,
-                "name": "Fag",
+                "name": "Green",
                 "position": [
-                    11,
+                    3,
                     10
                 ],
                 "rangedAttack": {
                     "damage": 10,
-                    "range": 8
+                    "range": 6
                 },
                 "sight": 14,
                 "size": {
@@ -88,7 +88,7 @@
         "player": {
             "color": {
                 "b": 0,
-                "g": 0,
+                "g": 255,
                 "r": 255
             },
             "hp": 1213,

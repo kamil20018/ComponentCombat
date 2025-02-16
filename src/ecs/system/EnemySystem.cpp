@@ -8,9 +8,10 @@ EntityID EnemySystem::spawn(int variant) {
 
   if (variant == 0) {
     scene->addComponents(
-        enemy, std::make_shared<BodyColor>(sf::Color::Red), std::make_shared<Position>(sf::Vector2i(0, 10)), std::make_shared<Name>((std::string) "Fag"),
-        std::make_shared<Size>(40, 40), std::make_shared<Sight>(14), std::make_shared<RangedAttack>(8, 10), std::make_shared<Hp>(7),
-        std::make_shared<BehaviorTree>(BTranger(enemy), fs::current_path().parent_path() / "resources" / "behavior_trees" / "ranger.xml", BtType::LONG_RANGE));
+        enemy, std::make_shared<BodyColor>(sf::Color::Blue), std::make_shared<Position>(sf::Vector2i(0, 10)), std::make_shared<Name>((std::string) "Blue"),
+        std::make_shared<Size>(40, 40), std::make_shared<Sight>(4), std::make_shared<RangedAttack>(8, 10), std::make_shared<Hp>(7),
+        std::make_shared<BehaviorTree>(BTmelee(enemy), fs::current_path().parent_path() / "resources" / "behavior_trees" / "melee.xml", BtType::LONG_RANGE),
+        std::make_shared<MeleeAttack>(2));
   }
   return enemy;
 }
@@ -43,11 +44,21 @@ void EnemySystem::loadEnemies(json &j) {
   }
 }
 
-BT::BehaviorTreeFactory EnemySystem::BTranger(EntityID entityID) {
+BT::BehaviorTreeFactory EnemySystem::BTranger(EntityID enemyID) {
   BT::BehaviorTreeFactory rangerBT;
-  rangerBT.registerNodeType<InSight>("InSight", player, entityID, scene);
-  rangerBT.registerNodeType<InRangeGeneric<RangedAttack>>("InRangeGeneric", player, entityID, scene);
-  rangerBT.registerNodeType<PerformRangedAttack>("PerformRangedAttack", player, entityID, scene);
-  rangerBT.registerNodeType<ApproachPlayer>("ApproachPlayer", player, entityID, scene);
+  rangerBT.registerNodeType<InSight>("InSight", player, enemyID, scene);
+  rangerBT.registerNodeType<InRangeGeneric<RangedAttack>>("InRangeGeneric", player, enemyID, scene);
+  rangerBT.registerNodeType<PerformRangedAttack>("PerformRangedAttack", player, enemyID, scene);
+  rangerBT.registerNodeType<ApproachPlayer>("ApproachPlayer", player, enemyID, scene);
   return std::move(rangerBT);
+}
+
+BT::BehaviorTreeFactory EnemySystem::BTmelee(EntityID enemyID) {
+  BT::BehaviorTreeFactory meleeBT;
+  meleeBT.registerNodeType<InSight>("InSight", player, enemyID, scene);
+  meleeBT.registerNodeType<IsNextToPlayer>("IsNextToPlayer", player, enemyID, scene);
+  meleeBT.registerNodeType<PerformMeleeAttack>("PerformMeleeAttack", player, enemyID, scene);
+  meleeBT.registerNodeType<ApproachPlayer>("ApproachPlayer", player, enemyID, scene);
+  meleeBT.registerNodeType<Wander>("Wander", enemyID, scene);
+  return std::move(meleeBT);
 }

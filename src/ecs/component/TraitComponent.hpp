@@ -18,6 +18,21 @@ namespace component {
     int damage;
   };
 
+  struct MeleeAttack : public Component {
+    MeleeAttack(int damage) : damage(damage){};
+    MeleeAttack(json j) : damage(j["damage"]){};
+    json serialize() override {
+      return json{{"meleeAttack", {{"damage", damage}}}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "MELEEATTACK | damage: " << damage).str();
+    }
+    inline static int id = -1;
+    inline static std::string componentName = "MeleeAttack";
+    int damage;
+    ;
+  };
+
   struct Hp : public Component {
     Hp(int hp) : hp(hp){};
     Hp(const json &j) : hp(j["hp"]){};
