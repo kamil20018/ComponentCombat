@@ -20,7 +20,7 @@ namespace component {
 
   struct MeleeAttack : public Component {
     MeleeAttack(int damage) : damage(damage){};
-    MeleeAttack(json j) : damage(j["damage"]){};
+    MeleeAttack(json j) : damage(j["meleeAttack"]["damage"]){};
     json serialize() override {
       return json{{"meleeAttack", {{"damage", damage}}}};
     }

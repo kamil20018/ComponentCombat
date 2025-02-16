@@ -20,6 +20,9 @@ class EnemySystem {
 
   json saveEnemies();
   void loadEnemies(json &j);
+  void loadEnemyRequired(const json &enemySave, EntityID enemyID);
+  void loadEnemyBT(const json &enemySave, EntityID enemyID);
+  void loadEnemyOptional(const json &enemySave, EntityID enemyID);
 
  private:
   BT::BehaviorTreeFactory BTmelee(EntityID entityID);

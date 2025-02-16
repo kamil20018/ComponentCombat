@@ -4,7 +4,7 @@
             {
                 "behaviorTree": {
                     "path": "/home/kamil/code/ComponentCombat/resources/behavior_trees/ranger.xml",
-                    "type": "LONG_RANGE"
+                    "type": "RANGED"
                 },
                 "color": {
                     "b": 0,
