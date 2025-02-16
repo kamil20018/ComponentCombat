@@ -8,54 +8,21 @@ void UiSystem::handleCharacterScreen(EquippedItems &equippedItems, Inventory &in
   ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.19f, 0.49f, 0.005f, 0.005f);
   ImGui::Begin("character", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
-  // if the item isn't equipped we draw an empty texture
-  std::string helmetTextureName =
-      equippedItems.helmet ? scene->getComponent<TextureName>(equippedItems.helmet.value())->textureName : image::other::TRANSPARENT;
-  std::string armourTextureName =
-      equippedItems.armour ? scene->getComponent<TextureName>(equippedItems.armour.value())->textureName : image::other::TRANSPARENT;
-  std::string bootsTextureName = equippedItems.boots ? scene->getComponent<TextureName>(equippedItems.boots.value())->textureName : image::other::TRANSPARENT;
-  std::string weaponTextureName =
-      equippedItems.weapon ? scene->getComponent<TextureName>(equippedItems.weapon.value())->textureName : image::other::TRANSPARENT;
 
   static std::optional<EntityID> *eqRef;
 
-  // helmet
-  ImVec2 itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.1f, true);
-  if (ImGui::ImageButton(_assets->GetTexture(helmetTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.helmet) {
-    eqRef = &equippedItems.helmet;
-    ImGui::OpenPopup(equippedActions.c_str());
-  }
-  if (ImGui::IsItemHovered() && equippedItems.helmet) {
-    showItemPopup(equippedItems.helmet.value());
-  }
-  // armour
-  itemSize = ImGuiHelper::prepareItem(0.24f, 0.34f, 0.38f, 0.3f);
-  if (ImGui::ImageButton(_assets->GetTexture(armourTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.armour) {
-    eqRef = &equippedItems.armour;
-    ImGui::OpenPopup(equippedActions.c_str());
-  }
-  if (ImGui::IsItemHovered() && equippedItems.armour) {
-    showItemPopup(equippedItems.armour.value());
-  }
+  std::vector<std::tuple<float, float, float, float, bool>> eqSlotPositions = {
+      {0.24f, 0.0f, 0.38f, 0.1f, true}, {0.24f, 0.34f, 0.38f, 0.3f, false}, {0.24f, 0.0f, 0.38f, 0.7f, true}, {0.24f, 0.0f, 0.07f, 0.4f, true}};
 
-  // boots
-  itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.38f, 0.7f, true);
-  if (ImGui::ImageButton(_assets->GetTexture(bootsTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.boots) {
-    eqRef = &equippedItems.boots;
-    ImGui::OpenPopup(equippedActions.c_str());
-  }
-  if (ImGui::IsItemHovered() && equippedItems.boots) {
-    showItemPopup(equippedItems.boots.value());
-  }
-
-  // weapon
-  itemSize = ImGuiHelper::prepareItem(0.24f, 0.0f, 0.07f, 0.4f, true);
-  if (ImGui::ImageButton(_assets->GetTexture(weaponTextureName), ImGuiHelper::toVector2f(itemSize)) && equippedItems.weapon) {
-    eqRef = &equippedItems.weapon;
-    ImGui::OpenPopup(equippedActions.c_str());
-  }
-  if (ImGui::IsItemHovered() && equippedItems.weapon) {
-    showItemPopup(equippedItems.weapon.value());
+  for (int slot = 0; slot < eqSlotPositions.size(); slot++) {
+    ImVec2 itemSize = std::apply(ImGuiHelper::prepareItem, eqSlotPositions.at(slot));
+    if (ImGui::ImageButton(_assets->GetTexture(equippedItems.getTextureName(slot)), ImGuiHelper::toVector2f(itemSize)) && equippedItems.itemVec.at(slot)) {
+      eqRef = &equippedItems.itemVec.at(slot);
+      ImGui::OpenPopup(equippedActions.c_str());
+    }
+    if (ImGui::IsItemHovered() && equippedItems.itemVec.at(slot)) {
+      showItemPopup(equippedItems.itemVec.at(slot).value());
+    }
   }
 
   if (ImGui::BeginPopup(equippedActions.c_str())) {
@@ -79,54 +46,27 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
   size_t eqCounter = 0;
 
   static int selectedAction = -1;
-  const char *actionNames[] = {"Equip", "Delete"};
+  const char *actionNames[] = {"Equip 1", "Equip 2", "Equip 3", "Equip 4", "Delete"};
 
-  std::vector<std::function<void()>> actions;
+  std::vector<std::function<void(int)>> actions;
 
   // equip action
-  actions.push_back([&]() {
+  auto equipItem = [&](int slot) {
+    std::cout << slot << std::endl;
     EntityID itemId = inventory.at(eqCounter);
     inventory.erase(inventory.begin() + eqCounter);
-    ItemTypes itemType = scene->getComponent<ItemType>(itemId)->itemType;
-    switch (itemType) {
-      case ItemTypes::HELMET:
-        if (equippedItems.helmet) {
-          inventory.push_back(equippedItems.helmet.value());
-        }
-        equippedItems.helmet = itemId;
-        break;
-      case ItemTypes::ARMOUR:
-        if (equippedItems.armour) {
-          inventory.push_back(equippedItems.armour.value());
-        }
-        equippedItems.armour = itemId;
-        break;
-      case ItemTypes::WEAPON:
-        if (equippedItems.weapon) {
-          inventory.push_back(equippedItems.weapon.value());
-        }
-        equippedItems.weapon = itemId;
-        break;
-      case ItemTypes::PANTS:
-        if (equippedItems.pants) {
-          inventory.push_back(equippedItems.pants.value());
-        }
-        equippedItems.pants = itemId;
-        break;
-      case ItemTypes::BOOTS:
-        if (equippedItems.boots) {
-          inventory.push_back(equippedItems.boots.value());
-        }
-        equippedItems.boots = itemId;
-        break;
+
+    if (equippedItems.itemVec.at(slot)) {
+      inventory.push_back(equippedItems.itemVec.at(slot).value());
     }
-  });
+    equippedItems.itemVec.at(slot) = itemId;
+  };
 
   // delete action
-  actions.push_back([&]() {
+  auto deleteItem = [&](int slot) {
     scene->removeEntity(inventory.at(eqCounter));
     inventory.erase(inventory.begin() + eqCounter);
-  });
+  };
 
   if (ImGui::BeginTable("inventory", inventoryWidth)) {
     for (int row = 0; row < inventoryHeight; row++) {
@@ -150,7 +90,11 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
         if (ImGui::BeginPopup(popupName.c_str())) {
           for (int i = 0; i < IM_ARRAYSIZE(actionNames); i++) {
             if (ImGui::Button(actionNames[i])) {
-              actions.at(i)();
+              if (i == IM_ARRAYSIZE(actionNames) - 1) {
+                deleteItem(i);
+              } else {
+                equipItem(i);
+              }
               ImGui::CloseCurrentPopup();
             }
           }
@@ -181,39 +125,21 @@ void UiSystem::showItemPopup(EntityID id) {
 
 json UiSystem::saveEquippedItems(EquippedItems equippedItems) {
   json equippedItemsSave;
-  if (equippedItems.helmet) equippedItemsSave["helmet"] = saveItem(equippedItems.helmet.value());
-  if (equippedItems.armour) equippedItemsSave["armour"] = saveItem(equippedItems.armour.value());
-  if (equippedItems.weapon) equippedItemsSave["weapon"] = saveItem(equippedItems.weapon.value());
-  if (equippedItems.pants) equippedItemsSave["pants"] = saveItem(equippedItems.pants.value());
-  if (equippedItems.boots) equippedItemsSave["boots"] = saveItem(equippedItems.boots.value());
+  size_t currentSlot = 0;
+  for (const auto &item : equippedItems.itemVec) {
+    if (item) equippedItemsSave[std::to_string(currentSlot)] = saveItem(item.value());
+    currentSlot++;
+  }
   return {"equippedItems", equippedItemsSave};
 }
 
 void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
-  if (save.contains("helmet")) {
-    EntityID helmetID = scene->createEntity();
-    equippedItems.helmet = helmetID;
-    loadItem(save["helmet"], helmetID);
-  }
-  if (save.contains("armour")) {
-    EntityID armourID = scene->createEntity();
-    equippedItems.armour = armourID;
-    loadItem(save["armour"], armourID);
-  }
-  if (save.contains("weapon")) {
-    EntityID weaponID = scene->createEntity();
-    equippedItems.weapon = weaponID;
-    loadItem(save["weapon"], weaponID);
-  }
-  if (save.contains("pants")) {
-    EntityID pantsID = scene->createEntity();
-    equippedItems.pants = pantsID;
-    loadItem(save["pants"], pantsID);
-  }
-  if (save.contains("boots")) {
-    EntityID bootsID = scene->createEntity();
-    equippedItems.boots = bootsID;
-    loadItem(save["boots"], bootsID);
+  for (int i = 0; i < SLOT_CAP; i++) {
+    if (save.contains(std::to_string(i))) {
+      EntityID itemID = scene->createEntity();
+      equippedItems.itemVec.at(i) = itemID;
+      loadItem(save[std::to_string(i)], itemID);
+    }
   }
 }
 
@@ -235,32 +161,22 @@ void UiSystem::loadInventory(json &j, Inventory &inventory) {
 
 json UiSystem::saveItem(EntityID entityID) {
   json j;
-  if (scene->entityHasComponent<ItemType>(entityID)) j.update(scene->getComponentSave(entityID, ItemType::id));
   if (scene->entityHasComponent<TextureName>(entityID)) j.update(scene->getComponentSave(entityID, TextureName::id));
-  if (scene->entityHasComponent<AttackRange>(entityID)) j.update(scene->getComponentSave(entityID, AttackRange::id));
-  if (scene->entityHasComponent<Defense>(entityID)) j.update(scene->getComponentSave(entityID, Defense::id));
-  if (scene->entityHasComponent<AttackBonus>(entityID)) j.update(scene->getComponentSave(entityID, AttackBonus::id));
-  if (scene->entityHasComponent<Poison>(entityID)) j.update(scene->getComponentSave(entityID, Poison::id));
+  if (scene->entityHasComponent<MeleeAttack>(entityID)) j.update(scene->getComponentSave(entityID, MeleeAttack::id));
+  if (scene->entityHasComponent<RangedAttack>(entityID)) j.update(scene->getComponentSave(entityID, RangedAttack::id));
   return j;
 }
 
 void UiSystem::loadItem(json &save, EntityID entityID) {
-  if (save.contains("itemType")) {
-    scene->addComponent<ItemType>(entityID, std::make_shared<ItemType>(save));
-  };
   if (save.contains("textureName")) {
     scene->addComponent<TextureName>(entityID, std::make_shared<TextureName>(save));
-  };
-  if (save.contains("attackRange")) {
-    scene->addComponent<AttackRange>(entityID, std::make_shared<AttackRange>(save));
-  };
-  if (save.contains("defense")) {
-    scene->addComponent<Defense>(entityID, std::make_shared<Defense>(save));
-  };
-  if (save.contains("attackBonus")) {
-    scene->addComponent<AttackBonus>(entityID, std::make_shared<AttackBonus>(save));
-  };
-  if (save.contains("poison")) {
-    scene->addComponent<Poison>(entityID, std::make_shared<Poison>(save));
-  };
+  }
+  if (save.contains("rangedAttack")) {
+    scene->addComponent<RangedAttack>(entityID, std::make_shared<RangedAttack>(save));
+    return;
+  }
+  if (save.contains("meleeAttack")) {
+    scene->addComponent<MeleeAttack>(entityID, std::make_shared<MeleeAttack>(save));
+    return;
+  }
 }

@@ -29,60 +29,15 @@
             }
         ],
         "equippedItems": {
-            "armour": {
-                "attackBonus": 5.0,
-                "defense": 5.0,
-                "itemType": 1,
-                "textureName": "cloak2.png"
-            },
-            "weapon": {
-                "attackRange": {
-                    "max": 30.0,
-                    "min": 25.0
-                },
-                "itemType": 2,
-                "poison": {
-                    "damage": 5,
-                    "duration": 3
-                },
-                "textureName": "club.png"
-            }
         },
         "inventory": [
             {
-                "attackBonus": 5.0,
-                "defense": 5.0,
-                "itemType": 0,
-                "textureName": "elven_leather_helm.png"
-            },
-            {
-                "defense": 5.0,
-                "itemType": 1,
-                "textureName": "cloak2.png"
-            },
-            {
-                "attackRange": {
-                    "max": 20.0,
-                    "min": 15.0
+                "rangedAttack": {
+                    "damage": 100,
+                    "range": 5
                 },
-                "itemType": 2,
-                "textureName": "dagger.png"
-            },
-            {
-                "attackRange": {
-                    "max": 100.0,
-                    "min": 5.0
-                },
-                "itemType": 2,
-                "textureName": "greatsword1.png"
-            },
-            {
-                "attackRange": {
-                    "max": 30.0,
-                    "min": 25.0
-                },
-                "itemType": 2,
-                "textureName": "club.png"
+                
+                "textureName": "magic_dart.png"
             }
         ],
         "player": {

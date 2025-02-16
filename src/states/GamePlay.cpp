@@ -1,7 +1,13 @@
 #include "GamePlay.hpp"
 
 GamePlay::GamePlay(std::shared_ptr<Context> context)
-    : context(context), scene(std::make_shared<Scene>()), system(scene), uiSystem(scene, context), enemySystem(scene, context), playerUsedAction(false) {
+    : context(context),
+      scene(std::make_shared<Scene>()),
+      system(scene),
+      uiSystem(scene, context),
+      enemySystem(scene, context),
+      playerUsedAction(false),
+      equippedItems(scene) {
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
   // updateSave(); //make sure that the meta progression status from character creation is saved

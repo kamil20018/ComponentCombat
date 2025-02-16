@@ -7,6 +7,190 @@ namespace image {
     constexpr char OUTPUT_SMALL[] = "output_small.png";
     constexpr char OUTPUT[] = "output.png";
   }  // namespace backgrounds
+  namespace spells {
+    namespace summoning {
+      constexpr char SUMMON_SCORPIONS[] = "summon_scorpions.png";
+      constexpr char SUMMON_SHADOW_CREATURES[] = "summon_shadow_creatures.png";
+      constexpr char SUMMON_BUTTERFLIES[] = "summon_butterflies.png";
+      constexpr char SUMMON_UGLY_THING[] = "summon_ugly_thing.png";
+      constexpr char SUMMON_DEMON[] = "summon_demon.png";
+      constexpr char SUMMON_ICE_BEAST[] = "summon_ice_beast.png";
+      constexpr char CALL_CANINE_FAMILIAR[] = "call_canine_familiar.png";
+      constexpr char RECALL[] = "recall.png";
+      constexpr char SUMMON_ELEMENTAL[] = "summon_elemental.png";
+      constexpr char SUMMON_HORRIBLE_THINGS[] = "summon_horrible_things.png";
+      constexpr char SUMMON_SMALL_MAMMALS[] = "summon_small_mammals.png";
+      constexpr char STICKS_TO_SNAKES[] = "sticks_to_snakes.png";
+      constexpr char CALL_IMP[] = "call_imp.png";
+      constexpr char ABJURATION[] = "abjuration.png";
+      constexpr char SUMMON_GREATER_DEMON[] = "summon_greater_demon.png";
+      constexpr char DEMONIC_HORDE[] = "demonic_horde.png";
+    }  // namespace summoning
+    namespace conjuration {
+      constexpr char ORB_OF_DESTRUCTION[] = "orb_of_destruction.png";
+      constexpr char ISKENDERUNS_MYSTIC_BLAST[] = "iskenderuns_mystic_blast.png";
+      constexpr char MAGIC_DART[] = "magic_dart.png";
+    }  // namespace conjuration
+    namespace ice {
+      constexpr char FREEZE[] = "freeze.png";
+      constexpr char ENSORCELLED_HIBERNATION[] = "ensorcelled_hibernation.png";
+      constexpr char CONDENSATION_SHIELD[] = "condensation_shield.png";
+      constexpr char OZOCUBUS_ARMOUR[] = "ozocubus_armour.png";
+      constexpr char THROW_FROST[] = "throw_frost.png";
+      constexpr char ICE_FORM[] = "ice_form.png";
+      constexpr char FREEZING_CLOUD[] = "freezing_cloud.png";
+      constexpr char THROW_ICICLE[] = "throw_icicle.png";
+      constexpr char METABOLIC_ENGLACIATION[] = "metabolic_englaciation.png";
+      constexpr char FREEZING_AURA[] = "freezing_aura.png";
+      constexpr char OZOCUBUS_REFRIGERATION[] = "ozocubus_refrigeration.png";
+      constexpr char BOLT_OF_COLD[] = "bolt_of_cold.png";
+      constexpr char ICE_STORM[] = "ice_storm.png";
+    }  // namespace ice
+    namespace necromancy {
+      constexpr char BONE_SHARDS[] = "bone_shards.png";
+      constexpr char SYMBOL_OF_TORMENT[] = "symbol_of_torment.png";
+      constexpr char ANIMATE_DEAD[] = "animate_dead.png";
+      constexpr char LETHAL_INFUSION[] = "lethal_infusion.png";
+      constexpr char ANIMATE_SKELETON[] = "animate_skeleton.png";
+      constexpr char SUBLIMATION_OF_BLOOD[] = "sublimation_of_blood.png";
+      constexpr char NECROMUTATION[] = "necromutation.png";
+      constexpr char DEATH_CHANNEL[] = "death_channel.png";
+      constexpr char BOLT_OF_DRAINING[] = "bolt_of_draining.png";
+      constexpr char VAMPIRIC_DRAINING[] = "vampiric_draining.png";
+      constexpr char REGENERATION[] = "regeneration.png";
+      constexpr char BORGNJORS_REVIVIFICATION[] = "borgnjors_revivification.png";
+      constexpr char CIGOTUVIS_DEGENERATION[] = "cigotuvis_degeneration.png";
+      constexpr char DISPEL_UNDEAD[] = "dispel_undead.png";
+      constexpr char DEATHS_DOOR[] = "deaths_door.png";
+      constexpr char PAIN[] = "pain.png";
+      constexpr char FULSOME_DISTILLATION[] = "fulsome_distillation.png";
+      constexpr char SIMULACRUM[] = "simulacrum.png";
+      constexpr char EXCRUCIATING_WOUNDS[] = "excruciating_wounds.png";
+      constexpr char HAUNT[] = "haunt.png";
+      constexpr char CONTROL_UNDEAD[] = "control_undead.png";
+      constexpr char AGONY[] = "agony.png";
+      constexpr char TWISTED_RESURRECTION[] = "twisted_resurrection.png";
+      constexpr char CORPSE_ROT[] = "corpse_rot.png";
+    }  // namespace necromancy
+    namespace air {
+      constexpr char CHAIN_LIGHTNING[] = "chain_lightning.png";
+      constexpr char STATIC_DISCHARGE[] = "static_discharge.png";
+      constexpr char CONJURE_BALL_LIGHTNING[] = "conjure_ball_lightning.png";
+      constexpr char AIRSTRIKE[] = "airstrike.png";
+      constexpr char LIGHTNING_BOLT[] = "lightning_bolt.png";
+      constexpr char SHOCK[] = "shock.png";
+      constexpr char LEVITATION[] = "levitation.png";
+      constexpr char INSULATION[] = "insulation.png";
+      constexpr char SWIFTNESS[] = "swiftness.png";
+      constexpr char FLIGHT[] = "flight.png";
+      constexpr char DEFLECT_MISSILES[] = "deflect_missiles.png";
+      constexpr char SILENCE[] = "silence.png";
+      constexpr char REPEL_MISSILES[] = "repel_missiles.png";
+    }  // namespace air
+    namespace earth {
+      constexpr char SHATTER[] = "shatter.png";
+      constexpr char LEHUDIBS_CRYSTAL_SPEAR[] = "lehudibs_crystal_spear.png";
+      constexpr char STATUE_FORM[] = "statue_form.png";
+      constexpr char MAXWELLS_SILVER_HAMMER[] = "maxwells_silver_hammer.png";
+      constexpr char DIG[] = "dig.png";
+      constexpr char STONESKIN[] = "stoneskin.png";
+      constexpr char IRON_SHOT[] = "iron_shot.png";
+      constexpr char SANDBLAST[] = "sandblast.png";
+      constexpr char PASSWALL[] = "passwall.png";
+      constexpr char LEES_RAPID_DECONSTRUCTION[] = "lees_rapid_deconstruction.png";
+      constexpr char STONE_ARROW[] = "stone_arrow.png";
+    }  // namespace earth
+    namespace transmutation {
+      constexpr char BLADE_HANDS[] = "blade_hands.png";
+      constexpr char ALTER_SELF[] = "alter_self.png";
+      constexpr char POLYMORPH_OTHER[] = "polymorph_other.png";
+    }  // namespace transmutation
+    namespace disciplines {
+      constexpr char SUMMONING[] = "summoning.png";
+      constexpr char NECROMANCY[] = "necromancy.png";
+      constexpr char AIR[] = "air.png";
+      constexpr char DIVINATION[] = "divination.png";
+      constexpr char TRANSMUTATION[] = "transmutation.png";
+      constexpr char POISON[] = "poison.png";
+      constexpr char FIRE[] = "fire.png";
+      constexpr char EARTH[] = "earth.png";
+      constexpr char ICE[] = "ice.png";
+      constexpr char CONJURATION[] = "conjuration.png";
+      constexpr char ENCHANTMENT[] = "enchantment.png";
+      constexpr char TRANSLOCATION[] = "translocation.png";
+    }  // namespace disciplines
+    constexpr char MEMORISE[] = "memorise.png";
+    namespace divination {
+      constexpr char DETECT_TRAPS[] = "detect_traps.png";
+      constexpr char DETECT_SECRET_DOORS[] = "detect_secret_doors.png";
+      constexpr char DETECT_ITEMS[] = "detect_items.png";
+      constexpr char DETECT_CREATURES[] = "detect_creatures.png";
+    }  // namespace divination
+    namespace translocation {
+      constexpr char BLINK[] = "blink.png";
+      constexpr char CONTROLLED_BLINK[] = "controlled_blink.png";
+      constexpr char BANISHMENT[] = "banishment.png";
+      constexpr char DISPERSAL[] = "dispersal.png";
+      constexpr char PHASE_SHIFT[] = "phase_shift.png";
+      constexpr char TELEPORT[] = "teleport.png";
+      constexpr char WARP_WEAPON[] = "warp_weapon.png";
+      constexpr char APPORTATION[] = "apportation.png";
+      constexpr char CONTROLLED_TELEPORT[] = "controlled_teleport.png";
+      constexpr char TELEPORT_OTHER[] = "teleport_other.png";
+      constexpr char PORTAL_PROJECTILE[] = "portal_projectile.png";
+      constexpr char PORTAL[] = "portal.png";
+    }  // namespace translocation
+    namespace fire {
+      constexpr char FLAME_TONGUE[] = "flame_tongue.png";
+      constexpr char THROW_FLAME[] = "throw_flame.png";
+      constexpr char FIREBALL[] = "fireball.png";
+      constexpr char IGNITE_POISON[] = "ignite_poison.png";
+      constexpr char STICKY_FLAME[] = "sticky_flame.png";
+      constexpr char CONJURE_FLAME[] = "conjure_flame.png";
+      constexpr char FIRE_BRAND[] = "fire_brand.png";
+      constexpr char EVAPORATE[] = "evaporate.png";
+      constexpr char FIRE_STORM[] = "fire_storm.png";
+      constexpr char DRAGON_FORM[] = "dragon_form.png";
+      constexpr char DELAYED_FIREBALL[] = "delayed_fireball.png";
+      constexpr char RING_OF_FLAMES[] = "ring_of_flames.png";
+      constexpr char BOLT_OF_MAGMA[] = "bolt_of_magma.png";
+      constexpr char BOLT_OF_FIRE[] = "bolt_of_fire.png";
+    }  // namespace fire
+    namespace enchantment {
+      constexpr char MASS_CONFUSION[] = "mass_confusion.png";
+      constexpr char CAUSE_FEAR[] = "cause_fear.png";
+      constexpr char TAME_BEASTS[] = "tame_beasts.png";
+      constexpr char HASTE[] = "haste.png";
+      constexpr char CORONA[] = "corona.png";
+      constexpr char INVISIBILITY[] = "invisibility.png";
+      constexpr char SELECTIVE_AMNESIA[] = "selective_amnesia.png";
+      constexpr char CONFUSE[] = "confuse.png";
+      constexpr char EXTENSION[] = "extension.png";
+      constexpr char SLOW[] = "slow.png";
+      constexpr char TUKIMAS_DANCE[] = "tukimas_dance.png";
+      constexpr char CONFUSING_TOUCH[] = "confusing_touch.png";
+      constexpr char SURE_BLADE[] = "sure_blade.png";
+      constexpr char PROJECTED_NOISE[] = "projected_noise.png";
+      constexpr char TUKIMAS_VORPAL_BLADE[] = "tukimas_vorpal_blade.png";
+      constexpr char SEE_INVISIBLE[] = "see_invisible.png";
+      constexpr char ENSLAVEMENT[] = "enslavement.png";
+      constexpr char BERSERKER_RAGE[] = "berserker_rage.png";
+      constexpr char PETRIFY[] = "petrify.png";
+    }  // namespace enchantment
+    namespace poison {
+      constexpr char STING[] = "sting.png";
+      constexpr char VENOM_BOLT[] = "venom_bolt.png";
+      constexpr char OLGREBS_TOXIC_RADIANCE[] = "olgrebs_toxic_radiance.png";
+      constexpr char RESIST_POISON[] = "resist_poison.png";
+      constexpr char POISON_ARROW[] = "poison_arrow.png";
+      constexpr char POISON_BRAND[] = "poison_brand.png";
+      constexpr char MEPHITIC_CLOUD[] = "mephitic_cloud.png";
+      constexpr char SPIDER_FORM[] = "spider_form.png";
+      constexpr char POISONOUS_CLOUD[] = "poisonous_cloud.png";
+      constexpr char ALISTAIRS_INTOXICATION[] = "alistairs_intoxication.png";
+      constexpr char CURE_POISON[] = "cure_poison.png";
+    }  // namespace poison
+  }    // namespace spells
   namespace monsters {
     constexpr char ETTIN[] = "ettin.png";
     constexpr char HELL_KNIGHT[] = "hell_knight.png";

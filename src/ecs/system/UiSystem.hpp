@@ -10,32 +10,29 @@
 #include "ImageNames.hpp"
 #include "Scene.hpp"
 #include "component/ItemComponent.hpp"
+#include "component/TraitComponent.hpp"
+
+constexpr int SLOT_CAP = 10;  // theoretical endgame cap
 
 typedef std::vector<EntityID> Inventory;
 
 struct EquippedItems {
-  EquippedItems(){};
-  EquippedItems(json j) {
-    if (j.contains("helmet")) helmet = j["helmet"];
-    if (j.contains("armour")) armour = j["armour"];
-    if (j.contains("weapon")) weapon = j["weapon"];
-    if (j.contains("pants")) pants = j["pants"];
-    if (j.contains("boots")) boots = j["boots"];
-  };
-  std::optional<EntityID> helmet;
-  std::optional<EntityID> armour;
-  std::optional<EntityID> weapon;
-  std::optional<EntityID> pants;
-  std::optional<EntityID> boots;
-  std::vector<EntityID> getEquippedItems() {
-    std::vector<EntityID> items;
-    if (helmet) items.push_back(helmet.value());
-    if (armour) items.push_back(armour.value());
-    if (weapon) items.push_back(weapon.value());
-    if (pants) items.push_back(pants.value());
-    if (boots) items.push_back(boots.value());
-    return items;
+  EquippedItems(std::shared_ptr<Scene> scene) : scene(scene){};
+  EquippedItems(std::shared_ptr<Scene> scene, json j)
+      : scene(scene){
+            // if (j.contains("helmet")) helmet = j["helmet"];
+            // if (j.contains("armour")) armour = j["armour"];
+            // if (j.contains("weapon")) weapon = j["weapon"];
+            // if (j.contains("pants")) pants = j["pants"];
+            // if (j.contains("boots")) boots = j["boots"];
+        };
+
+  std::string getTextureName(int slot) {
+    if (itemVec.at(slot)) return scene->getComponent<TextureName>(itemVec.at(slot).value())->textureName;
+    return image::other::TRANSPARENT;
   }
+  std::vector<std::optional<EntityID>> itemVec{std::nullopt, std::nullopt, std::nullopt, std::nullopt, std::nullopt};
+  std::shared_ptr<Scene> scene;
 };
 
 /// @brief Handles ui rendering along with it's interactions with the ecs
