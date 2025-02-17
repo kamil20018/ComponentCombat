@@ -9,7 +9,7 @@
 #include "ImGuiHelper.hpp"
 #include "ImageNames.hpp"
 #include "Scene.hpp"
-#include "component/ItemComponent.hpp"
+#include "component/EntityComponent.hpp"
 #include "component/TraitComponent.hpp"
 
 constexpr int SLOT_CAP = 10;  // theoretical endgame cap

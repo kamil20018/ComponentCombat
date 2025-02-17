@@ -39,20 +39,6 @@ namespace component {
     int height;
   };
 
-  struct Attack : public Component {
-    Attack(int attack) : attack(attack){};
-    Attack(const json &j) : attack(j["attack"]){};
-    json serialize() override {
-      return json{{"attack", attack}};
-    }
-    std::string getDescription() override {
-      return (std::stringstream() << "ATTACK | " << attack).str();
-    };
-    inline static int id = -1;
-    inline static std::string componentName = "Attack";
-    int attack;
-  };
-
   struct Poisoned : public Component {
     Poisoned(int damage, int duration) : damage(damage), duration(duration){};
     Poisoned(const json &j) : damage(j["poisoned"]["damage"]), duration(j["poisoned"]["duration"]){};
@@ -112,21 +98,6 @@ namespace component {
     inline static int id = -1;
     inline static std::string componentName = "Sight";
     int sight;
-  };
-
-  struct Range : public Component {
-    Range(int range) : range(range){};
-    Range(const json &j) : range(j["range"]){};
-    json serialize() override {
-      return json{{"range", range}};
-    }
-
-    std::string getDescription() override {
-      return (std::stringstream() << "RANGE | range: " << range).str();
-    }
-    inline static int id = -1;
-    inline static std::string componentName = "Range";
-    int range;
   };
 
   struct BehaviorTree : public Component {

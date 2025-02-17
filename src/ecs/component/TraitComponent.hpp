@@ -30,7 +30,6 @@ namespace component {
     inline static int id = -1;
     inline static std::string componentName = "MeleeAttack";
     int damage;
-    ;
   };
 
   struct Hp : public Component {

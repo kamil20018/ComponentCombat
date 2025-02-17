@@ -16,7 +16,7 @@
 #include "Timer.hpp"
 #include "component/ActorComponent.hpp"
 #include "component/Component.hpp"
-#include "component/ItemComponent.hpp"
+#include "component/EntityComponent.hpp"
 #include "system/BehaviorSystem.hpp"
 #include "system/EnemySystem.hpp"
 #include "system/System.hpp"

@@ -33,11 +33,16 @@
         "inventory": [
             {
                 "rangedAttack": {
-                    "damage": 100,
-                    "range": 5
+                    "damage": 2,
+                    "range": 10
                 },
-                
                 "textureName": "magic_dart.png"
+            },
+            {
+                "meleeAttack": {
+                    "damage": 5
+                },
+                "textureName": "club.png"
             }
         ],
         "player": {

@@ -92,27 +92,6 @@ class Wander : public BT::SyncActionNode {
   std::shared_ptr<Scene> scene;
 };
 
-class AttackPlayer : public BT::SyncActionNode {
- public:
-  AttackPlayer(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
-      : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene){};
-  static BT::PortsList providedPorts() {
-    return {};
-  };
-  BT::NodeStatus tick() override {
-    auto enemyAttack = scene->getComponent<Attack>(enemy)->attack;
-    auto playerHp = &scene->getComponent<Hp>(player)->hp;
-    *playerHp -= enemyAttack;
-    CombatLog::addLog(std::stringstream() << "-----" << scene->getComponent<Name>(enemy)->name << "-----", LogType::COMBAT);
-    CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
-    CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
-    return BT::NodeStatus::SUCCESS;
-  };
-  EntityID player;
-  EntityID enemy;
-  std::shared_ptr<Scene> scene;
-};
-
 class PerformRangedAttack : public BT::SyncActionNode {
  public:
   PerformRangedAttack(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
