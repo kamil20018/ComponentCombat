@@ -42,6 +42,7 @@ class UiSystem {
 
   void handleCharacterScreen(EquippedItems &equippedItems, Inventory &inventory);
   void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
+  void handleActiveSkillBar(EquippedItems &equippedItems);
 
   json saveEquippedItems(EquippedItems equippedItems);
   void loadEquippedItems(json &j, EquippedItems &equippedItems);

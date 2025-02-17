@@ -77,15 +77,17 @@ void GamePlay::update() {
   };
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
+}
+
+void GamePlay::draw() {
+  _window->clear();
 
   if (inventoryOpen) {
     uiSystem.handleInventory(inventory, equippedItems);
     uiSystem.handleCharacterScreen(equippedItems, inventory);
   }
-}
 
-void GamePlay::draw() {
-  _window->clear();
+  uiSystem.handleActiveSkillBar(equippedItems);
 
   drawDebugLines();
   system.drawEntities(_window);

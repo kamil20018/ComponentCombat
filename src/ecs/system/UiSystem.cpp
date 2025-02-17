@@ -109,6 +109,17 @@ void UiSystem::handleInventory(std::vector<EntityID> &inventory, EquippedItems &
   ImGui::End();
 }
 
+void UiSystem::handleActiveSkillBar(EquippedItems &equippedItems) {
+  ImGuiHelper::dockNextWindow(WindowDock::BOTTOM_MIDDLE, 0.60f, 0.10f);
+  ImGui::Begin("skillBar", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus);
+
+  for (int i = 0; i < 10; i++) {
+    ImVec2 itemSize = ImGuiHelper::prepareItem(0.08f, 0.0f, 0.01f + 0.099f * i, 0.1f, true);
+    ImGui::ImageButton(_assets->GetTexture(equippedItems.getTextureName(0)), ImGuiHelper::toVector2f(itemSize));
+  }
+  ImGui::End();
+}
+
 void UiSystem::showItemPopup(EntityID id) {
   ImGui::SetNextWindowPos(ImVec2(ImGui::GetMousePos().x - 200.0f, ImGui::GetMousePos().y + 5.0f));
   ImGui::Begin("Debug component list", nullptr,
