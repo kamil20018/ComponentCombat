@@ -17,6 +17,7 @@ ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
 ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 
+add_compile_definitions(DEBUG)
 # defines targets and sources
 add_subdirectory(dependencies)
 add_subdirectory(src)

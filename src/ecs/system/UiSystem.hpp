@@ -27,9 +27,9 @@ struct EquippedItems {
             // if (j.contains("boots")) boots = j["boots"];
         };
 
-  std::string getTextureName(int slot) {
-    if (itemVec.at(slot)) return scene->getComponent<TextureName>(itemVec.at(slot).value())->textureName;
-    return image::other::TRANSPARENT;
+  std::string getTextureName(size_t slot) {
+    if (slot >= itemVec.size() || !itemVec.at(slot)) return image::other::TRANSPARENT;
+    return scene->getComponent<TextureName>(itemVec.at(slot).value())->textureName;
   }
   std::vector<std::optional<EntityID>> itemVec{std::nullopt, std::nullopt, std::nullopt, std::nullopt, std::nullopt};
   std::shared_ptr<Scene> scene;

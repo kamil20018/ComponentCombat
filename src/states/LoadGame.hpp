@@ -5,10 +5,10 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 
-#include "CharacterCreation.hpp"
 #include "Game.hpp"
 #include "GamePlay.hpp"
 #include "State.hpp"
+#include "TraitShop.hpp"
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;

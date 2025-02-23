@@ -62,7 +62,7 @@
             }
         }
     },
-    "stateDestination": "characterCreation",
+    "stateDestination": "TraitShop",
     "metaProgression": {
         "goodKarma": 10,
         "badKarma": 10,

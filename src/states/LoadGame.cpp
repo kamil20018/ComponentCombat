@@ -49,6 +49,20 @@ void LoadGame::processInput() {
         case sf::Keyboard::Down:
           arrowInput = 1;
           break;
+#ifdef DEBUG
+        case sf::Keyboard::Delete:
+          if (saveFiles.size() > 0) {
+            deleteSave(saveFiles.at(selectedSaveIndex).stem().string());
+            updateSaveFiles();
+            if (selectedSaveIndex >= saveFiles.size()) selectedSaveIndex = saveFiles.size() - 1;
+          }
+          break;
+        case sf::Keyboard::N:
+          createSaveFile("Debug save" + std::to_string(saveFiles.size() + 1));
+          updateSaveFiles();
+          selectedSaveIndex = saveFiles.size() - 1;
+          break;
+#endif
         default: {
           break;
         }
@@ -106,8 +120,8 @@ void LoadGame::update() {
     auto destination = context->saveFile["stateDestination"];
     if (destination == "gamePlay") {
       _states->addState(std::make_unique<GamePlay>(context));
-    } else if (destination == "characterCreation") {
-      _states->addState(std::make_unique<CharacterCreation>(context));
+    } else if (destination == "TraitShop") {
+      _states->addState(std::make_unique<TraitShop>(context));
     }
   }
   pressedEnter = false;
@@ -150,6 +164,7 @@ void LoadGame::handleDeletePopup() {
     if (ImGui::Button("OK", ImVec2(120, 0))) {
       deleteSave(saveFiles.at(selectedSaveIndex).stem().string());
       updateSaveFiles();
+      if (selectedSaveIndex >= saveFiles.size()) selectedSaveIndex = saveFiles.size() - 1;
       ImGui::CloseCurrentPopup();
     }
     ImGui::SetItemDefaultFocus();
@@ -174,7 +189,6 @@ void LoadGame::updateSaveFiles() {
 fs::path LoadGame::createSaveFile(const std::string &saveName) {
   fs::path inputPath = baseSavePath;
   fs::path outputPath = userSavesPath / (saveName + ".json");
-  std::cout << baseSavePath << " " << userSavesPath << " " << saveName << std::endl;
   std::ifstream inputFile(inputPath);
   std::ofstream outputFile(outputPath);
   if (inputFile.is_open() && outputFile.is_open()) {
@@ -186,8 +200,6 @@ fs::path LoadGame::createSaveFile(const std::string &saveName) {
 
     inputFile.close();
     outputFile.close();
-
-    std::cout << "File copied successfully." << std::endl;
   } else {
     std::cout << "Failed to open the files." << std::endl;
   }

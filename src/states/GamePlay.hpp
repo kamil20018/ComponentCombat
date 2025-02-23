@@ -43,8 +43,8 @@ class GamePlay : public State {
   EntityID player;
   bool passTurn = false;
 
-  bool inventoryOpen = true;
-  bool logOpened = true;
+  bool inventoryOpen = false;
+  bool logOpened = false;
 
   Inventory inventory;
   EquippedItems equippedItems;
