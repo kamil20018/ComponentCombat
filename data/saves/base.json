@@ -29,21 +29,22 @@
             }
         ],
         "equippedItems": {
-        },
-        "inventory": [
-            {
+            "0": {
                 "rangedAttack": {
                     "damage": 2,
                     "range": 10
                 },
                 "textureName": "magic_dart.png"
             },
-            {
+            "1": {
                 "meleeAttack": {
                     "damage": 5
                 },
                 "textureName": "club.png"
             }
+
+        },
+        "inventory": [
         ],
         "player": {
             "color": {

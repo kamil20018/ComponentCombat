@@ -12,7 +12,7 @@ void UiSystem::handleCharacterScreen(EquippedItems &equippedItems, Inventory &in
   static std::optional<EntityID> *eqRef;
 
   std::vector<std::tuple<float, float, float, float, bool>> eqSlotPositions = {
-      {0.24f, 0.0f, 0.38f, 0.1f, true}, {0.24f, 0.34f, 0.38f, 0.3f, false}, {0.24f, 0.0f, 0.38f, 0.7f, true}, {0.24f, 0.0f, 0.07f, 0.4f, true}};
+      {0.24f, 0.0f, 0.38f, 0.1f, true}, {0.24f, 0.0f, 0.38f, 0.3f, true}, {0.24f, 0.0f, 0.38f, 0.7f, true}, {0.24f, 0.0f, 0.07f, 0.4f, true}};
 
   for (size_t slot = 0; slot < eqSlotPositions.size(); slot++) {
     ImVec2 itemSize = std::apply(ImGuiHelper::prepareItem, eqSlotPositions.at(slot));
@@ -116,12 +116,15 @@ void UiSystem::handleActiveSkillBar(EquippedItems &equippedItems) {
   for (int i = 0; i < SLOT_CAP; i++) {
     ImVec2 itemSize = ImGuiHelper::prepareItem(0.08f, 0.0f, 0.01f + 0.099f * i, 0.1f, true);
     ImGui::ImageButton(_assets->GetTexture(equippedItems.getTextureName(i)), ImGuiHelper::toVector2f(itemSize));
+    if (ImGui::IsItemHovered() && equippedItems.itemVec.at(i)) {
+      showItemPopup(equippedItems.itemVec.at(i).value());
+    }
   }
   ImGui::End();
 }
 
 void UiSystem::showItemPopup(EntityID id) {
-  ImGui::SetNextWindowPos(ImVec2(ImGui::GetMousePos().x - 200.0f, ImGui::GetMousePos().y + 5.0f));
+  ImGui::SetNextWindowPos(ImVec2(std::max(ImGui::GetMousePos().x - 200.0f, 0.0f), ImGui::GetMousePos().y + 5.0f));
   ImGui::Begin("Debug component list", nullptr,
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
   auto components = scene->getEntityComponents(id);
