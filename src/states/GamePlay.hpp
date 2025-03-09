@@ -24,7 +24,7 @@
 
 class GamePlay : public State {
  public:
-  GamePlay(std::shared_ptr<Context> context);
+  GamePlay(std::shared_ptr<Context> context, bool newGame = false);
   void init() override;
   void processInput() override;
   void update() override;
@@ -37,6 +37,8 @@ class GamePlay : public State {
   System system;
   UiSystem uiSystem;
   EnemySystem enemySystem;
+
+  bool newGame;
 
   sf::Vector2i moveDir;
   bool playerUsedAction;

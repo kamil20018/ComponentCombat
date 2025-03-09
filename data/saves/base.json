@@ -63,10 +63,8 @@
             }
         }
     },
-    "stateDestination": "TraitShop",
+    "stateDestination": "traitShop",
     "metaProgression": {
-        "goodKarma": 10,
-        "badKarma": 10,
         "evolutionPoints": 100,
         "boughtTraits": []
     }

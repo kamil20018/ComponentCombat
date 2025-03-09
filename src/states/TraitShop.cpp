@@ -9,7 +9,7 @@
 TraitShop::TraitShop(std::shared_ptr<Context> &context) : context(context) {
   ImGui::SFML::Init(*_window);
   std::ifstream reader(fs::current_path().parent_path() / "data" / "textDescriptions" / "UI" / "Traits.json");
-  reader >> UiText;
+  reader >> traitsJson;
   reader.close();
 }
 
@@ -30,8 +30,8 @@ void TraitShop::processInput() {
           context->states->popCurrent();
           break;
         case sf::Keyboard::Enter:
-          context->saveFile["stateDestination"] = "gamePlay";
-          _states->addState(std::make_unique<GamePlay>(context), true);
+          context->saveFile["stateDestination"] = "gamePlayNew";
+          _states->addState(std::make_unique<GamePlay>(context, true), true);
           break;
         default: {
           break;
@@ -82,7 +82,7 @@ void TraitShop::traitShop() {
 
     ImGui::TableNextRow();
     ImGui::TableNextColumn();
-    for (auto trait : UiText["Traits"]) {
+    for (auto trait : traitsJson["Traits"]) {
       ImGui::Text(std::to_string(trait["cost"].get<int>()).c_str());
       ImGui::TableNextColumn();
       ImGui::Text(trait["name"].get<std::string>().c_str());
@@ -95,7 +95,6 @@ void TraitShop::traitShop() {
       ImGui::TableNextColumn();
       ImGui::PushID(trait["number"].get<int>());
       if (ImGui::Button("Buy")) {
-        std::cout << trait["number"] << std::endl;
         if (trait["cost"].get<int>() <= metaProgresstionData["evolutionPoints"].get<int>()) {
           context->saveFile["metaProgression"]["evolutionPoints"] =
               context->saveFile["metaProgression"]["evolutionPoints"].get<int>() - trait["cost"].get<int>();
@@ -111,7 +110,7 @@ void TraitShop::traitShop() {
   }
 
   if (ImGui::Button("Finish")) {
-    context->saveFile["stateDestination"] = "gamePlay";
-    _states->addState(std::make_unique<GamePlay>(context), true);
+    context->saveFile["stateDestination"] = "gamePlayNew";
+    _states->addState(std::make_unique<GamePlay>(context, true));
   }
 }

@@ -1,6 +1,10 @@
 #include "UiSystem.hpp"
 
-UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context) : scene(scene), context(context){};
+UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context) : scene(scene), context(context) {
+  std::ifstream reader(fs::current_path().parent_path() / "data" / "textDescriptions" / "UI" / "Traits.json");
+  reader >> traitsJson;
+  reader.close();
+};
 
 void UiSystem::handleCharacterScreen(EquippedItems &equippedItems, Inventory &inventory) {
   std::string equippedActions{"equippedActions"};
@@ -170,6 +174,27 @@ void UiSystem::loadInventory(json &j, Inventory &inventory) {
     EntityID itemID = scene->createEntity();
     inventory.push_back(itemID);
     loadItem(item, itemID);
+  }
+}
+
+void UiSystem::loadBoughtTraits(json save, Inventory &inventory) {
+  for (const auto &boughtTraitNumber : save["boughtTraits"]) {
+    int traitIndex = boughtTraitNumber.get<int>();
+    auto currentTrait = traitsJson["Traits"].at(traitIndex);
+    EntityID traitID = scene->createEntity();
+    switch (traitIndex) {
+      case 0:
+        scene->addComponent<MeleeAttack>(traitID, std::make_shared<MeleeAttack>(currentTrait["stats"]["damage"].get<float>()));
+        break;
+      case 1:
+        scene->addComponent<RangedAttack>(
+            traitID, std::make_shared<RangedAttack>(currentTrait["stats"]["range"].get<float>(), currentTrait["stats"]["damage"].get<float>()));
+        break;
+      default:
+        break;
+    }
+    scene->addComponent<TextureName>(traitID, std::make_shared<TextureName>(currentTrait["textureName"].get<std::string>()));
+    inventory.push_back(traitID);
   }
 }
 

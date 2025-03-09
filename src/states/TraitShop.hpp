@@ -30,7 +30,7 @@ class TraitShop : public State {
 
   void spendEvolutionPoints(int amount);
 
-  json UiText;
+  json traitsJson;
   std::shared_ptr<Context> context;
   sf::Clock deltaClock;
 };

@@ -120,7 +120,9 @@ void LoadGame::update() {
     auto destination = context->saveFile["stateDestination"];
     if (destination == "gamePlay") {
       _states->addState(std::make_unique<GamePlay>(context));
-    } else if (destination == "TraitShop") {
+    } else if (destination == "gamePlayNew") {
+      _states->addState(std::make_unique<GamePlay>(context, true));
+    } else if (destination == "traitShop") {
       _states->addState(std::make_unique<TraitShop>(context));
     }
   }

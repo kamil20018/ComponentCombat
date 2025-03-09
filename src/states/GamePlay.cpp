@@ -1,18 +1,16 @@
 #include "GamePlay.hpp"
 
-GamePlay::GamePlay(std::shared_ptr<Context> context)
+GamePlay::GamePlay(std::shared_ptr<Context> context, bool newGame)
     : context(context),
       scene(std::make_shared<Scene>()),
       system(scene),
       uiSystem(scene, context),
       enemySystem(scene, context),
       playerUsedAction(false),
-      equippedItems(scene) {
+      equippedItems(scene),
+      newGame(newGame) {
   ImGui::SFML::Init(*_window);
   auto savePath = context->savePath;
-  // updateSave(); //make sure that the meta progression status from character creation is saved
-  //  mockCreateInventory();
-  //  CombatLog::test();
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << context->saveFile;
   file.close();
@@ -21,6 +19,9 @@ GamePlay::GamePlay(std::shared_ptr<Context> context)
 void GamePlay::init() {
   json gameStateSave = context->saveFile["gameState"];
   loadPlayer(gameStateSave["player"]);
+  if (newGame) {
+    uiSystem.loadBoughtTraits(context->saveFile["metaProgression"], inventory);
+  }
   uiSystem.loadEquippedItems(gameStateSave["equippedItems"], equippedItems);
   uiSystem.loadInventory(gameStateSave["inventory"], inventory);
   enemySystem.loadEnemies(gameStateSave["enemies"]);

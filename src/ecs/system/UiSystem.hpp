@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <algorithm>
+#include <filesystem>
+#include <fstream>
 #include <functional>
 #include <memory>
 #include <nlohmann/json.hpp>
@@ -12,6 +14,8 @@
 #include "Scene.hpp"
 #include "component/EntityComponent.hpp"
 #include "component/TraitComponent.hpp"
+
+namespace fs = std::filesystem;
 
 constexpr int SLOT_CAP = 10;  // theoretical endgame cap
 
@@ -51,12 +55,14 @@ class UiSystem {
   json saveInventory(Inventory inventory);
   void loadInventory(json &j, Inventory &inventory);
 
+  void loadBoughtTraits(json boughtTraits, Inventory &inventory);
+
   json saveItem(EntityID entityID);
   void loadItem(json &j, EntityID entityID);
 
  private:
   std::shared_ptr<Scene> scene;
   std::shared_ptr<Context> context;
-
+  json traitsJson;
   void showItemPopup(EntityID id);
 };

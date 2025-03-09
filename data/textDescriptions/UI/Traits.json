@@ -1,4 +1,6 @@
 {
+    "info": "number is for ordering in the trait shop and showing only ones that have been acquired",
+    
     "Traits": [
         {
             "cost": 10,
@@ -7,8 +9,9 @@
             "description": "Allows you to attack the neighbouring tiles",
             "stats": {
                 "damage": 3,
-                "range": 1
+                "rangeType": "meleeNeighbouring"
             },
+            "textureName": "club.png",
             "number": 0
         },
         {
@@ -18,8 +21,10 @@
             "description": "Allows you to attack from afar at the cost of reduced damage",
             "stats": {
                 "damage": 1.5,
-                "range": 3
+                "range": 3,
+                "rangeType": "rangedDefault"
             },
+            "textureName": "magic_dart.png",
             "number": 1
         }
     ]

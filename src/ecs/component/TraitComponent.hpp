@@ -1,25 +1,12 @@
 #pragma once
 
 #include "component/Component.hpp"
+#include "component/TraitComponentHelpers.hpp"
 
 namespace component {
-  struct RangedAttack : public Component {
-    RangedAttack(int range, int damage) : range(range), damage(damage){};
-    RangedAttack(json j) : range(j["rangedAttack"]["range"]), damage(j["rangedAttack"]["damage"]){};
-    json serialize() override {
-      return json{{"rangedAttack", {{"range", range}, {"damage", damage}}}};
-    }
-    std::string getDescription() override {
-      return (std::stringstream() << "RANGEDATTACK | range: " << range << ", damage: " << damage).str();
-    }
-    inline static int id = -1;
-    inline static std::string componentName = "RangedAttack";
-    int range;
-    int damage;
-  };
 
   struct MeleeAttack : public Component {
-    MeleeAttack(int damage) : damage(damage){};
+    MeleeAttack(float damage) : damage(damage){};
     MeleeAttack(json j) : damage(j["meleeAttack"]["damage"]){};
     json serialize() override {
       return json{{"meleeAttack", {{"damage", damage}}}};
@@ -29,7 +16,24 @@ namespace component {
     }
     inline static int id = -1;
     inline static std::string componentName = "MeleeAttack";
-    int damage;
+    inline static RangeType rangeType = RangeType::MELEE_NEIGHBOURING;
+    float damage;
+  };
+
+  struct RangedAttack : public Component {
+    RangedAttack(int range, float damage) : range(range), damage(damage){};
+    RangedAttack(json j) : range(j["rangedAttack"]["range"]), damage(j["rangedAttack"]["damage"]){};
+    json serialize() override {
+      return json{{"rangedAttack", {{"range", range}, {"damage", damage}}}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "RANGEDATTACK | range: " << range << ", damage: " << damage).str();
+    }
+    inline static int id = -1;
+    inline static std::string componentName = "RangedAttack";
+    inline static RangeType rangeType = RangeType::RANGED_DEFAULT;
+    int range;
+    float damage;
   };
 
   struct Hp : public Component {
