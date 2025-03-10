@@ -177,6 +177,7 @@ void UiSystem::loadInventory(json &j, Inventory &inventory) {
   }
 }
 
+// conversion from Traits.json to inventory is very ugly, but better than breaking the serialization conventions
 void UiSystem::loadBoughtTraits(json save, Inventory &inventory) {
   for (const auto &boughtTraitNumber : save["boughtTraits"]) {
     int traitIndex = boughtTraitNumber.get<int>();

@@ -12,7 +12,6 @@
 class System {
  public:
   System(std::shared_ptr<Scene> scene);
-  void applyPoison();
   void moveEntity(EntityID entityID, sf::Vector2i moveBy);
   void drawEntities(std::shared_ptr<sf::RenderWindow> window);
   void drawComponents(sf::Vector2i mousePos);

@@ -12,10 +12,9 @@
 class TraitActivator {
  public:
   TraitActivator(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context);
-  void activateTrait(EntityID traitID);
 
  private:
   std::shared_ptr<Scene> scene;
   std::shared_ptr<Context> context;
   // std::unordered_map<std::string, std::
-}
+};

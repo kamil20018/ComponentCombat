@@ -14,6 +14,7 @@
 #include "Scene.hpp"
 #include "component/EntityComponent.hpp"
 #include "component/TraitComponent.hpp"
+#include "system/TraitActivator.hpp"
 
 namespace fs = std::filesystem;
 

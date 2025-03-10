@@ -100,12 +100,16 @@ class PerformRangedAttack : public BT::SyncActionNode {
     return {};
   };
   BT::NodeStatus tick() override {
-    auto enemyAttack = scene->getComponent<RangedAttack>(enemy)->damage;
-    auto playerHp = &scene->getComponent<Hp>(player)->hp;
-    *playerHp -= enemyAttack;
+    // auto enemyAttack = scene->getComponent<RangedAttack>(enemy)->damage;
+    // auto playerHp = &scene->getComponent<Hp>(player)->hp;
+    // *playerHp -= enemyAttack;
     CombatLog::addLog(std::stringstream() << "-----" << scene->getComponent<Name>(enemy)->name << "-----", LogType::COMBAT);
-    CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
-    CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
+    // CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
+    // CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
+
+    // scene->addComponent(player, scene->getComponent<RangedAttack>(enemy)->apply());
+    scene->applyEffect<RangedAttack>(enemy, player);
+
     return BT::NodeStatus::SUCCESS;
   };
   EntityID player;
@@ -121,12 +125,14 @@ class PerformMeleeAttack : public BT::SyncActionNode {
     return {};
   };
   BT::NodeStatus tick() override {
-    auto enemyAttack = scene->getComponent<MeleeAttack>(enemy)->damage;
-    auto playerHp = &scene->getComponent<Hp>(player)->hp;
-    *playerHp -= enemyAttack;
+    // auto enemyAttack = scene->getComponent<MeleeAttack>(enemy)->damage;
+    // auto playerHp = &scene->getComponent<Hp>(player)->hp;
+    // *playerHp -= enemyAttack;
     CombatLog::addLog(std::stringstream() << "-----" << scene->getComponent<Name>(enemy)->name << "-----", LogType::COMBAT);
-    CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
-    CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
+    // CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
+    // CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
+
+    scene->applyEffect<MeleeAttack>(enemy, player);
     return BT::NodeStatus::SUCCESS;
   };
   EntityID player;

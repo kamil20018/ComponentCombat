@@ -18,6 +18,7 @@
 #include "component/Component.hpp"
 #include "component/EntityComponent.hpp"
 #include "system/BehaviorSystem.hpp"
+#include "system/EffectSystem.hpp"
 #include "system/EnemySystem.hpp"
 #include "system/System.hpp"
 #include "system/UiSystem.hpp"
@@ -37,6 +38,7 @@ class GamePlay : public State {
   System system;
   UiSystem uiSystem;
   EnemySystem enemySystem;
+  EffectSystem effectSystem;
 
   bool newGame;
 

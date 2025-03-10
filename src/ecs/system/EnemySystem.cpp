@@ -20,9 +20,10 @@ void EnemySystem::setPlayer(EntityID player) {
   this->player = player;
 }
 
-void EnemySystem::enemyTurn() {
+void EnemySystem::enemyTurn(EffectSystem &effectSystem) {
   for (const auto &enemy : enemies) {
     scene->getComponent<BehaviorTree>(enemy)->tree.tickOnce();
+    effectSystem.updateEffectStatuses();
   }
 }
 

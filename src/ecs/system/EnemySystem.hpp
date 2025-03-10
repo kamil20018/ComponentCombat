@@ -10,12 +10,13 @@
 #include "component/ComponentHelpers.hpp"
 #include "component/TraitComponent.hpp"
 #include "system/BehaviorSystem.hpp"
+#include "system/EffectSystem.hpp"
 using ss = std::stringstream;
 class EnemySystem {
  public:
   EnemySystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context);
   EntityID spawn(int variant);
-  void enemyTurn();
+  void enemyTurn(EffectSystem &effectSystem);
   void setPlayer(EntityID player);
 
   json saveEnemies();

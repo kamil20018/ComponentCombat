@@ -4,29 +4,6 @@
 #define if_has(entity, compType) if (scene->entityHasComponent<compType>(entity))
 System::System(std::shared_ptr<Scene> scene) : scene(scene){};
 
-void System::applyPoison() {
-  std::cout << "applyPoison" << std::endl;
-
-  std::vector<EntityID> removables;
-
-  iter(poisoned, component::Poisoned) {
-    if_has(poisonedID, component::Hp) {
-      std::cout << poisonedID << " has Poisoned Component, damage: " << poisonedComponent->damage << " duration: " << poisonedComponent->duration << std::endl;
-      scene->getComponent<component::Hp>(poisonedID)->hp -= poisonedComponent->damage;
-    }
-    // if something w/o hp got poisoned we want to remove the poisoned effect
-    // anyway
-    poisonedComponent->duration--;
-    if (poisonedComponent->duration == 0) {
-      removables.push_back(poisonedID);
-    }
-  }
-
-  for (auto removable : removables) {
-    scene->removeComponent<component::Poisoned>(removable);
-  }
-}
-
 void System::moveEntity(EntityID entityID, sf::Vector2i moveBy) {
   if_has(entityID, component::Position) {
     auto entityPos = scene->getComponent<component::Position>(entityID);

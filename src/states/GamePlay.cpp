@@ -6,6 +6,7 @@ GamePlay::GamePlay(std::shared_ptr<Context> context, bool newGame)
       system(scene),
       uiSystem(scene, context),
       enemySystem(scene, context),
+      effectSystem(scene),
       playerUsedAction(false),
       equippedItems(scene),
       newGame(newGame) {
@@ -74,8 +75,9 @@ void GamePlay::update() {
   system.moveEntity(player, moveDir);
   if (moveDir != sf::Vector2i(0, 0) || passTurn) {
     passTurn = false;
-    enemySystem.enemyTurn();
+    enemySystem.enemyTurn(effectSystem);
   };
+  // effectSystem.updateEffectStatuses();
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
 }

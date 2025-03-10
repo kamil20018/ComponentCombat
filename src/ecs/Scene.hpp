@@ -33,6 +33,23 @@ class Scene {
     }
   }
 
+  template <typename T>
+  void removeAll() {
+    std::vector<EntityID> entitiesToRemove;
+    for (auto &[entityID, _] : getComponents<T>()) {
+      entitiesToRemove.push_back(entityID);
+    }
+
+    for (auto entityID : entitiesToRemove) {
+      removeComponent<T>(entityID);
+    }
+  }
+
+  template <typename T>
+  void applyEffect(EntityID origin, EntityID target) {
+    addComponent(target, getComponent<T>(origin)->apply());
+  }
+
   void removeEntity(EntityID entityID);
 
   template <class... Types>
@@ -48,6 +65,9 @@ class Scene {
 
   template <typename T>
   std::unordered_map<EntityID, std::shared_ptr<T>> &getComponents() {
+    if (T::id == -1) {
+      registry.addNewComponentType<T>();
+    }
     return *std::reinterpret_pointer_cast<std::unordered_map<EntityID, std::shared_ptr<T>>>(registry.components.at(T::id));
   }
 
