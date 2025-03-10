@@ -38,7 +38,7 @@ class GamePlay : public State {
   System system;
   UiSystem uiSystem;
   EnemySystem enemySystem;
-  EffectSystem effectSystem;
+  std::shared_ptr<EffectSystem> effectSystem;
 
   bool newGame;
 

@@ -14,9 +14,10 @@
 using ss = std::stringstream;
 class EnemySystem {
  public:
-  EnemySystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context);
+  EnemySystem();
+  EnemySystem(std::shared_ptr<Scene> scene, std::shared_ptr<EffectSystem> effectSystem, std::shared_ptr<Context> context);
   EntityID spawn(int variant);
-  void enemyTurn(EffectSystem &effectSystem);
+  void enemyTurn();
   void setPlayer(EntityID player);
 
   json saveEnemies();
@@ -30,6 +31,7 @@ class EnemySystem {
   BT::BehaviorTreeFactory BTranger(EntityID entityID);
   std::vector<EntityID> enemies;
   std::shared_ptr<Scene> scene;
+  std::shared_ptr<EffectSystem> effectSystem;
   std::shared_ptr<Context> context;
   EntityID player;
 };

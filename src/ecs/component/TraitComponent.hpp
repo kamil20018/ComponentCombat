@@ -19,8 +19,8 @@ namespace component {
       return (std::stringstream() << "MELEEATTACK | damage: " << damage).str();
     }
 
-    std::shared_ptr<MeeleDamage> apply() {
-      return std::make_shared<MeeleDamage>(damage);
+    MeeleDamage getEffect() {
+      return MeeleDamage(damage);
     }
 
     inline static int id = -1;
@@ -39,8 +39,8 @@ namespace component {
       return (std::stringstream() << "RANGEDATTACK | range: " << range << ", damage: " << damage).str();
     }
 
-    std::shared_ptr<RangedDamage> apply() {
-      return std::make_shared<RangedDamage>(damage);
+    RangedDamage getEffect() {
+      return RangedDamage(damage);
     }
 
     inline static int id = -1;
@@ -48,6 +48,42 @@ namespace component {
     inline static RangeType rangeType = RangeType::RANGED_DEFAULT;
     int range;
     float damage;
+  };
+
+  struct PoisonBody : public Component {
+    PoisonBody(float procChance, float damagePercent, int duration) : procChance(procChance), damagePercent(damagePercent), duration(duration){};
+    PoisonBody(json j) : procChance(j["poisonBody"]["procChance"]), damagePercent(j["poisonBody"]["damagePercent"]), duration(j["poisonBody"]["duration"]){};
+    json serialize() override {
+      return json{{"poisonBody", {{"procChance", procChance}, {"damagePercent", damagePercent}, {"duration", duration}}}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "POISONBODY | procChance: " << procChance << ", damagePercent: " << damagePercent << ", duration: " << duration).str();
+    }
+
+    std::shared_ptr<PoisonEffect> apply() {
+      return std::make_shared<PoisonEffect>(duration, damagePercent);
+    }
+
+    inline static int id = -1;
+    inline static std::string componentName = "PoisonBody";
+    float procChance;
+    float damagePercent;
+    int duration;
+  };
+
+  struct AllDamageMulti : public Component {
+    AllDamageMulti(float percentage) : percentage(percentage){};
+    AllDamageMulti(json j) : percentage(j["allDamageMulti"]["percentage"]){};
+    json serialize() override {
+      return json{{"allDamageMulti", {{"percentage", percentage}}}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "ALLDAMAGEMULTI | percentage: " << percentage).str();
+    }
+    inline static int id = -1;
+    inline static std::string componentName = "AllDamageMulti";
+    float percentage;
+    ;
   };
 
   struct Hp : public Component {

@@ -47,7 +47,7 @@ class Scene {
 
   template <typename T>
   void applyEffect(EntityID origin, EntityID target) {
-    addComponent(target, getComponent<T>(origin)->apply());
+    addComponent(target, getComponent<T>(origin)->getEffect());
   }
 
   void removeEntity(EntityID entityID);

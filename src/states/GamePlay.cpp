@@ -5,12 +5,12 @@ GamePlay::GamePlay(std::shared_ptr<Context> context, bool newGame)
       scene(std::make_shared<Scene>()),
       system(scene),
       uiSystem(scene, context),
-      enemySystem(scene, context),
-      effectSystem(scene),
       playerUsedAction(false),
       equippedItems(scene),
       newGame(newGame) {
   ImGui::SFML::Init(*_window);
+  effectSystem = std::make_shared<EffectSystem>(scene);
+  enemySystem = EnemySystem(scene, effectSystem, context);
   auto savePath = context->savePath;
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << context->saveFile;
@@ -75,9 +75,8 @@ void GamePlay::update() {
   system.moveEntity(player, moveDir);
   if (moveDir != sf::Vector2i(0, 0) || passTurn) {
     passTurn = false;
-    enemySystem.enemyTurn(effectSystem);
+    enemySystem.enemyTurn();
   };
-  // effectSystem.updateEffectStatuses();
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
 }

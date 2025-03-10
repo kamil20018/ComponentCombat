@@ -30,4 +30,19 @@ namespace component {
     inline static std::string componentName = "RangedDamage";
     float rangedDamage;
   };
+
+  struct PoisonEffect : public Component {
+    PoisonEffect(int duration, float damage) : duration(duration), damage(damage){};
+    PoisonEffect(json j) : duration(j["poisonEffect"]["duration"]), damage(j["poisonEffect"]["damage"]){};
+    json serialize() override {
+      return json{{"poisonEffect", {{"duration", duration}, {"damage", damage}}}};
+    }
+    std::string getDescription() override {
+      return (std::stringstream() << "POISONEFFECT | duration: " << duration << ", damage: " << damage).str();
+    }
+    inline static int id = -1;
+    inline static std::string componentName = "PoisonEffect";
+    int duration;
+    float damage;
+  };
 }  // namespace component

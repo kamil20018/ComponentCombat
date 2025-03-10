@@ -7,7 +7,7 @@
 #include "behaviortree_cpp/bt_factory.h"
 #include "component/ActorComponent.hpp"
 #include "component/TraitComponent.hpp"
-
+#include "system/EffectSystem.hpp"
 class InSight : public BT::ConditionNode {
  public:
   InSight(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
@@ -94,50 +94,40 @@ class Wander : public BT::SyncActionNode {
 
 class PerformRangedAttack : public BT::SyncActionNode {
  public:
-  PerformRangedAttack(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
-      : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene){};
+  PerformRangedAttack(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene,
+                      std::shared_ptr<EffectSystem> effectSystem)
+      : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene), effectSystem(effectSystem){};
   static BT::PortsList providedPorts() {
     return {};
   };
   BT::NodeStatus tick() override {
-    // auto enemyAttack = scene->getComponent<RangedAttack>(enemy)->damage;
-    // auto playerHp = &scene->getComponent<Hp>(player)->hp;
-    // *playerHp -= enemyAttack;
     CombatLog::addLog(std::stringstream() << "-----" << scene->getComponent<Name>(enemy)->name << "-----", LogType::COMBAT);
-    // CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
-    // CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
-
-    // scene->addComponent(player, scene->getComponent<RangedAttack>(enemy)->apply());
-    scene->applyEffect<RangedAttack>(enemy, player);
-
+    effectSystem->outgoingRangedDamage(enemy, player, scene->getComponent<RangedAttack>(enemy)->getEffect());
     return BT::NodeStatus::SUCCESS;
   };
   EntityID player;
   EntityID enemy;
   std::shared_ptr<Scene> scene;
+  std::shared_ptr<EffectSystem> effectSystem;
 };
 
 class PerformMeleeAttack : public BT::SyncActionNode {
  public:
-  PerformMeleeAttack(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene)
-      : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene){};
+  PerformMeleeAttack(const std::string& name, const BT::NodeConfig& config, EntityID player, EntityID enemy, std::shared_ptr<Scene> scene,
+                     std::shared_ptr<EffectSystem> effectSystem)
+      : BT::SyncActionNode(name, config), player(player), enemy(enemy), scene(scene), effectSystem(effectSystem){};
   static BT::PortsList providedPorts() {
     return {};
   };
   BT::NodeStatus tick() override {
-    // auto enemyAttack = scene->getComponent<MeleeAttack>(enemy)->damage;
-    // auto playerHp = &scene->getComponent<Hp>(player)->hp;
-    // *playerHp -= enemyAttack;
     CombatLog::addLog(std::stringstream() << "-----" << scene->getComponent<Name>(enemy)->name << "-----", LogType::COMBAT);
-    // CombatLog::addLog(std::stringstream() << "player was hit with " << enemyAttack << " damage", LogType::COMBAT);
-    // CombatLog::addLog(std::stringstream() << "player has " << *playerHp << " hp left", LogType::COMBAT);
-
-    scene->applyEffect<MeleeAttack>(enemy, player);
+    effectSystem->outgoingMeeleDamage(enemy, player, scene->getComponent<MeleeAttack>(enemy)->getEffect());
     return BT::NodeStatus::SUCCESS;
   };
   EntityID player;
   EntityID enemy;
   std::shared_ptr<Scene> scene;
+  std::shared_ptr<EffectSystem> effectSystem;
 };
 
 class ApproachPlayer : public BT::SyncActionNode {
