@@ -40,7 +40,7 @@ struct Registry {
       components.push_back(std::make_shared<std::unordered_map<EntityID, std::shared_ptr<Component>>>());
     }
 
-    components.at(T::id)->insert({id, component});
+    components.at(T::id)->insert_or_assign(id, component);
   }
 
   template <typename T>

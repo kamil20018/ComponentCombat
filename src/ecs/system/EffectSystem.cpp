@@ -5,10 +5,15 @@
 
 EffectSystem::EffectSystem(std::shared_ptr<Scene> scene) : scene(scene), e1(std::random_device()()), float_dist(0.0, 1.0){};
 
-// void EffectSystem::updateEffectStatuses() {
-//   applyMeeleDamage();
-//   applyRangedDamage();
-// }
+void EffectSystem::updateEffectStatuses() {
+  applyPoison();
+}
+
+void EffectSystem::resetAppliedThisTurn() {
+  for (auto &[entityID, poisonEffect] : scene->getComponents<PoisonEffect>()) {
+    poisonEffect->appliedThisTurn = false;
+  }
+}
 
 // outgoing meele damage
 
@@ -65,4 +70,22 @@ void EffectSystem::applyRangedDamage(EntityID target) {
   }
 
   scene->removeComponent<MeeleDamage>(target);
+}
+
+void EffectSystem::applyPoison() {
+  std::vector<EntityID> toRemove;
+  for (auto &[entityID, poisonEffect] : scene->getComponents<PoisonEffect>()) {
+    if (!poisonEffect->appliedThisTurn && scene->entityHasComponent<Hp>(entityID)) {
+      CombatLog::addLog("Applied poison", LogType::COMBAT);
+      scene->getComponent<Hp>(entityID)->hp -= poisonEffect->damage;
+      poisonEffect->duration--;
+      poisonEffect->appliedThisTurn = true;
+      if (poisonEffect->duration == 0) {
+        toRemove.push_back(entityID);
+      }
+    }
+  }
+  for (const auto &entityID : toRemove) {
+    scene->removeComponent<PoisonEffect>(entityID);
+  }
 }

@@ -44,5 +44,6 @@ namespace component {
     inline static std::string componentName = "PoisonEffect";
     int duration;
     float damage;
+    bool appliedThisTurn = true;
   };
 }  // namespace component

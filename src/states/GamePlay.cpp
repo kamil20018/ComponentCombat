@@ -75,10 +75,12 @@ void GamePlay::update() {
   system.moveEntity(player, moveDir);
   if (moveDir != sf::Vector2i(0, 0) || passTurn) {
     passTurn = false;
+    effectSystem->resetAppliedThisTurn();
     enemySystem.enemyTurn();
   };
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
+  effectSystem->updateEffectStatuses();
 }
 
 void GamePlay::draw() {

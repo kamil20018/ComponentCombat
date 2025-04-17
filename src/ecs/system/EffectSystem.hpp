@@ -15,7 +15,8 @@ using namespace component;
 class EffectSystem {
  public:
   EffectSystem(std::shared_ptr<Scene> scene);
-  // void updateEffectStatuses();
+  void updateEffectStatuses();
+  void resetAppliedThisTurn();
 
   void outgoingMeeleDamage(EntityID origin, EntityID target, MeeleDamage meeleDamage);
   void outgoingRangedDamage(EntityID origin, EntityID target, RangedDamage rangedDamage);
@@ -24,6 +25,7 @@ class EffectSystem {
   void applyRangedDamage(EntityID target);
 
  private:
+  void applyPoison();
   std::shared_ptr<Scene> scene;
   std::default_random_engine e1;
   std::uniform_real_distribution<float> float_dist;

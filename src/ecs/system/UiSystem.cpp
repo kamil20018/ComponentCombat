@@ -120,7 +120,7 @@ void UiSystem::handleActiveSkillBar(EquippedItems &equippedItems) {
   for (int i = 0; i < SLOT_CAP; i++) {
     ImVec2 itemSize = ImGuiHelper::prepareItem(0.08f, 0.0f, 0.01f + 0.099f * i, 0.1f, true);
     ImGui::ImageButton(_assets->GetTexture(equippedItems.getTextureName(i)), ImGuiHelper::toVector2f(itemSize));
-    if (ImGui::IsItemHovered() && equippedItems.itemVec.at(i)) {
+    if (ImGui::IsItemHovered() && i < equippedItems.itemVec.size() && equippedItems.itemVec.at(i)) {
       showItemPopup(equippedItems.itemVec.at(i).value());
     }
   }
