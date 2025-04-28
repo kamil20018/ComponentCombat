@@ -18,20 +18,13 @@
 
 namespace fs = std::filesystem;
 
-constexpr int SLOT_CAP = 10;  // theoretical endgame cap
+constexpr int SLOT_CAP = 10;  // theoretical endgame cap, for skills
 
 typedef std::vector<EntityID> Inventory;
 
 struct EquippedItems {
   EquippedItems(std::shared_ptr<Scene> scene) : scene(scene){};
-  EquippedItems(std::shared_ptr<Scene> scene, json j)
-      : scene(scene){
-            // if (j.contains("helmet")) helmet = j["helmet"];
-            // if (j.contains("armour")) armour = j["armour"];
-            // if (j.contains("weapon")) weapon = j["weapon"];
-            // if (j.contains("pants")) pants = j["pants"];
-            // if (j.contains("boots")) boots = j["boots"];
-        };
+  EquippedItems(std::shared_ptr<Scene> scene, json j) : scene(scene){};
 
   std::string getTextureName(size_t slot) {
     if (slot >= itemVec.size() || !itemVec.at(slot)) return image::other::TRANSPARENT;
@@ -49,6 +42,7 @@ class UiSystem {
   void handleCharacterScreen(EquippedItems &equippedItems, Inventory &inventory);
   void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
   void handleActiveSkillBar(EquippedItems &equippedItems);
+  std::optional<EntityID> getSelectedSkill();
 
   json saveEquippedItems(EquippedItems equippedItems);
   void loadEquippedItems(json &j, EquippedItems &equippedItems);
@@ -65,5 +59,6 @@ class UiSystem {
   std::shared_ptr<Scene> scene;
   std::shared_ptr<Context> context;
   json traitsJson;
+  std::optional<EntityID> selectedSkill;
   void showItemPopup(EntityID id);
 };

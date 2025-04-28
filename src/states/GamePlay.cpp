@@ -5,6 +5,7 @@ GamePlay::GamePlay(std::shared_ptr<Context> context, bool newGame)
       scene(std::make_shared<Scene>()),
       system(scene),
       uiSystem(scene, context),
+      traitActivator(scene, context, _window),
       playerUsedAction(false),
       equippedItems(scene),
       newGame(newGame) {
@@ -78,9 +79,9 @@ void GamePlay::update() {
     effectSystem->resetAppliedThisTurn();
     enemySystem.enemyTurn();
   };
+  effectSystem->updateEffectStatuses();
   moveDir = sf::Vector2i(0, 0);
   handleSaveButton();
-  effectSystem->updateEffectStatuses();
 }
 
 void GamePlay::draw() {
@@ -95,7 +96,8 @@ void GamePlay::draw() {
 
   drawDebugLines();
   system.drawEntities(_window);
-  system.drawComponents(sf::Mouse::getPosition(*_window));
+  system.drawComponents(getMouseTilePosition());
+  traitActivator.drawActiveSkill(uiSystem.getSelectedSkill(), player, getMouseTilePosition());
 
   if (logOpened) {
     CombatLog::display();
@@ -106,6 +108,11 @@ void GamePlay::draw() {
   ImGui::SFML::Render(*_window);
 
   _window->display();
+}
+
+sf::Vector2i GamePlay::getMouseTilePosition() {
+  sf::Vector2i mousePos = sf::Mouse::getPosition(*_window);
+  return sf::Vector2i(mousePos.x / TILE_SIZE, mousePos.y / TILE_SIZE);
 }
 
 void GamePlay::drawDebugLines() {

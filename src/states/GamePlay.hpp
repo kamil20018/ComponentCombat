@@ -21,6 +21,7 @@
 #include "system/EffectSystem.hpp"
 #include "system/EnemySystem.hpp"
 #include "system/System.hpp"
+#include "system/TraitActivator.hpp"
 #include "system/UiSystem.hpp"
 
 class GamePlay : public State {
@@ -38,6 +39,7 @@ class GamePlay : public State {
   System system;
   UiSystem uiSystem;
   EnemySystem enemySystem;
+  TraitActivator traitActivator;
   std::shared_ptr<EffectSystem> effectSystem;
 
   bool newGame;
@@ -55,6 +57,7 @@ class GamePlay : public State {
   void mockCreateInventory();
 
   sf::Clock deltaClock;
+  sf::Vector2i getMouseTilePosition();
   void drawDebugLines();
 
   json savePlayer();

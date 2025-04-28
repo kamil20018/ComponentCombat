@@ -13,23 +13,19 @@ void System::moveEntity(EntityID entityID, sf::Vector2i moveBy) {
 
 void System::drawComponents(sf::Vector2i mousePos) {
   for (auto &[entityID, position] : scene->getComponents<component::Position>()) {
-    if (scene->entityHasComponent<component::Size>(entityID)) {
-      auto size = scene->getComponent<component::Size>(entityID);
-      if (position->pos.x * TILE_SIZE < mousePos.x && mousePos.x < position->pos.x * TILE_SIZE + size->width && position->pos.y * TILE_SIZE < mousePos.y &&
-          mousePos.y < position->pos.y * TILE_SIZE + size->height) {
-        ImGui::SetNextWindowPos(ImVec2(std::max(ImGui::GetMousePos().x - 200.0f, 0.0f), ImGui::GetMousePos().y + 5.0f));
-        if (ImGui::Begin("Debug component list", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
-          auto components = scene->getEntityComponents(entityID);
-          for (size_t i = 0; i < MAX_COMPONENTS; i++) {
-            bool hasComponent = (*components)[i];
-            if (hasComponent) {
-              ImGui::Text(scene->getDescription(entityID, i).c_str());
-            }
+    if (position->pos.x == mousePos.x && position->pos.y == mousePos.y) {
+      ImGui::SetNextWindowPos(ImVec2(std::max(ImGui::GetMousePos().x - 200.0f, 0.0f), ImGui::GetMousePos().y + 5.0f));
+      if (ImGui::Begin("Debug component list", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse)) {
+        auto components = scene->getEntityComponents(entityID);
+        for (size_t i = 0; i < MAX_COMPONENTS; i++) {
+          bool hasComponent = (*components)[i];
+          if (hasComponent) {
+            ImGui::Text(scene->getDescription(entityID, i).c_str());
           }
         }
-        ImGui::End();
-        return;
       }
+      ImGui::End();
+      return;
     }
   }
 }

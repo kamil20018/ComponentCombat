@@ -1,6 +1,6 @@
 #include "UiSystem.hpp"
 
-UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context) : scene(scene), context(context) {
+UiSystem::UiSystem(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context) : scene(scene), context(context), selectedSkill(std::nullopt) {
   std::ifstream reader(fs::current_path().parent_path() / "data" / "textDescriptions" / "UI" / "Traits.json");
   reader >> traitsJson;
   reader.close();
@@ -119,12 +119,21 @@ void UiSystem::handleActiveSkillBar(EquippedItems &equippedItems) {
 
   for (int i = 0; i < SLOT_CAP; i++) {
     ImVec2 itemSize = ImGuiHelper::prepareItem(0.08f, 0.0f, 0.01f + 0.099f * i, 0.1f, true);
-    ImGui::ImageButton(_assets->GetTexture(equippedItems.getTextureName(i)), ImGuiHelper::toVector2f(itemSize));
+    if (ImGui::ImageButton(_assets->GetTexture(equippedItems.getTextureName(i)), ImGuiHelper::toVector2f(itemSize)) && i < equippedItems.itemVec.size() &&
+        equippedItems.itemVec.at(i)) {
+      selectedSkill = equippedItems.itemVec.at(i);
+      std::cout << "selected " << selectedSkill.value() << std::endl;
+      std::cout << scene->entityHasComponent<MeleeAttack>(selectedSkill.value()) << std::endl;
+    }
     if (ImGui::IsItemHovered() && i < equippedItems.itemVec.size() && equippedItems.itemVec.at(i)) {
       showItemPopup(equippedItems.itemVec.at(i).value());
     }
   }
   ImGui::End();
+}
+
+std::optional<EntityID> UiSystem::getSelectedSkill() {
+  return selectedSkill;
 }
 
 void UiSystem::showItemPopup(EntityID id) {
@@ -156,7 +165,14 @@ void UiSystem::loadEquippedItems(json &save, EquippedItems &equippedItems) {
     if (save.contains(std::to_string(i))) {
       EntityID itemID = scene->createEntity();
       equippedItems.itemVec.at(i) = itemID;
+      std::cout << "loaded " << i << std::endl;
       loadItem(save[std::to_string(i)], itemID);
+    }
+  }
+
+  for (int i = 0; i < SLOT_CAP; i++) {
+    if (i < equippedItems.itemVec.size() && equippedItems.itemVec.at(i)) {
+      std::cout << "equipped " << i << std::endl;
     }
   }
 }
