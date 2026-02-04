@@ -30,7 +30,7 @@ void System::drawComponents(sf::Vector2i mousePos) {
   }
 }
 
-void System::drawEntities(std::shared_ptr<sf::RenderWindow> window) {
+void System::drawEntities(std::shared_ptr<sf::RenderWindow> window, std::unordered_map<sf::Vector2i, ShaderType, Vector2iHash> activeShaders) {
   for (auto &[entityID, bodyColor] : scene->getComponents<component::BodyColor>()) {
     if (scene->entityHasComponent<component::Position>(entityID) && scene->entityHasComponent<component::Size>(entityID)) {
       auto position = scene->getComponent<component::Position>(entityID);
@@ -38,7 +38,14 @@ void System::drawEntities(std::shared_ptr<sf::RenderWindow> window) {
       sf::RectangleShape rectangle(sf::Vector2f(size->width, size->height));
       rectangle.setFillColor(bodyColor->color);
       rectangle.setPosition(position->pos.x * TILE_SIZE, position->pos.y * TILE_SIZE);
-      window->draw(rectangle);
+      if (activeShaders.contains(position->pos)) {
+        ShaderManager::shaders[activeShaders[position->pos]].setUniform("u_time", ShaderManager::shaderClock.getElapsedTime().asSeconds());
+        ShaderManager::shaders[activeShaders[position->pos]].setUniform("u_resolution", sf::Glsl::Vec2{40, 40});
+        window->draw(rectangle, &ShaderManager::shaders[activeShaders[position->pos]]);
+        std::cout << "in if" << position->pos.x << " " << position->pos.y << std::endl;
+      } else {
+        window->draw(rectangle);
+      }
     }
   }
 }

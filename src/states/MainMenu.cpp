@@ -75,7 +75,7 @@ void MainMenu::draw() {
   float height = _window->getSize().y;
   backgroundSprite.setScale(width / backgroundSprite.getGlobalBounds().width, height / backgroundSprite.getGlobalBounds().height);
   _window->draw(backgroundSprite);
-  // _window->draw(_assets->GetTexture(image::backgrounds::OUTPUT));
+  //_window->draw(_assets->GetTexture(image::backgrounds::OUTPUT));
   ImGui::SFML::Render(*_window);
   _window->display();
 }

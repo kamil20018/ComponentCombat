@@ -3,7 +3,9 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 
-UiTest::UiTest(std::shared_ptr<Context> &context) : context(context) {}
+UiTest::UiTest(std::shared_ptr<Context> &context) : context(context) {
+  ShaderManager::init();
+}
 
 UiTest::~UiTest() {}
 
@@ -39,29 +41,16 @@ void UiTest::update() {
 
 void UiTest::draw() {
   _window->clear();
-  handleWindow();
   ImGui::ShowDemoWindow();
+  sf::RectangleShape rectangle(sf::Vector2f(40, 40));
+  rectangle.setFillColor(sf::Color::Magenta);
+  rectangle.setPosition(200, 200);
+  // rectangle.setTextureRect(sf::IntRect(0, 0, 40, 40));
+  ShaderManager::shaders[ShaderType::CURRENT_SKILL_AREA].setUniform("u_resolution", sf::Glsl::Vec2{40, 40});
+  ShaderManager::shaders[ShaderType::CURRENT_SKILL_AREA].setUniform("u_time", shaderClock.getElapsedTime().asSeconds());
+
+  _window->draw(rectangle, &ShaderManager::shaders[ShaderType::CURRENT_SKILL_AREA]);
+
   ImGui::SFML::Render(*_window);
   _window->display();
-}
-
-void UiTest::handleWindow() {
-  ImGuiHelper::dockNextWindow(WindowDock::TOP_RIGHT, 0.2f, 0.5f, 0.05f, 0.05f);
-  ImGui::Begin("test", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-  ImGui::BeginTable("table2", 3, ImGuiTableFlags_SizingStretchSame, ImGui::GetContentRegionAvail());
-  ImGui::TableSetupColumn("a");
-  ImGui::TableSetupColumn("b");
-  ImGui::TableHeadersRow();
-
-  for (int i = 0; i < 7; i++) {
-    ImGui::TableNextRow();
-    ImGui::TableNextColumn();
-    ImGui::Text("a %d", i);
-    ImGui::TableNextRow();
-    ImGui::Text("b %d", i);
-    ImGui::TableNextColumn();
-    ImGui::Text("c %d", i);
-  }
-  ImGui::EndTable();
-  ImGui::End();
 }

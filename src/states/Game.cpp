@@ -2,15 +2,17 @@
 
 #include "LoadGame.hpp"
 #include "MainMenu.hpp"
+#include "ShaderManager.hpp"
 #include "Timer.hpp"
 #include "UiTest.hpp"
 Game::Game() : context(std::make_shared<Context>()) {
   _window->create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Simulation", sf::Style::Close);
   _window->setFramerateLimit(60);
   imageLoader::loadAllItems(context);
+  ShaderManager::init();
   // _states->addState(std::make_unique<MainMenu>(this->context)); // go to first state, skipped for easier testing
   _states->addState(std::make_unique<LoadGame>(this->context));  // go to testing state
-  // _states->addState(std::make_unique<UiTest>(this->context)); // strictly for ui experiments
+  // _states->addState(std::make_unique<UiTest>(this->context));  // strictly for ui experiments
 }
 
 Game::~Game() {}

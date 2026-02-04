@@ -12,6 +12,7 @@
 #include "ImageLoader.hpp"
 #include "ImageNames.hpp"
 #include "Scene.hpp"
+#include "ShaderManager.hpp"
 #include "State.hpp"
 #include "Timer.hpp"
 #include "component/ActorComponent.hpp"

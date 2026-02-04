@@ -42,6 +42,7 @@ class UiSystem {
   void handleCharacterScreen(EquippedItems &equippedItems, Inventory &inventory);
   void handleInventory(std::vector<EntityID> &inventory, EquippedItems &equippedItems);
   void handleActiveSkillBar(EquippedItems &equippedItems);
+  void keyboardSkillSelect(EquippedItems &equippedItems, int number);
   std::optional<EntityID> getSelectedSkill();
 
   json saveEquippedItems(EquippedItems equippedItems);

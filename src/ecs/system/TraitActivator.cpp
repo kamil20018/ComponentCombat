@@ -3,7 +3,7 @@
 TraitActivator::TraitActivator(std::shared_ptr<Scene> scene, std::shared_ptr<Context> context, std::shared_ptr<sf::RenderWindow> window)
     : scene(scene), context(context), window(window) {}
 
-void TraitActivator::showAttack(RangeType rangeType, EntityID player, sf::Vector2i mouseTilePos) {
+void TraitActivator::showMeeleAttack(EntityID player, sf::Vector2i mouseTilePos) {
   sf::Vector2i playerPos = scene->getComponent<Position>(player)->pos;
 
   const float PI = 3.14159;
@@ -32,16 +32,22 @@ void TraitActivator::showAttack(RangeType rangeType, EntityID player, sf::Vector
     direction = sf::Vector2i(1, -1);
   }
 
-  switch (rangeType) {
-    case RangeType::MELEE_NEIGHBOURING: {
-      sf::Vector2i position = playerPos + direction;
-      sf::RectangleShape rectangle(sf::Vector2f(TILE_SIZE, TILE_SIZE));
-      rectangle.setFillColor(sf::Color::Magenta);
-      rectangle.setPosition(position.x * TILE_SIZE, position.y * TILE_SIZE);
-      window->draw(rectangle);
-      break;
-    }
-    case RangeType::RANGED_DEFAULT:
-      break;
+  sf::Vector2i position = playerPos + direction;
+  sf::RectangleShape rectangle(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+  rectangle.setFillColor(sf::Color::Magenta);
+  rectangle.setPosition(position.x * TILE_SIZE, position.y * TILE_SIZE);
+  // window->draw(rectangle);
+  std::cout << "traitActivator " << position.x << " " << position.y << std::endl;
+  activeShaders[position] = ShaderType::CURRENT_SKILL_AREA;
+}
+
+void TraitActivator::showRangedDefault(EntityID player, sf::Vector2i mouseTilePos, int range) {
+  sf::Vector2i playerPos = scene->getComponent<Position>(player)->pos;
+
+  if (sqrt(pow(playerPos.x - mouseTilePos.x, 2) + pow(playerPos.y - mouseTilePos.y, 2)) < range) {
+    sf::RectangleShape rectangle(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+    rectangle.setFillColor(sf::Color::Magenta);
+    rectangle.setPosition(mouseTilePos.x * TILE_SIZE, mouseTilePos.y * TILE_SIZE);
+    window->draw(rectangle);
   }
 }

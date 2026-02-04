@@ -6,6 +6,7 @@
 
 #include "Game.hpp"
 #include "ImGuiHelper.hpp"
+#include "ShaderManager.hpp"
 #include "State.hpp"
 
 namespace fs = std::filesystem;
@@ -14,7 +15,8 @@ class UiTest : public State {
  private:
   sf::Clock deltaClock;
   std::shared_ptr<Context> context;
-  void handleWindow();
+  ShaderManager shaderManager;
+  sf::Clock shaderClock;
 
  public:
   UiTest(std::shared_ptr<Context> &context);

@@ -16,6 +16,7 @@ GamePlay::GamePlay(std::shared_ptr<Context> context, bool newGame)
   std::ofstream file(context->savePath);  // loading the json object into a file
   file << std::setw(4) << context->saveFile;
   file.close();
+  ShaderManager::init();
 }
 
 void GamePlay::init() {
@@ -55,6 +56,12 @@ void GamePlay::processInput() {
           passTurn = true;
           break;
         // leave game
+        case sf::Keyboard::Num1:
+          uiSystem.keyboardSkillSelect(equippedItems, 1);
+          break;
+        case sf::Keyboard::Num2:
+          uiSystem.keyboardSkillSelect(equippedItems, 2);
+          break;
         case sf::Keyboard::Escape:
           context->states->popCurrent();
           break;
@@ -72,6 +79,7 @@ void GamePlay::processInput() {
 }
 
 void GamePlay::update() {
+  traitActivator.clearActiveShaders();
   ImGui::SFML::Update(*_window, deltaClock.restart());
   system.moveEntity(player, moveDir);
   if (moveDir != sf::Vector2i(0, 0) || passTurn) {
@@ -94,10 +102,10 @@ void GamePlay::draw() {
 
   uiSystem.handleActiveSkillBar(equippedItems);
 
-  drawDebugLines();
-  system.drawEntities(_window);
-  system.drawComponents(getMouseTilePosition());
+  // drawDebugLines();
   traitActivator.drawActiveSkill(uiSystem.getSelectedSkill(), player, getMouseTilePosition());
+  system.drawEntities(_window, traitActivator.activeShaders);
+  system.drawComponents(getMouseTilePosition());
 
   if (logOpened) {
     CombatLog::display();

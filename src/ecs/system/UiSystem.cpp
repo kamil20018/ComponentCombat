@@ -132,6 +132,14 @@ void UiSystem::handleActiveSkillBar(EquippedItems &equippedItems) {
   ImGui::End();
 }
 
+void UiSystem::keyboardSkillSelect(EquippedItems &equippedItems, int number) {
+  if (number > 0 && number <= SLOT_CAP && equippedItems.itemVec.at(number - 1)) {
+    selectedSkill = equippedItems.itemVec.at(number - 1);
+    std::cout << "selected " << selectedSkill.value() << std::endl;
+    std::cout << scene->entityHasComponent<MeleeAttack>(selectedSkill.value()) << std::endl;
+  }
+}
+
 std::optional<EntityID> UiSystem::getSelectedSkill() {
   return selectedSkill;
 }
